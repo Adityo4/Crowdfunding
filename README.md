@@ -32,22 +32,69 @@ harness-engineering/
 
 ---
 
+## ⚡ Prompt Pembuka
+
+> `agent.md` sudah punya **Context Map** yang menentukan harness apa yang perlu dibaca berdasarkan task.
+> Kamu tidak perlu tentukan harness secara manual — biarkan model yang memutuskan.
+
+---
+
+### Variant A — AI dengan File Access ✅ (Recommended)
+*Untuk: Cursor, Windsurf, AI agent dengan akses filesystem*
+
+**1. Prompt Pertama (Inisialisasi):**
+```
+Baca harnesses/agent.md terlebih dahulu untuk memahami standar, workflow, dan Context Map proyek ini. Konfirmasi jika sudah selesai membaca.
+```
+
+**2. Prompt Kedua dan Seterusnya (Task-driven):**
+```
+TASK: [deskripsikan apa yang ingin dikerjakan]
+```
+
+**Kenapa pendekatan ini jauh lebih baik:**
+* **Tanpa Token Leak:** AI hanya akan memanggil/membaca harness tambahan (seperti `database.md`, `architecture.md`, dll.) secara dinamis saat dibutuhkan oleh `TASK` Anda, berkat **Context Map** yang ada di `agent.md`.
+* **Konteks Terjaga:** Model langsung terbiasa dengan kepribadian/vibe coding sesuai arahan di `agent.md` sejak interaksi pertama.
+
+---
+
+### Variant B — Chat Interface (Paste Manual)
+*Untuk: Claude.ai, ChatGPT, Gemini web — tidak bisa baca file lokal*
+
+**1. Prompt Pertama (Inisialisasi):**
+```
+Kamu adalah Harness-Aware Engineering Agent. Baca agent.md berikut untuk memahami workflow proyek ini:
+
+---
+[paste isi agent.md di sini]
+---
+
+Konfirmasi jika kamu sudah paham dan siap menerima TASK pertama.
+```
+
+**2. Prompt Kedua dan Seterusnya (Task-driven):**
+```
+TASK: [deskripsikan apa yang ingin dikerjakan]
+```
+
+> Berdasarkan `TASK` yang diberikan nanti, AI akan otomatis meminta Anda mem-paste file harness yang relevan (misalnya: *"Saya butuh harnesses/database.md untuk menyelesaikan task ini, tolong paste isinya"*). Anda tidak perlu menentukan secara manual.
+
+
+---
+
 ## 🚀 Cara Penggunaan
 
-### 1. Pilih harness yang relevan
-Sesuaikan dengan aspek sistem yang sedang kamu bangun.
+### 1. Pilih template prompt yang sesuai task
+Gunakan tabel di atas atau lihat **Context Map** di [agent.md](./harnesses/agent.md).
 
-### 2. Paste ke konteks AI
-Copy isi harness yang dipilih dan sertakan sebagai **system prompt** atau **konteks awal** saat vibe coding.
+### 2. Paste harness yang relevan
+Copy isi file harness dan tempel di dalam prompt — **jangan paste semua harness sekaligus**.
 
-### 3. Kombinasikan beberapa harness
-Harness bisa dikombinasikan. Contoh untuk membangun backend API:
-```
-security.md + api-design.md + testing.md
-```
+### 3. Kustomisasi bagian `[KUSTOMISASI]`
+Setiap harness punya bagian bertanda `[KUSTOMISASI]` — isi sesuai stack teknologi project.
 
-### 4. Kustomisasi
-Setiap harness punya bagian `[KUSTOMISASI]` — sesuaikan dengan stack teknologi proyekmu.
+### 4. Untuk design project spesifik
+Tambahkan file dari [references/](./harnesses/references/) khusus untuk `design.md`.
 
 ---
 
