@@ -1,0 +1,3 @@
+def golang.org/x/crypto/argon2.blamkaSSE4 ABI0
+def golang.org/x/crypto/argon2.mixBlocksSSE2 ABI0
+def golang.org/x/crypto/argon2.xorBlocksSSE2 ABI0

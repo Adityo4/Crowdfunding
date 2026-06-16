@@ -1,0 +1,7 @@
+# import config
+packagefile crypto/internal/fips140=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b127\_pkg_.a
+packagefile crypto/internal/fips140/hmac=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b130\_pkg_.a
+packagefile crypto/internal/fips140/sha256=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b131\_pkg_.a
+packagefile crypto/internal/fips140deps/byteorder=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b132\_pkg_.a
+packagefile crypto/internal/fips140deps/godebug=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b128\_pkg_.a
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b052\_pkg_.a

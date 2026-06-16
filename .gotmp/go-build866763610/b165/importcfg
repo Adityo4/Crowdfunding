@@ -1,0 +1,22 @@
+# import config
+importmap golang.org/x/crypto/cryptobyte=vendor/golang.org/x/crypto/cryptobyte
+importmap golang.org/x/crypto/cryptobyte/asn1=vendor/golang.org/x/crypto/cryptobyte/asn1
+packagefile crypto=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b123\_pkg_.a
+packagefile crypto/ecdh=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b157\_pkg_.a
+packagefile crypto/elliptic=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b166\_pkg_.a
+packagefile crypto/internal/boring=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b146\_pkg_.a
+packagefile crypto/internal/boring/bbig=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b168\_pkg_.a
+packagefile crypto/internal/fips140/ecdsa=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b169\_pkg_.a
+packagefile crypto/internal/fips140/nistec=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b159\_pkg_.a
+packagefile crypto/internal/fips140cache=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b171\_pkg_.a
+packagefile crypto/internal/fips140hash=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b172\_pkg_.a
+packagefile crypto/internal/fips140only=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b125\_pkg_.a
+packagefile crypto/internal/rand=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b162\_pkg_.a
+packagefile crypto/sha512=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b152\_pkg_.a
+packagefile crypto/subtle=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b149\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile vendor/golang.org/x/crypto/cryptobyte=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b174\_pkg_.a
+packagefile vendor/golang.org/x/crypto/cryptobyte/asn1=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b177\_pkg_.a
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b052\_pkg_.a
+packagefile math/big=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b167\_pkg_.a
+packagefile math/rand/v2=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b164\_pkg_.a

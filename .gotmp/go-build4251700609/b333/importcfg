@@ -1,0 +1,13 @@
+# import config
+packagefile backend/internal/models=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build4251700609\b332\_pkg_.a
+packagefile backend/internal/repository=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build4251700609\b334\_pkg_.a
+packagefile backend/internal/utils=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build4251700609\b335\_pkg_.a
+packagefile context=d:\laragon\skripsi\Crowdfunding\.gocache\de\de9b707c08f537cd1e995322edd78ee5cbd891309bb261161017e98c4c1d08a7-d
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gocache\60\60b2b16cf97e7047df9762a969461630da96999df5504f3be1758c726a04b111-d
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gocache\20\207f6635331b9a1c4d35dd7629029b2e850226585f05c753c5eca3310391c2be-d
+packagefile github.com/google/uuid=d:\laragon\skripsi\Crowdfunding\.gocache\5e\5e18c48622378bb01f2d796e2ad0c20bd8005617408c893f2a0abd5ef0875b3d-d
+packagefile github.com/minio/minio-go/v7=d:\laragon\skripsi\Crowdfunding\.gocache\a3\a3714a1fd928b854b369687997f87418bf4a95ad9ed39ccb51f12848b963894c-d
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gocache\4f\4f513c0fcdffdbeb1bb65d558ffcbc5d771527b40158479683574ca1585ecc49-d
+packagefile regexp=d:\laragon\skripsi\Crowdfunding\.gocache\dc\dc4ac402105357babc6e6ff8d9769d108624efabadb8bd401f07e64a5ba4486a-d
+packagefile strings=d:\laragon\skripsi\Crowdfunding\.gocache\bb\bb220c3fe80d5e749c9382ac634507db68495a2af21b9a9fd847547eb08f02ef-d
+packagefile time=d:\laragon\skripsi\Crowdfunding\.gocache\6b\6b6b728fcd59a2ea84a13cc62c224b99a029c57c84a63b33792fc34160437768-d

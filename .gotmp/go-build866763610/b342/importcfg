@@ -1,0 +1,6 @@
+# import config
+packagefile bytes=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b070\_pkg_.a
+packagefile github.com/gabriel-vasile/mimetype/internal/markup=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b343\_pkg_.a
+packagefile github.com/gabriel-vasile/mimetype/internal/scan=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b344\_pkg_.a
+packagefile strings=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b074\_pkg_.a
+packagefile unicode/utf8=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b050\_pkg_.a

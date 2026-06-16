@@ -1,0 +1,6 @@
+# import config
+packagefile github.com/clipperhouse/uax29/v2/graphemes=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b080\_pkg_.a
+packagefile os=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b003\_pkg_.a
+packagefile strings=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b074\_pkg_.a
+packagefile syscall=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b045\_pkg_.a
+packagefile unicode/utf8=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b050\_pkg_.a

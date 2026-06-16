@@ -1,0 +1,10 @@
+# import config
+packagefile bytes=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b070\_pkg_.a
+packagefile crypto/internal/fips140/aes=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b143\_pkg_.a
+packagefile crypto/internal/fips140/aes/gcm=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b148\_pkg_.a
+packagefile crypto/internal/fips140/alias=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b138\_pkg_.a
+packagefile crypto/internal/fips140only=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b125\_pkg_.a
+packagefile crypto/subtle=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b149\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile internal/byteorder=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b013\_pkg_.a
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b052\_pkg_.a

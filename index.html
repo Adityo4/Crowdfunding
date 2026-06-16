@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yayasan Peduli Amal Indonesia - Bersama Kita Bisa Membuat Perbedaan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="js/translations.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#059669',
+                        secondary: '#0f172a',
+                        accent: '#f8fafc'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                        'gradient-x': 'gradient-x 3s ease infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        'gradient-x': {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #059669, #0f172a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-gray-900 antialiased">
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 w-full z-50 bg-white shadow-sm border-b">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-heart text-white text-sm"></i>
+                        </div>
+                        <span class="ml-3 text-xl font-bold text-gray-900 hidden sm:block">Yayasan Peduli Amal Indonesia</span>
+                        <span class="ml-3 text-xl font-bold text-gray-900 sm:hidden">YPAI</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors" data-translate="nav.home">Home</a>
+                    <a href="#about" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors" data-translate="nav.about">About</a>
+                    <a href="charity-list.html" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors" data-translate="nav.programs">Programs</a>
+                    <a href="articles.html" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors" data-translate="nav.articles">Articles</a>
+                    <a href="#contact" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors" data-translate="nav.contact">Contact</a>
+                    <a href="login.html" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors" data-translate="nav.login">Login</a>
+                    
+                    <!-- Language Switch Dropdown -->
+                    <div class="relative group">
+                        <button class="language-switch-btn flex items-center space-x-2 text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <img src="https://flagcdn.com/w20/id.png" alt="Indonesia" class="w-5 h-4 rounded-sm" id="current-lang-flag-guest">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2">
+                                <button onclick="switchLanguage('en')" class="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+                                    <img src="https://flagcdn.com/w20/us.png" alt="English" class="w-5 h-4 rounded-sm mr-3">
+                                    English
+                                </button>
+                                <button onclick="switchLanguage('id')" class="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+                                    <img src="https://flagcdn.com/w20/id.png" alt="Indonesia" class="w-5 h-4 rounded-sm mr-3">
+                                    Indonesia
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-green-600 p-2 rounded-md transition-colors">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Sidebar -->
+        <div id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-80 bg-white shadow-xl transform -translate-x-full transition-all duration-300 ease-in-out lg:hidden border-r border-gray-100">
+        <!-- Sidebar Header -->
+        <div class="flex items-center justify-between h-16 px-6 border-b border-gray-100">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-heart text-white text-sm"></i>
+                </div>
+                <span class="text-lg font-semibold text-gray-900">YPAI</span>
+            </div>
+            <button id="mobile-sidebar-close" class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                <i class="fas fa-times text-gray-500 hover:text-gray-700"></i>
+            </button>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <div class="p-6">
+            <!-- Main Navigation -->
+            <nav class="space-y-1">
+                <a href="#home" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors" data-translate="nav.home">
+                    <i class="fas fa-home w-5 h-5 mr-3 text-gray-400"></i>
+                    Home
+                </a>
+                <a href="#about" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors" data-translate="nav.about">
+                    <i class="fas fa-info-circle w-5 h-5 mr-3 text-gray-400"></i>
+                    About
+                </a>
+                <a href="charity-list.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors" data-translate="nav.programs">
+                    <i class="fas fa-heart w-5 h-5 mr-3 text-gray-400"></i>
+                    Programs
+                </a>
+                <a href="articles.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors" data-translate="nav.articles">
+                    <i class="fas fa-newspaper w-5 h-5 mr-3 text-gray-400"></i>
+                    Articles
+                </a>
+                <a href="#contact" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors" data-translate="nav.contact">
+                    <i class="fas fa-envelope w-5 h-5 mr-3 text-gray-400"></i>
+                    Contact
+                </a>
+            </nav>
+            
+            <!-- Login Section -->
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <a href="login.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors" data-translate="nav.login">
+                    <i class="fas fa-sign-in-alt w-5 h-5 mr-3 text-gray-400"></i>
+                    Login
+                </a>
+            </div>
+            
+            <!-- Language Switcher -->
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Language</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="switchLanguage('id')" class="flex items-center justify-center px-3 py-2 text-xs font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <img src="https://flagcdn.com/w20/id.png" alt="Indonesia" class="w-4 h-3 mr-2">
+                        ID
+                    </button>
+                    <button onclick="switchLanguage('en')" class="flex items-center justify-center px-3 py-2 text-xs font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <img src="https://flagcdn.com/w20/us.png" alt="English" class="w-4 h-3 mr-2">
+                        EN
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+        <div id="mobile-sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+
+    <!-- Hero Section - Split Layout -->
+    <section id="home" class="py-8 md:py-16 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 md:px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center min-h-[60vh] md:min-h-[80vh]">
+                <!-- Content -->
+                <div class="animate-fade-in">
+                    <div class="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-primary font-medium mb-6 hover:bg-primary/20 transition-all duration-500 transform hover:scale-105" data-translate="hero.badge">
+                        <i class="fas fa-heart mr-2 animate-pulse"></i>
+                        Making Hope Happen
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-secondary mb-4 md:mb-6 leading-tight" data-translate="hero.title">
+                        Together We Can
+                        <span class="text-primary bg-gradient-to-r from-primary to-emerald-500 bg-clip-text text-transparent animate-gradient-x">Change Lives</span>
+                    </h1>
+                    <p class="text-base md:text-lg text-gray-600 mb-4 md:mb-6 leading-relaxed" data-translate="hero.subtitle">
+                        Join thousands of people who are already making a positive impact in communities worldwide. Your contribution helps us create lasting change.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-3 md:gap-4">
+                        <button class="bg-primary text-white px-6 md:px-8 py-3 md:py-4 rounded-full text-base md:text-lg font-semibold hover:bg-emerald-700 transform hover:scale-105 hover:-translate-y-1 transition-all duration-500 shadow-lg hover:shadow-2xl group" data-translate="hero.donateNow">
+                            <i class="fas fa-heart mr-2 group-hover:animate-bounce"></i>
+                            Donate Now
+                        </button>
+                        <button class="border-2 border-primary text-primary px-6 md:px-8 py-3 md:py-4 rounded-full text-base md:text-lg font-semibold hover:bg-primary hover:text-white hover:scale-105 hover:-translate-y-1 transition-all duration-500 shadow-lg hover:shadow-xl group" data-translate="hero.explorePrograms">
+                            <i class="fas fa-play mr-2 group-hover:animate-pulse"></i>
+                            Watch Our Story
+                        </button>
+                    </div>
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-4 md:gap-6 mt-6 md:mt-8">
+                        <div class="text-center group hover:scale-110 transition-all duration-500 cursor-pointer">
+                            <div class="text-2xl md:text-3xl font-bold text-primary mb-1 md:mb-2 group-hover:text-emerald-600 transition-colors duration-500">50K+</div>
+                            <div class="text-xs md:text-sm text-gray-600 group-hover:text-gray-800 transition-colors duration-500" data-translate="about.livesImpacted">Lives Impacted</div>
+                        </div>
+                        <div class="text-center group hover:scale-110 transition-all duration-500 cursor-pointer">
+                            <div class="text-2xl md:text-3xl font-bold text-primary mb-1 md:mb-2 group-hover:text-emerald-600 transition-colors duration-500">25</div>
+                            <div class="text-xs md:text-sm text-gray-600 group-hover:text-gray-800 transition-colors duration-500" data-translate="about.countries">Countries</div>
+                        </div>
+                        <div class="text-center group hover:scale-110 transition-all duration-500 cursor-pointer">
+                            <div class="text-2xl md:text-3xl font-bold text-primary mb-1 md:mb-2 group-hover:text-emerald-600 transition-colors duration-500">$2M+</div>
+                            <div class="text-xs md:text-sm text-gray-600 group-hover:text-gray-800 transition-colors duration-500" data-translate="hero.raised">Raised</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Image -->
+                <div class="relative animate-slide-up">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1559027615-cd4628902d85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                             alt="Volunteers working together" 
+                             class="w-full h-64 md:h-96 object-cover rounded-2xl md:rounded-3xl shadow-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-3xl"></div>
+                    </div>
+                    <!-- Floating Cards -->
+                    <div class="absolute -top-3 -right-3 md:-top-6 md:-right-6 bg-white p-3 md:p-6 rounded-xl md:rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-float">
+                        <div class="flex items-center space-x-2 md:space-x-3">
+                            <div class="w-8 h-8 md:w-12 md:h-12 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-500">
+                                <i class="fas fa-users text-primary text-sm md:text-xl group-hover:animate-bounce"></i>
+                            </div>
+                            <div>
+                                <div class="text-lg md:text-2xl font-bold text-secondary group-hover:text-primary transition-colors duration-500">1,200+</div>
+                                <div class="text-gray-600 text-xs md:text-sm" data-translate="hero.volunteers">Active Volunteers</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-3 -left-3 md:-bottom-6 md:-left-6 bg-white p-3 md:p-6 rounded-xl md:rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-float" style="animation-delay: 0.5s;">
+                        <div class="flex items-center space-x-2 md:space-x-3">
+                            <div class="w-8 h-8 md:w-12 md:h-12 bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-200 transition-colors duration-500">
+                                <i class="fas fa-check text-green-600 text-sm md:text-xl group-hover:animate-pulse"></i>
+                            </div>
+                            <div>
+                                <div class="text-lg md:text-2xl font-bold text-secondary group-hover:text-green-600 transition-colors duration-500">98%</div>
+                                <div class="text-gray-600 text-xs md:text-sm" data-translate="hero.successRate">Success Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Programs Section -->
+    <section id="programs" class="py-12 md:py-16 bg-accent/30">
+        <div class="max-w-6xl mx-auto px-4 md:px-6">
+            <div class="text-center mb-8 md:mb-12 animate-fade-in">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-light text-secondary mb-3 md:mb-4" data-translate="programs.title">Our Programs</h2>
+                <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed" data-translate="programs.subtitle">
+                    Discover our various initiatives and see how your contributions are making a real difference in people's lives.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                <!-- Program Card 1 -->
+                <div class="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden animate-slide-up transform hover:-translate-y-2 hover:scale-105">
+                    <!-- Image Container -->
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                             alt="Children studying in classroom" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        
+                        <!-- Icon Overlay -->
+                        <div class="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-white/30 transition-all duration-300">
+                            <i class="fas fa-graduation-cap text-white text-xl"></i>
+                        </div>
+                        
+                        <!-- Progress Badge -->
+                        <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
+                            <span class="text-sm font-semibold text-gray-800">60% Funded</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="p-4 md:p-5">
+                        <h3 class="text-base md:text-lg font-semibold text-secondary mb-2 group-hover:text-primary transition-colors duration-300" data-translate="programs.education.title">Education for All</h3>
+                        <p class="text-gray-600 mb-3 md:mb-4 leading-relaxed text-xs md:text-sm" data-translate="programs.education.description">Providing quality education and school supplies to underprivileged children in rural areas.</p>
+                        
+                        <!-- Progress Bar -->
+                        <div class="mb-3 md:mb-4">
+                            <div class="flex justify-between text-xs text-gray-500 mb-2">
+                                <span data-translate="programs.education.raised">Raised: $45,000</span>
+                                <span data-translate="programs.education.goal">Goal: $75,000</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-1 md:h-1.5 overflow-hidden">
+                                <div class="bg-gradient-to-r from-primary to-emerald-500 h-1 md:h-1.5 rounded-full transition-all duration-1000 ease-out" style="width: 60%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Button -->
+                        <button class="w-full bg-gradient-to-r from-primary to-emerald-600 text-white py-2 md:py-3 rounded-lg md:rounded-xl font-medium hover:from-emerald-600 hover:to-primary transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl text-sm md:text-base" data-translate="programs.education.donate">
+                            Donate Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Program Card 2 -->
+                <div class="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden animate-slide-up transform hover:-translate-y-2" style="animation-delay: 0.1s;">
+                    <!-- Image Container -->
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                             alt="Medical team helping patients" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        
+                        <!-- Icon Overlay -->
+                        <div class="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-white/30 transition-all duration-300">
+                            <i class="fas fa-heart text-white text-xl"></i>
+                        </div>
+                        
+                        <!-- Progress Badge -->
+                        <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
+                            <span class="text-sm font-semibold text-gray-800">64% Funded</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="p-4 md:p-5">
+                        <h3 class="text-base md:text-lg font-semibold text-secondary mb-2 group-hover:text-blue-600 transition-colors duration-300" data-translate="programs.healthcare.title">Healthcare Access</h3>
+                        <p class="text-gray-600 mb-3 md:mb-4 leading-relaxed text-xs md:text-sm" data-translate="programs.healthcare.description">Ensuring medical care and essential medicines reach remote communities without healthcare facilities.</p>
+                        
+                        <!-- Progress Bar -->
+                        <div class="mb-3 md:mb-4">
+                            <div class="flex justify-between text-xs text-gray-500 mb-2">
+                                <span data-translate="programs.healthcare.raised">Raised: $32,000</span>
+                                <span data-translate="programs.healthcare.goal">Goal: $50,000</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-1 md:h-1.5 overflow-hidden">
+                                <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-1 md:h-1.5 rounded-full transition-all duration-1000 ease-out" style="width: 64%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Button -->
+                        <button class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-2 md:py-3 rounded-lg md:rounded-xl font-medium hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl text-sm md:text-base" data-translate="programs.healthcare.donate">
+                            Donate Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Program Card 3 -->
+                <div class="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden animate-slide-up transform hover:-translate-y-2" style="animation-delay: 0.2s;">
+                    <!-- Image Container -->
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                             alt="New house construction for families" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        
+                        <!-- Icon Overlay -->
+                        <div class="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-white/30 transition-all duration-300">
+                            <i class="fas fa-home text-white text-xl"></i>
+                        </div>
+                        
+                        <!-- Progress Badge -->
+                        <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
+                            <span class="text-sm font-semibold text-gray-800">78% Funded</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="p-4 md:p-5">
+                        <h3 class="text-base md:text-lg font-semibold text-secondary mb-2 group-hover:text-orange-600 transition-colors duration-300" data-translate="programs.housing.title">Housing Initiative</h3>
+                        <p class="text-gray-600 mb-3 md:mb-4 leading-relaxed text-xs md:text-sm" data-translate="programs.housing.description">Building safe and affordable housing for families affected by natural disasters and poverty.</p>
+                        
+                        <!-- Progress Bar -->
+                        <div class="mb-3 md:mb-4">
+                            <div class="flex justify-between text-xs text-gray-500 mb-2">
+                                <span data-translate="programs.housing.raised">Raised: $78,000</span>
+                                <span data-translate="programs.housing.goal">Goal: $100,000</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-1 md:h-1.5 overflow-hidden">
+                                <div class="bg-gradient-to-r from-orange-500 to-orange-600 h-1 md:h-1.5 rounded-full transition-all duration-1000 ease-out" style="width: 78%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Button -->
+                        <button class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-2 md:py-3 rounded-lg md:rounded-xl font-medium hover:from-orange-600 hover:to-orange-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl text-sm md:text-base" data-translate="programs.housing.donate">
+                            Donate Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Show More Button -->
+            <div class="text-center mt-12 animate-fade-in">
+                <a href="charity-list.html" class="inline-block bg-gradient-to-r from-primary to-emerald-600 text-white px-8 py-4 rounded-full font-semibold hover:from-emerald-600 hover:to-primary transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl" data-translate="programs.viewAll">
+                    <i class="fas fa-plus mr-2"></i>
+                    View All Programs
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-12 md:py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4 md:px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+                <!-- Image -->
+                <div class="order-2 lg:order-1 animate-fade-in">
+                    <div class="relative">
+                        <div class="h-64 md:h-96 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl md:rounded-3xl overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1559027615-cd4628902d85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                                 alt="Volunteers working together" 
+                                 class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-users text-white text-4xl md:text-6xl drop-shadow-lg animate-float"></i>
+                            </div>
+                        </div>
+                        <div class="absolute -top-4 -left-4 md:-top-8 md:-left-8 w-12 h-12 md:w-20 md:h-20 bg-primary/20 rounded-full flex items-center justify-center animate-float">
+                            <i class="fas fa-heart text-primary text-sm md:text-xl"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -right-4 md:-bottom-8 md:-right-8 w-12 h-12 md:w-20 md:h-20 bg-primary/20 rounded-full flex items-center justify-center animate-float" style="animation-delay: 1s;">
+                            <i class="fas fa-heart text-primary text-sm md:text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                <div class="order-1 lg:order-2 animate-slide-up">
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-light text-secondary mb-4 md:mb-6" data-translate="about.title">About Yayasan Peduli Amal Indonesia</h2>
+                    <p class="text-sm md:text-base text-gray-600 mb-3 md:mb-4 leading-relaxed" data-translate="about.description1">
+                        Founded in 2015, Yayasan Peduli Amal Indonesia has been dedicated to creating positive change in communities worldwide. 
+                        We believe that every person deserves access to basic necessities and opportunities for a better future.
+                    </p>
+                    <p class="text-sm md:text-base text-gray-600 mb-6 md:mb-8 leading-relaxed" data-translate="about.description2">
+                        Our mission is to empower individuals and communities through education, healthcare, housing, and food security programs. 
+                        With the support of generous donors and dedicated volunteers, we've impacted over 50,000 lives across 25 countries.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 md:gap-6">
+                        <div class="text-center p-3 md:p-4 bg-accent/50 rounded-xl md:rounded-2xl">
+                            <div class="text-xl md:text-2xl font-semibold text-primary mb-1">50K+</div>
+                            <div class="text-gray-600 font-medium text-xs md:text-sm" data-translate="about.livesImpacted">Lives Impacted</div>
+                        </div>
+                        <div class="text-center p-3 md:p-4 bg-accent/50 rounded-xl md:rounded-2xl">
+                            <div class="text-xl md:text-2xl font-semibold text-secondary mb-1">25</div>
+                            <div class="text-gray-600 font-medium text-xs md:text-sm" data-translate="about.countries">Countries</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-12 md:py-16 bg-accent/20">
+        <div class="max-w-6xl mx-auto px-4 md:px-6">
+            <div class="text-center mb-8 md:mb-12 animate-fade-in">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-light text-secondary mb-3 md:mb-4" data-translate="testimonials.title">What People Say</h2>
+                <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto" data-translate="testimonials.subtitle">Hear from our donors, volunteers, and beneficiaries about their experiences.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                <!-- Testimonial 1 -->
+                <div class="group bg-white p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500 animate-slide-up">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div class="w-10 h-10 md:w-14 md:h-14 bg-primary/10 rounded-full flex items-center justify-center text-primary font-semibold text-sm md:text-lg group-hover:scale-110 transition-transform duration-300">
+                            S
+                        </div>
+                        <div class="ml-3 md:ml-4">
+                            <h4 class="font-semibold text-secondary text-sm md:text-base" data-translate="testimonials.sarah.name">Sarah Johnson</h4>
+                            <p class="text-gray-500 text-xs md:text-sm" data-translate="testimonials.sarah.role">Donor & Volunteer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed text-xs md:text-sm" data-translate="testimonials.sarah.quote">
+                        "Being part of Yayasan Peduli Amal Indonesia has been incredibly rewarding. Seeing the direct impact of our donations on children's education fills my heart with joy."
+                    </p>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="group bg-white p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500 animate-slide-up" style="animation-delay: 0.1s;">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div class="w-10 h-10 md:w-14 md:h-14 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-600 font-semibold text-sm md:text-lg group-hover:scale-110 transition-transform duration-300">
+                            M
+                        </div>
+                        <div class="ml-3 md:ml-4">
+                            <h4 class="font-semibold text-secondary text-sm md:text-base" data-translate="testimonials.michael.name">Michael Chen</h4>
+                            <p class="text-gray-500 text-xs md:text-sm" data-translate="testimonials.michael.role">Program Director</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed text-xs md:text-sm" data-translate="testimonials.michael.quote">
+                        "Working with Yayasan Peduli Amal Indonesia has shown me the power of community. Every small contribution creates ripples of positive change."
+                    </p>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="group bg-white p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500 animate-slide-up" style="animation-delay: 0.2s;">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div class="w-10 h-10 md:w-14 md:h-14 bg-purple-500/10 rounded-full flex items-center justify-center text-purple-600 font-semibold text-sm md:text-lg group-hover:scale-110 transition-transform duration-300">
+                            A
+                        </div>
+                        <div class="ml-3 md:ml-4">
+                            <h4 class="font-semibold text-secondary text-sm md:text-base" data-translate="testimonials.maria.name">Amina Hassan</h4>
+                            <p class="text-gray-500 text-xs md:text-sm" data-translate="testimonials.maria.role">Beneficiary</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed text-xs md:text-sm" data-translate="testimonials.maria.quote">
+                        "Thanks to Yayasan Peduli Amal Indonesia's education program, my children now have access to quality schooling. This has changed our family's future forever."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Banner -->
+    <section class="py-12 md:py-16 bg-gradient-to-br from-primary to-secondary relative overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                 alt="People holding hands in unity" 
+                 class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/40"></div>
+        </div>
+        <div class="relative z-10 max-w-6xl mx-auto px-4 md:px-6 text-center">
+            <div class="animate-fade-in">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-light text-white mb-4 md:mb-6" data-translate="cta.title">
+                    Ready to Make a Difference?
+                </h2>
+                <p class="text-sm md:text-base text-gray-200 mb-6 md:mb-8 max-w-3xl mx-auto leading-relaxed" data-translate="cta.subtitle">
+                    Join thousands of people who are already making a positive impact. Your contribution, no matter the size, helps us create lasting change in communities around the world.
+                </p>
+                <button class="bg-white text-primary px-8 md:px-12 py-3 md:py-4 rounded-full text-base md:text-lg font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl" data-translate="cta.donateNow">
+                    Donate Now
+                </button>
+            </div>
+        </div>
+        <!-- Floating Elements -->
+        <div class="absolute top-5 left-5 md:top-10 md:left-10 w-8 h-8 md:w-16 md:h-16 bg-white/10 rounded-full animate-float"></div>
+        <div class="absolute bottom-5 right-5 md:bottom-10 md:right-10 w-6 h-6 md:w-12 md:h-12 bg-white/10 rounded-full animate-float" style="animation-delay: 1s;"></div>
+        <div class="absolute top-1/2 left-1/4 w-4 h-4 md:w-8 md:h-8 bg-white/10 rounded-full animate-float" style="animation-delay: 2s;"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-8 md:py-12">
+        <div class="max-w-6xl mx-auto px-4 md:px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- Foundation Info -->
+                <div class="sm:col-span-2 lg:col-span-2 animate-fade-in">
+                    <div class="flex items-center space-x-2 md:space-x-3 mb-4 md:mb-6">
+                        <div class="w-8 h-8 md:w-10 md:h-10 bg-primary rounded-lg flex items-center justify-center">
+                            <i class="fas fa-heart text-white text-sm md:text-lg"></i>
+                        </div>
+                        <span class="text-lg md:text-xl font-semibold">Yayasan Peduli Amal Indonesia</span>
+                    </div>
+                    <p class="text-gray-300 mb-4 md:mb-6 max-w-md leading-relaxed text-sm md:text-base" data-translate="footer.description">
+                        Dedicated to creating positive change in communities worldwide through education, healthcare, housing, and food security programs.
+                    </p>
+                    <div class="flex space-x-3 md:space-x-4">
+                        <a href="#" class="w-10 h-10 md:w-12 md:h-12 bg-gray-700/50 rounded-full flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+                            <i class="fab fa-facebook-f text-sm md:text-base"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 md:w-12 md:h-12 bg-gray-700/50 rounded-full flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+                            <i class="fab fa-twitter text-sm md:text-base"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 md:w-12 md:h-12 bg-gray-700/50 rounded-full flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+                            <i class="fab fa-instagram text-sm md:text-base"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 md:w-12 md:h-12 bg-gray-700/50 rounded-full flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+                            <i class="fab fa-linkedin-in text-sm md:text-base"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="animate-slide-up">
+                    <h3 class="text-base md:text-lg font-semibold mb-4 md:mb-6" data-translate="footer.contactUs">Contact Us</h3>
+                    <div class="space-y-3 md:space-y-4">
+                        <div class="flex items-center space-x-3 md:space-x-4">
+                            <i class="fas fa-map-marker-alt text-primary text-sm md:text-lg"></i>
+                            <span class="text-gray-300 text-sm md:text-base" data-translate="footer.address">123 Hope Street, Charity City, CC 12345</span>
+                        </div>
+                        <div class="flex items-center space-x-3 md:space-x-4">
+                            <i class="fas fa-phone text-primary text-sm md:text-lg"></i>
+                            <span class="text-gray-300 text-sm md:text-base" data-translate="footer.phone">+1 (555) 123-4567</span>
+                        </div>
+                        <div class="flex items-center space-x-3 md:space-x-4">
+                            <i class="fas fa-envelope text-primary text-sm md:text-lg"></i>
+                            <span class="text-gray-300 text-sm md:text-base" data-translate="footer.email">info@hopefoundation.org</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="animate-slide-up" style="animation-delay: 0.1s;">
+                    <h3 class="text-base md:text-lg font-semibold mb-4 md:mb-6" data-translate="footer.quickLinks">Quick Links</h3>
+                    <div class="space-y-2 md:space-y-3">
+                        <a href="#home" class="block text-gray-300 hover:text-primary transition-colors duration-300 font-medium text-sm md:text-base" data-translate="nav.home">Home</a>
+                        <a href="#about" class="block text-gray-300 hover:text-primary transition-colors duration-300 font-medium text-sm md:text-base" data-translate="nav.about">About</a>
+                        <a href="charity-list.html" class="block text-gray-300 hover:text-primary transition-colors duration-300 font-medium text-sm md:text-base" data-translate="nav.programs">Programs</a>
+                        <a href="articles.html" class="block text-gray-300 hover:text-primary transition-colors duration-300 font-medium text-sm md:text-base" data-translate="nav.articles">Articles</a>
+                        <a href="#contact" class="block text-gray-300 hover:text-primary transition-colors duration-300 font-medium text-sm md:text-base" data-translate="nav.contact">Contact</a>
+                        <a href="#" class="block text-gray-300 hover:text-primary transition-colors duration-300 font-medium text-sm md:text-base">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700/50 mt-8 md:mt-12 pt-4 md:pt-6 text-center animate-fade-in">
+                <p class="text-gray-400 text-xs md:text-sm" data-translate="footer.copyright">
+                    © 2024 Yayasan Peduli Amal Indonesia. All rights reserved. | Making the world a better place, one donation at a time.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Smooth scrolling script -->
+    <script>
+        // Check login status and update navbar (disabled for testing)
+        function checkLoginStatus() {
+            // Always show user nav for testing purposes
+            const guestNav = document.getElementById('guest-nav');
+            const userNav = document.getElementById('user-nav');
+            const mobileGuestNav = document.getElementById('mobile-guest-nav');
+            const mobileUserNav = document.getElementById('mobile-user-nav');
+            
+            // Show both navs for testing
+            if (guestNav) guestNav.style.display = 'none';
+            if (userNav) userNav.style.display = 'flex';
+            if (mobileGuestNav) mobileGuestNav.style.display = 'none';
+            if (mobileUserNav) mobileUserNav.style.display = 'block';
+            
+            // Set default user info for testing
+            const userNameElement = userNav?.querySelector('span');
+            const userAvatarElement = userNav?.querySelector('img');
+            if (userNameElement) userNameElement.textContent = 'John Smith';
+            if (userAvatarElement) userAvatarElement.src = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=32&q=80';
+        }
+
+        // Mobile sidebar toggle
+        function toggleMobileSidebar() {
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            const mobileSidebarOverlay = document.getElementById('mobile-sidebar-overlay');
+            
+            if (!mobileSidebar || !mobileSidebarOverlay) {
+                return;
+            }
+            
+            if (mobileSidebar.classList.contains('-translate-x-full')) {
+                // Show sidebar
+                mobileSidebar.classList.remove('-translate-x-full');
+                mobileSidebarOverlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                // Hide sidebar
+                mobileSidebar.classList.add('-translate-x-full');
+                mobileSidebarOverlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close mobile sidebar
+        function closeMobileSidebar() {
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            const mobileSidebarOverlay = document.getElementById('mobile-sidebar-overlay');
+            
+            if (mobileSidebar && mobileSidebarOverlay) {
+                mobileSidebar.classList.add('-translate-x-full');
+                mobileSidebarOverlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Language switch function
+        function switchLanguage(lang) {
+            // Update language flags in navbar buttons
+            const guestLangFlag = document.getElementById('current-lang-flag-guest');
+            const userLangFlag = document.getElementById('current-lang-flag-user');
+            
+            if (guestLangFlag) {
+                if (lang === 'en') {
+                    guestLangFlag.src = 'https://flagcdn.com/w20/us.png';
+                    guestLangFlag.alt = 'English';
+                } else {
+                    guestLangFlag.src = 'https://flagcdn.com/w20/id.png';
+                    guestLangFlag.alt = 'Indonesia';
+                }
+            }
+            if (userLangFlag) {
+                if (lang === 'en') {
+                    userLangFlag.src = 'https://flagcdn.com/w20/us.png';
+                    userLangFlag.alt = 'English';
+                } else {
+                    userLangFlag.src = 'https://flagcdn.com/w20/id.png';
+                    userLangFlag.alt = 'Indonesia';
+                }
+            }
+            
+            // Store language preference
+            localStorage.setItem('language', lang);
+            
+            // Update page content based on language
+            updatePageLanguage(lang);
+            
+            // Show notification
+            const message = lang === 'en' ? 'Language switched to English' : 'Bahasa diubah ke Indonesia';
+            showNotification(message);
+        }
+        
+        // Update page language content
+        function updatePageLanguage(lang) {
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+            
+            // Update body data attribute for styling
+            const body = document.body;
+            if (lang === 'en') {
+                body.setAttribute('data-lang', 'en');
+            } else {
+                body.setAttribute('data-lang', 'id');
+            }
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userData');
+                checkLoginStatus();
+                showNotification('You have been logged out successfully!');
+            }
+        }
+
+        // Show notification
+        function showNotification(message) {
+            // Create notification element if it doesn't exist
+            let notification = document.getElementById('notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.id = 'notification';
+                notification.className = 'fixed top-20 right-6 z-50 bg-white rounded-lg shadow-lg p-4 border-l-4 border-primary opacity-0 transform translate-x-full transition-all duration-300';
+                document.body.appendChild(notification);
+            }
+            
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-primary mr-3"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            notification.classList.remove('opacity-0', 'translate-x-full');
+            notification.classList.add('opacity-100', 'translate-x-0');
+            
+            setTimeout(() => {
+                notification.classList.remove('opacity-100', 'translate-x-0');
+                notification.classList.add('opacity-0', 'translate-x-full');
+            }, 3000);
+        }
+
+        // Initialize navbar on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLoginStatus();
+            
+            // Initialize language from localStorage (default to Indonesia)
+            const savedLang = localStorage.getItem('language') || 'id';
+            updatePageLanguage(savedLang);
+            
+            // Update language flags in navbar
+            const guestLangFlag = document.getElementById('current-lang-flag-guest');
+            const userLangFlag = document.getElementById('current-lang-flag-user');
+            
+            if (guestLangFlag) {
+                if (savedLang === 'en') {
+                    guestLangFlag.src = 'https://flagcdn.com/w20/us.png';
+                    guestLangFlag.alt = 'English';
+                } else {
+                    guestLangFlag.src = 'https://flagcdn.com/w20/id.png';
+                    guestLangFlag.alt = 'Indonesia';
+                }
+            }
+            if (userLangFlag) {
+                if (savedLang === 'en') {
+                    userLangFlag.src = 'https://flagcdn.com/w20/us.png';
+                    userLangFlag.alt = 'English';
+                } else {
+                    userLangFlag.src = 'https://flagcdn.com/w20/id.png';
+                    userLangFlag.alt = 'Indonesia';
+                }
+            }
+            
+            // Mobile sidebar event listeners
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileSidebarClose = document.getElementById('mobile-sidebar-close');
+            const mobileSidebarOverlay = document.getElementById('mobile-sidebar-overlay');
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileSidebar);
+            }
+            
+            if (mobileSidebarClose) {
+                mobileSidebarClose.addEventListener('click', closeMobileSidebar);
+            }
+            
+            if (mobileSidebarOverlay) {
+                mobileSidebarOverlay.addEventListener('click', closeMobileSidebar);
+            }
+            
+            // Close mobile sidebar when clicking outside
+            document.addEventListener('click', function(e) {
+                const mobileSidebar = document.getElementById('mobile-sidebar');
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                
+                if (mobileSidebar && !mobileSidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    if (!mobileSidebar.classList.contains('-translate-x-full')) {
+                        closeMobileSidebar();
+                    }
+                }
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile sidebar when clicking navigation links
+                    closeMobileSidebar();
+                }
+            });
+        });
+        
+        // Close mobile sidebar when clicking any navigation link
+        document.querySelectorAll('#mobile-sidebar a').forEach(link => {
+            link.addEventListener('click', function() {
+                closeMobileSidebar();
+            });
+        });
+
+        // Add scroll effect to navbar for enhanced shadow
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+                navbar.classList.remove('shadow-sm');
+            } else {
+                navbar.classList.remove('shadow-lg');
+                navbar.classList.add('shadow-sm');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.animate-slide-up, .animate-fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+        });
+
+    </script>
+</body>
+</html>

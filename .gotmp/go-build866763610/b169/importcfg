@@ -1,0 +1,13 @@
+# import config
+packagefile bytes=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b070\_pkg_.a
+packagefile crypto/internal/fips140=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b127\_pkg_.a
+packagefile crypto/internal/fips140/bigmod=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b170\_pkg_.a
+packagefile crypto/internal/fips140/check=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b129\_pkg_.a
+packagefile crypto/internal/fips140/drbg=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b140\_pkg_.a
+packagefile crypto/internal/fips140/hmac=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b130\_pkg_.a
+packagefile crypto/internal/fips140/nistec=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b159\_pkg_.a
+packagefile crypto/internal/fips140/sha512=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b139\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile hash=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b124\_pkg_.a
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b052\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a

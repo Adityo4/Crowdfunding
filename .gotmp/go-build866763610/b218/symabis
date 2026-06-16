@@ -1,0 +1,5 @@
+def github.com/minio/md5-simd.block16 ABI0
+ref github.com/minio/md5-simd.avx512md5consts ABI0
+def github.com/minio/md5-simd.block8 ABI0
+ref github.com/minio/md5-simd.avx256md5consts ABI0
+def github.com/minio/md5-simd.blockScalar ABI0

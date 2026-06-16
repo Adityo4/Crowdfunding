@@ -1,0 +1,5 @@
+# import config
+packagefile crypto/cipher=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b147\_pkg_.a
+packagefile crypto/internal/boring=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b146\_pkg_.a
+packagefile crypto/internal/fips140/aes=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b143\_pkg_.a
+packagefile strconv=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b067\_pkg_.a

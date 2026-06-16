@@ -1,0 +1,5 @@
+# import config
+packagefile internal/godebug=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b055\_pkg_.a
+packagefile math=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b066\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a
+packagefile sync/atomic=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b043\_pkg_.a

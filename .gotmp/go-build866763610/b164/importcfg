@@ -1,0 +1,6 @@
+# import config
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile internal/byteorder=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b013\_pkg_.a
+packagefile internal/chacha8rand=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b014\_pkg_.a
+packagefile math=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b066\_pkg_.a
+packagefile math/bits=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b033\_pkg_.a

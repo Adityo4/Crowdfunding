@@ -1,0 +1,10 @@
+# import config
+packagefile cmp=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b047\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile iter=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b048\_pkg_.a
+packagefile slices=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b046\_pkg_.a
+packagefile strconv=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b067\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a
+packagefile sync/atomic=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b043\_pkg_.a
+packagefile unicode=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b068\_pkg_.a
+packagefile unicode/utf8=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b050\_pkg_.a

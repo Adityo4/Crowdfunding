@@ -1,0 +1,4 @@
+# import config
+packagefile backend/internal/models=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build4251700609\b332\_pkg_.a
+packagefile github.com/google/uuid=d:\laragon\skripsi\Crowdfunding\.gocache\5e\5e18c48622378bb01f2d796e2ad0c20bd8005617408c893f2a0abd5ef0875b3d-d
+packagefile gorm.io/gorm=d:\laragon\skripsi\Crowdfunding\.gocache\c0\c0978c3f6390f95337939823e7e5179628f864f95e83c98c6e8503d4a90df9ad-d

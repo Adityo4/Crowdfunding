@@ -1,0 +1,5 @@
+# import config
+packagefile internal/cpu=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b012\_pkg_.a
+packagefile internal/goarch=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b007\_pkg_.a
+packagefile internal/runtime/gc=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b022\_pkg_.a
+packagefile internal/runtime/sys=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b024\_pkg_.a

@@ -1,0 +1,5 @@
+./article_repository.go
+./category_repository.go
+./charity_repository.go
+./donation_repository.go
+./user_repository.go

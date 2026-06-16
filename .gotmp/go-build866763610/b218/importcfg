@@ -1,0 +1,11 @@
+# import config
+packagefile crypto/md5=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b122\_pkg_.a
+packagefile encoding/binary=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b096\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile github.com/klauspost/cpuid/v2=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b216\_pkg_.a
+packagefile hash=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b124\_pkg_.a
+packagefile math=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b066\_pkg_.a
+packagefile runtime=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b010\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a
+packagefile sync/atomic=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b043\_pkg_.a

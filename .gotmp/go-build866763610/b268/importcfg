@@ -1,0 +1,7 @@
+# import config
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile internal/bytealg=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b011\_pkg_.a
+packagefile internal/stringslite=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b034\_pkg_.a
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b052\_pkg_.a
+packagefile io/fs=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b051\_pkg_.a
+packagefile time=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b054\_pkg_.a

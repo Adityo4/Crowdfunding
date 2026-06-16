@@ -1,0 +1,7 @@
+# import config
+packagefile bytes=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b070\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile github.com/pelletier/go-toml/v2/internal/characters=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b369\_pkg_.a
+packagefile reflect=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b065\_pkg_.a
+packagefile unicode=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b068\_pkg_.a

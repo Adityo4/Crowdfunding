@@ -1,0 +1,9 @@
+# import config
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile internal/oserror=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b038\_pkg_.a
+packagefile internal/runtime/syscall/windows=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b031\_pkg_.a
+packagefile internal/syscall/windows/sysdll=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b039\_pkg_.a
+packagefile runtime=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b010\_pkg_.a
+packagefile structs=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b040\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a
+packagefile syscall=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b045\_pkg_.a

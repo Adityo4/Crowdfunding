@@ -1,0 +1,5 @@
+# import config
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile golang.org/x/text/transform=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b264\_pkg_.a
+packagefile golang.org/x/text/unicode/bidi=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b265\_pkg_.a
+packagefile unicode/utf8=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b050\_pkg_.a

@@ -1,0 +1,8 @@
+# import config
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile golang.org/x/text/secure/bidirule=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b263\_pkg_.a
+packagefile golang.org/x/text/unicode/bidi=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b265\_pkg_.a
+packagefile golang.org/x/text/unicode/norm=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b266\_pkg_.a
+packagefile math=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b066\_pkg_.a
+packagefile strings=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b074\_pkg_.a
+packagefile unicode/utf8=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b050\_pkg_.a

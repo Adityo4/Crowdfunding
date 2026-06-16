@@ -1,0 +1,6 @@
+# import config
+packagefile crypto/internal/boring=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b146\_pkg_.a
+packagefile crypto/internal/fips140/drbg=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b140\_pkg_.a
+packagefile crypto/internal/randutil=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b163\_pkg_.a
+packagefile internal/godebug=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b055\_pkg_.a
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b052\_pkg_.a

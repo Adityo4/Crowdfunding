@@ -1,0 +1,7 @@
+# import config
+packagefile bufio=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b081\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b052\_pkg_.a
+packagefile os=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b003\_pkg_.a
+packagefile strings=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b074\_pkg_.a

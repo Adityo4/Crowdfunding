@@ -1,0 +1,9 @@
+# import config
+packagefile bufio=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b081\_pkg_.a
+packagefile compress/flate=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b224\_pkg_.a
+packagefile encoding/binary=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b096\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile hash=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b124\_pkg_.a
+packagefile hash/adler32=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b348\_pkg_.a
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b052\_pkg_.a

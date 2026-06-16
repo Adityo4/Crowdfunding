@@ -1,0 +1,6 @@
+# import config
+packagefile internal/syscall/windows=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b037\_pkg_.a
+packagefile os=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b003\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a
+packagefile sync/atomic=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b043\_pkg_.a
+packagefile time=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b054\_pkg_.a

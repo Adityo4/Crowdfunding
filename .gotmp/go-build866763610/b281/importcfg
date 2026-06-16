@@ -1,0 +1,9 @@
+# import config
+packagefile encoding=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b072\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile github.com/redis/go-redis/v9/internal/util=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b274\_pkg_.a
+packagefile reflect=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b065\_pkg_.a
+packagefile strconv=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b067\_pkg_.a
+packagefile strings=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b074\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a

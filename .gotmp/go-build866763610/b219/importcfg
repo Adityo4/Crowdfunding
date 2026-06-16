@@ -1,0 +1,6 @@
+# import config
+packagefile encoding/xml=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b203\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile github.com/dustin/go-humanize=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b205\_pkg_.a
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b052\_pkg_.a
+packagefile strings=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b074\_pkg_.a

@@ -1,0 +1,7 @@
+# import config
+packagefile backend/internal/models=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build4251700609\b332\_pkg_.a
+packagefile backend/internal/service=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build4251700609\b333\_pkg_.a
+packagefile github.com/gin-gonic/gin=d:\laragon\skripsi\Crowdfunding\.gocache\2a\2a6187a3d9d2e816a2ebc6f4886cd9068f2d21f013487622a2c6d04c4f901f33-d
+packagefile github.com/google/uuid=d:\laragon\skripsi\Crowdfunding\.gocache\5e\5e18c48622378bb01f2d796e2ad0c20bd8005617408c893f2a0abd5ef0875b3d-d
+packagefile net/http=d:\laragon\skripsi\Crowdfunding\.gocache\b9\b96d3659cae533e43427206ded2fed528c2bb67a98ed30ec80fbe0a12269d974-d
+packagefile strconv=d:\laragon\skripsi\Crowdfunding\.gocache\7a\7a7047a6d27ce084c219cc8e17245669b1e290c2d77594f6f19714bbb4a3dd8a-d

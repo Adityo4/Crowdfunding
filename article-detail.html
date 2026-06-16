@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Detail - Yayasan Peduli Amal Indonesia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#059669',
+                        secondary: '#0f172a',
+                        accent: '#f8fafc'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                        'gradient-x': 'gradient-x 3s ease infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        'gradient-x': {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .gradient-text {
+            background: linear-gradient(135deg, #059669, #0f172a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .prose {
+            max-width: none;
+        }
+        .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+            color: #0f172a;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .prose h1 { font-size: 2.25rem; }
+        .prose h2 { font-size: 1.875rem; }
+        .prose h3 { font-size: 1.5rem; }
+        .prose p {
+            margin-bottom: 1.5rem;
+            line-height: 1.75;
+            color: #4b5563;
+        }
+        .prose ul, .prose ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        .prose li {
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+        }
+        .prose blockquote {
+            border-left: 4px solid #059669;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #6b7280;
+        }
+        .prose img {
+            border-radius: 0.75rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-gray-900 antialiased">
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 w-full z-50 bg-white shadow-sm border-b" id="navbar">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-heart text-white text-sm"></i>
+                        </div>
+                        <span class="ml-3 text-xl font-bold text-gray-900 hidden sm:block">Yayasan Peduli Amal Indonesia</span>
+                        <span class="ml-3 text-xl font-bold text-gray-900 sm:hidden">YPAI</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                    <a href="index.html#about" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                    <a href="charity-list.html" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Programs</a>
+                    <a href="articles.html" class="text-green-600 px-3 py-2 rounded-md text-sm font-medium">Articles</a>
+                    <a href="index.html#contact" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+                    <a href="login.html" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Login</a>
+                    
+                    <!-- Language Switch Dropdown -->
+                    <div class="relative group">
+                        <button class="language-switch-btn flex items-center space-x-2 text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <img src="https://flagcdn.com/w20/id.png" alt="Indonesia" class="w-5 h-4 rounded-sm" id="current-lang-flag-guest">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2">
+                                <button onclick="switchLanguage('en')" class="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+                                    <img src="https://flagcdn.com/w20/us.png" alt="English" class="w-5 h-4 rounded-sm mr-3">
+                                    English
+                                </button>
+                                <button onclick="switchLanguage('id')" class="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+                                    <img src="https://flagcdn.com/w20/id.png" alt="Indonesia" class="w-5 h-4 rounded-sm mr-3">
+                                    Indonesia
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-green-600 p-2 rounded-md transition-colors">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Sidebar -->
+    <div id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-80 bg-white shadow-xl transform -translate-x-full transition-all duration-300 ease-in-out lg:hidden border-r border-gray-100">
+        <!-- Sidebar Header -->
+        <div class="flex items-center justify-between h-16 px-6 border-b border-gray-100">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-heart text-white text-sm"></i>
+                </div>
+                <span class="text-lg font-semibold text-gray-900">YPAI</span>
+            </div>
+            <button id="mobile-sidebar-close" class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                <i class="fas fa-times text-gray-500 hover:text-gray-700"></i>
+            </button>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <div class="p-6">
+            <!-- Main Navigation -->
+            <nav class="space-y-1">
+                <a href="index.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors">
+                    <i class="fas fa-home w-5 h-5 mr-3 text-gray-400"></i>
+                    Home
+                </a>
+                <a href="index.html#about" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors">
+                    <i class="fas fa-info-circle w-5 h-5 mr-3 text-gray-400"></i>
+                    About
+                </a>
+                <a href="charity-list.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors">
+                    <i class="fas fa-heart w-5 h-5 mr-3 text-gray-400"></i>
+                    Programs
+                </a>
+                <a href="articles.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-green-600 rounded-lg bg-green-50">
+                    <i class="fas fa-newspaper w-5 h-5 mr-3 text-green-600"></i>
+                    Articles
+                </a>
+                <a href="index.html#contact" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors">
+                    <i class="fas fa-envelope w-5 h-5 mr-3 text-gray-400"></i>
+                    Contact
+                </a>
+            </nav>
+            
+            <!-- Login Section -->
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <a href="login.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors">
+                    <i class="fas fa-sign-in-alt w-5 h-5 mr-3 text-gray-400"></i>
+                    Login
+                </a>
+            </div>
+            
+            <!-- Language Switcher -->
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Language</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="switchLanguage('id')" class="flex items-center justify-center px-3 py-2 text-xs font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <img src="https://flagcdn.com/w20/id.png" alt="Indonesia" class="w-4 h-3 mr-2">
+                        ID
+                    </button>
+                    <button onclick="switchLanguage('en')" class="flex items-center justify-center px-3 py-2 text-xs font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <img src="https://flagcdn.com/w20/us.png" alt="English" class="w-4 h-3 mr-2">
+                        EN
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="mobile-sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+
+    <!-- Article Hero Section -->
+    <section class="pt-24 pb-12 bg-gradient-to-br from-gray-50 to-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <!-- Breadcrumb -->
+            <nav class="mb-8 animate-fade-in">
+                <ol class="flex items-center space-x-2 text-sm text-gray-600">
+                    <li><a href="index.html" class="hover:text-primary transition-colors">Home</a></li>
+                    <li><i class="fas fa-chevron-right text-xs"></i></li>
+                    <li><a href="articles.html" class="hover:text-primary transition-colors">Articles</a></li>
+                    <li><i class="fas fa-chevron-right text-xs"></i></li>
+                    <li class="text-gray-900 font-medium">Article Detail</li>
+                </ol>
+            </nav>
+
+            <!-- Article Meta -->
+            <div class="mb-8 animate-slide-up">
+                <div class="flex items-center space-x-4 mb-4">
+                    <span class="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">Success Stories</span>
+                    <span class="text-sm text-gray-500">5 min read</span>
+                    <span class="text-sm text-gray-500">•</span>
+                    <span class="text-sm text-gray-500">Published 2 days ago</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold text-secondary mb-6 leading-tight">
+                    How Education Transformed Sarah's Life: A Journey from Rural Village to University
+                </h1>
+                <p class="text-xl text-gray-600 leading-relaxed mb-8">
+                    Discover the inspiring story of Sarah, a young woman from a remote village who overcame countless obstacles to pursue her dream of becoming a teacher, thanks to Yayasan Peduli Amal Indonesia's education programs.
+                </p>
+                
+                <!-- Author Info -->
+                <div class="flex items-center space-x-4">
+                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                         alt="Author" class="w-12 h-12 rounded-full object-cover">
+                    <div>
+                        <div class="font-semibold text-secondary">Maria Rodriguez</div>
+                        <div class="text-sm text-gray-600">Program Coordinator, Yayasan Peduli Amal Indonesia</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
+                <!-- Main Content -->
+                <div class="lg:col-span-3">
+                    <!-- Featured Image -->
+                    <div class="mb-12 animate-fade-in">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                             alt="Students in classroom" 
+                             class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-xl">
+                    </div>
+
+                    <!-- Article Body -->
+                    <article class="prose prose-lg max-w-none animate-slide-up">
+                        <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                            In the heart of a remote village in rural Indonesia, where access to quality education was once a distant dream, Sarah's story began. Born into a family of farmers, she faced numerous challenges that would have deterred most from pursuing their educational aspirations. However, with the support of Yayasan Peduli Amal Indonesia's education programs, Sarah's life took a remarkable turn that would inspire countless others in her community.
+                        </p>
+
+                        <h2>The Early Challenges</h2>
+                        <p>
+                            Sarah's journey was not without its obstacles. Growing up in a village where the nearest school was a two-hour walk away, she often had to choose between helping her family with farm work and attending classes. The lack of proper school supplies, textbooks, and qualified teachers made learning an uphill battle. Many of her peers dropped out of school to help support their families, but Sarah remained determined.
+                        </p>
+
+                        <p>
+                            "I remember walking to school in the rain, carrying my books in a plastic bag because I couldn't afford a proper backpack," Sarah recalls. "But I knew that education was my only way out of poverty and my chance to help my community."
+                        </p>
+
+                        <h2>Yayasan Peduli Amal Indonesia's Intervention</h2>
+                        <p>
+                            When Yayasan Peduli Amal Indonesia launched its "Education for All" program in Sarah's region, everything changed. The program provided not only school supplies and textbooks but also teacher training, infrastructure improvements, and scholarship opportunities for promising students like Sarah.
+                        </p>
+
+                        <blockquote>
+                            "Yayasan Peduli Amal Indonesia didn't just give us books and supplies – they gave us hope. They showed us that our dreams were valid and achievable, no matter where we came from."
+                        </blockquote>
+
+                        <p>
+                            The foundation's comprehensive approach addressed multiple barriers to education. They built new classrooms, provided transportation assistance, and implemented innovative teaching methods that made learning more engaging and effective. Most importantly, they created a support system that encouraged students to stay in school and pursue higher education.
+                        </p>
+
+                        <h2>The Transformation</h2>
+                        <p>
+                            With the support of Yayasan Peduli Amal Indonesia, Sarah's academic performance improved dramatically. She became one of the top students in her class and was selected for a scholarship program that would eventually lead her to university. Her success story inspired other students in her village to take their education more seriously.
+                        </p>
+
+                        <p>
+                            "Seeing Sarah succeed gave us all hope," says her younger brother, who is now also benefiting from the foundation's programs. "If she could do it, so could we."
+                        </p>
+
+                        <h2>Giving Back to the Community</h2>
+                        <p>
+                            Today, Sarah is studying to become a teacher at a prestigious university, with plans to return to her village to teach the next generation. She volunteers with Yayasan Peduli Amal Indonesia during her breaks, sharing her story and encouraging other students to pursue their dreams.
+                        </p>
+
+                        <p>
+                            "I want to be the teacher I never had growing up," Sarah says. "I want to show these children that their circumstances don't define their future – their determination does."
+                        </p>
+
+                        <h2>The Ripple Effect</h2>
+                        <p>
+                            Sarah's story is just one of many that demonstrate the transformative power of education. Since Yayasan Peduli Amal Indonesia began its work in her region, school enrollment has increased by 40%, and the number of students pursuing higher education has tripled. The foundation's programs have created a ripple effect that extends far beyond individual success stories.
+                        </p>
+
+                        <p>
+                            "Every child we help is a potential leader, innovator, or change-maker," says Maria Rodriguez, Program Coordinator at Yayasan Peduli Amal Indonesia. "Sarah's story reminds us why we do what we do – because education is the most powerful tool for breaking the cycle of poverty and creating lasting change."
+                        </p>
+
+                        <h2>How You Can Help</h2>
+                        <p>
+                            Stories like Sarah's are made possible by the generous support of donors and volunteers who believe in the power of education. Your contribution, no matter how small, can help us reach more children and create more success stories.
+                        </p>
+
+                        <p>
+                            Whether you choose to sponsor a student, donate school supplies, or volunteer your time, you're investing in the future of children who, like Sarah, have the potential to change their communities and the world.
+                        </p>
+                    </article>
+
+                    <!-- Article Tags -->
+                    <div class="mt-12 pt-8 border-t border-gray-200">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Tags</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-primary hover:text-white transition-colors cursor-pointer">Education</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-primary hover:text-white transition-colors cursor-pointer">Success Stories</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-primary hover:text-white transition-colors cursor-pointer">Rural Development</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-primary hover:text-white transition-colors cursor-pointer">Women Empowerment</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-primary hover:text-white transition-colors cursor-pointer">Scholarships</span>
+                        </div>
+                    </div>
+
+                    <!-- Share Buttons -->
+                    <div class="mt-8 pt-8 border-t border-gray-200">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Share this article</h3>
+                        <div class="flex space-x-4">
+                            <button class="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                                <i class="fab fa-facebook-f"></i>
+                                <span>Facebook</span>
+                            </button>
+                            <button class="flex items-center space-x-2 px-4 py-2 bg-blue-400 text-white rounded-lg hover:bg-blue-500 transition-colors">
+                                <i class="fab fa-twitter"></i>
+                                <span>Twitter</span>
+                            </button>
+                            <button class="flex items-center space-x-2 px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors">
+                                <i class="fab fa-linkedin-in"></i>
+                                <span>LinkedIn</span>
+                            </button>
+                            <button class="flex items-center space-x-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-link"></i>
+                                <span>Copy Link</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <!-- Author Card -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 animate-slide-up">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">About the Author</h3>
+                        <div class="flex items-center space-x-4 mb-4">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                                 alt="Author" class="w-16 h-16 rounded-full object-cover">
+                            <div>
+                                <div class="font-semibold text-secondary">Maria Rodriguez</div>
+                                <div class="text-sm text-gray-600">Program Coordinator</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Maria has been working with Yayasan Peduli Amal Indonesia for over 5 years, focusing on education programs in rural communities. She has witnessed countless success stories like Sarah's and is passionate about creating opportunities for underprivileged children.
+                        </p>
+                        <div class="flex space-x-2">
+                            <a href="#" class="text-primary hover:text-emerald-600 transition-colors">
+                                <i class="fab fa-twitter text-lg"></i>
+                            </a>
+                            <a href="#" class="text-primary hover:text-emerald-600 transition-colors">
+                                <i class="fab fa-linkedin-in text-lg"></i>
+                            </a>
+                            <a href="#" class="text-primary hover:text-emerald-600 transition-colors">
+                                <i class="fab fa-facebook-f text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Related Articles -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 animate-slide-up">
+                        <h3 class="text-lg font-semibold text-secondary mb-4">Related Articles</h3>
+                        <div class="space-y-4">
+                            <div class="flex space-x-3">
+                                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                                     alt="Article" class="w-16 h-16 rounded-lg object-cover">
+                                <div>
+                                    <h4 class="font-semibold text-secondary text-sm mb-1">Building Schools in Remote Areas</h4>
+                                    <p class="text-xs text-gray-600">How we're bringing education to the most isolated communities</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-3">
+                                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                                     alt="Article" class="w-16 h-16 rounded-lg object-cover">
+                                <div>
+                                    <h4 class="font-semibold text-secondary text-sm mb-1">Teacher Training Programs</h4>
+                                    <p class="text-xs text-gray-600">Empowering educators to make a lasting impact</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-3">
+                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                                     alt="Article" class="w-16 h-16 rounded-lg object-cover">
+                                <div>
+                                    <h4 class="font-semibold text-secondary text-sm mb-1">Digital Learning Initiatives</h4>
+                                    <p class="text-xs text-gray-600">Bridging the digital divide in education</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Signup -->
+                    <div class="bg-gradient-to-br from-primary to-emerald-600 rounded-2xl p-6 text-white animate-slide-up">
+                        <h3 class="text-lg font-semibold mb-2">Stay Updated</h3>
+                        <p class="text-sm text-white/90 mb-4">Get the latest stories and updates from Yayasan Peduli Amal Indonesia</p>
+                        <form class="space-y-3">
+                            <input type="email" 
+                                   placeholder="Enter your email" 
+                                   class="w-full px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/20">
+                            <button type="submit" 
+                                    class="w-full bg-white text-primary py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comments Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="bg-white rounded-2xl shadow-lg p-8 animate-fade-in">
+                <h3 class="text-2xl font-semibold text-secondary mb-8">Comments (12)</h3>
+                
+                <!-- Comment Form -->
+                <div class="mb-8 p-6 bg-gray-50 rounded-xl">
+                    <h4 class="font-semibold text-secondary mb-4">Leave a comment</h4>
+                    <form class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" placeholder="Your name" class="px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none">
+                            <input type="email" placeholder="Your email" class="px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none">
+                        </div>
+                        <textarea placeholder="Your comment" rows="4" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none"></textarea>
+                        <button type="submit" class="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-600 transition-colors">
+                            Post Comment
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Comments List -->
+                <div class="space-y-6">
+                    <div class="flex space-x-4">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                             alt="User" class="w-10 h-10 rounded-full object-cover">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="font-semibold text-secondary">John Smith</span>
+                                <span class="text-sm text-gray-500">2 hours ago</span>
+                            </div>
+                            <p class="text-gray-700">This is such an inspiring story! It's amazing to see how education can transform lives. Keep up the great work, Yayasan Peduli Amal Indonesia!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                             alt="User" class="w-10 h-10 rounded-full object-cover">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="font-semibold text-secondary">Emily Johnson</span>
+                                <span class="text-sm text-gray-500">5 hours ago</span>
+                            </div>
+                            <p class="text-gray-700">Sarah's determination is truly admirable. Stories like this remind us why supporting education is so important. Thank you for sharing!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                             alt="User" class="w-10 h-10 rounded-full object-cover">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="font-semibold text-secondary">Michael Brown</span>
+                                <span class="text-sm text-gray-500">1 day ago</span>
+                            </div>
+                            <p class="text-gray-700">As a teacher myself, I can relate to Sarah's passion for education. It's wonderful to see organizations like Yayasan Peduli Amal Indonesia making such a difference in students' lives.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Articles Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12 animate-fade-in">
+                <h2 class="text-3xl font-bold text-secondary mb-4">More Stories</h2>
+                <p class="text-gray-600">Discover more inspiring stories from our community</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 animate-slide-up">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Article" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="px-2 py-1 bg-primary/10 text-primary text-xs font-medium rounded">Education</span>
+                            <span class="text-xs text-gray-500">3 min read</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-secondary mb-2">Building Schools in Remote Areas</h3>
+                        <p class="text-gray-600 text-sm mb-4">How we're bringing education to the most isolated communities around the world.</p>
+                        <div class="flex items-center space-x-2 text-sm text-gray-500">
+                            <span>Maria Rodriguez</span>
+                            <span>•</span>
+                            <span>2 days ago</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 animate-slide-up" style="animation-delay: 0.1s;">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Article" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs font-medium rounded">Healthcare</span>
+                            <span class="text-xs text-gray-500">4 min read</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-secondary mb-2">Mobile Health Clinics Reach Remote Villages</h3>
+                        <p class="text-gray-600 text-sm mb-4">Bringing essential healthcare services to communities that have never had access before.</p>
+                        <div class="flex items-center space-x-2 text-sm text-gray-500">
+                            <span>Dr. Sarah Wilson</span>
+                            <span>•</span>
+                            <span>1 week ago</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 animate-slide-up" style="animation-delay: 0.2s;">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Article" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="px-2 py-1 bg-green-100 text-green-600 text-xs font-medium rounded">Technology</span>
+                            <span class="text-xs text-gray-500">5 min read</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-secondary mb-2">Digital Learning Initiatives</h3>
+                        <p class="text-gray-600 text-sm mb-4">How technology is helping us bridge the digital divide in education across developing countries.</p>
+                        <div class="flex items-center space-x-2 text-sm text-gray-500">
+                            <span>Tech Team</span>
+                            <span>•</span>
+                            <span>3 days ago</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-16">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                            <i class="fas fa-heart text-white text-sm"></i>
+                        </div>
+                        <span class="text-xl font-semibold">Yayasan Peduli Amal Indonesia</span>
+                    </div>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Making hope happen through education, healthcare, housing, and food security programs. Together, we can create lasting change in communities worldwide.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Programs</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Education</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Healthcare</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Housing</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Food Security</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Emergency Relief</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Get Involved</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Donate</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Volunteer</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Partner</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2024 Yayasan Peduli Amal Indonesia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        document.querySelectorAll('.animate-fade-in, .animate-slide-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile sidebar toggle
+        function toggleMobileSidebar() {
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            const mobileSidebarOverlay = document.getElementById('mobile-sidebar-overlay');
+            
+            if (!mobileSidebar || !mobileSidebarOverlay) {
+                return;
+            }
+            
+            if (mobileSidebar.classList.contains('-translate-x-full')) {
+                mobileSidebar.classList.remove('-translate-x-full');
+                mobileSidebarOverlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileSidebar.classList.add('-translate-x-full');
+                mobileSidebarOverlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close mobile sidebar
+        function closeMobileSidebar() {
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            const mobileSidebarOverlay = document.getElementById('mobile-sidebar-overlay');
+            
+            if (mobileSidebar && mobileSidebarOverlay) {
+                mobileSidebar.classList.add('-translate-x-full');
+                mobileSidebarOverlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Language switch function
+        function switchLanguage(lang) {
+            // Update language flags in navbar buttons
+            const guestLangFlag = document.getElementById('current-lang-flag-guest');
+            const userLangFlag = document.getElementById('current-lang-flag-user');
+            
+            if (guestLangFlag) {
+                if (lang === 'en') {
+                    guestLangFlag.src = 'https://flagcdn.com/w20/us.png';
+                    guestLangFlag.alt = 'English';
+                } else {
+                    guestLangFlag.src = 'https://flagcdn.com/w20/id.png';
+                    guestLangFlag.alt = 'Indonesia';
+                }
+            }
+            
+            if (userLangFlag) {
+                if (lang === 'en') {
+                    userLangFlag.src = 'https://flagcdn.com/w20/us.png';
+                    userLangFlag.alt = 'English';
+                } else {
+                    userLangFlag.src = 'https://flagcdn.com/w20/id.png';
+                    userLangFlag.alt = 'Indonesia';
+                }
+            }
+            
+            // Store language preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Initialize navbar on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved language preference
+            const savedLang = localStorage.getItem('preferredLanguage') || 'id';
+            switchLanguage(savedLang);
+            
+            // Mobile sidebar event listeners
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileSidebarClose = document.getElementById('mobile-sidebar-close');
+            const mobileSidebarOverlay = document.getElementById('mobile-sidebar-overlay');
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileSidebar);
+            }
+            
+            if (mobileSidebarClose) {
+                mobileSidebarClose.addEventListener('click', closeMobileSidebar);
+            }
+            
+            if (mobileSidebarOverlay) {
+                mobileSidebarOverlay.addEventListener('click', closeMobileSidebar);
+            }
+            
+            // Close mobile sidebar when clicking outside
+            document.addEventListener('click', function(e) {
+                const mobileSidebar = document.getElementById('mobile-sidebar');
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                
+                if (mobileSidebar && !mobileSidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    if (!mobileSidebar.classList.contains('-translate-x-full')) {
+                        closeMobileSidebar();
+                    }
+                }
+            });
+        });
+        
+        // Close mobile sidebar when clicking any navigation link
+        document.querySelectorAll('#mobile-sidebar a').forEach(link => {
+            link.addEventListener('click', function() {
+                closeMobileSidebar();
+            });
+        });
+    </script>
+</body>
+</html>

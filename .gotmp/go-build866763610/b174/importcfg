@@ -1,0 +1,9 @@
+# import config
+importmap golang.org/x/crypto/cryptobyte/asn1=vendor/golang.org/x/crypto/cryptobyte/asn1
+packagefile encoding/asn1=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b175\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile vendor/golang.org/x/crypto/cryptobyte/asn1=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b177\_pkg_.a
+packagefile math/big=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b167\_pkg_.a
+packagefile reflect=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b065\_pkg_.a
+packagefile time=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b054\_pkg_.a

@@ -1,0 +1,6 @@
+# import config
+packagefile crypto/internal/fips140/pbkdf2=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b302\_pkg_.a
+packagefile crypto/internal/fips140hash=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b172\_pkg_.a
+packagefile crypto/internal/fips140only=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b125\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile hash=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b124\_pkg_.a

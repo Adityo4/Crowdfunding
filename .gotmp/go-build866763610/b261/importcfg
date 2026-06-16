@@ -1,0 +1,6 @@
+# import config
+packagefile golang.org/x/net/idna=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b262\_pkg_.a
+packagefile net=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b097\_pkg_.a
+packagefile net/textproto=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b232\_pkg_.a
+packagefile strings=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b074\_pkg_.a
+packagefile unicode/utf8=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b050\_pkg_.a

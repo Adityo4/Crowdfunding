@@ -1,0 +1,5 @@
+# import config
+packagefile golang.org/x/sys/windows=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b095\_pkg_.a
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b052\_pkg_.a
+packagefile os=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b003\_pkg_.a
+packagefile runtime=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b010\_pkg_.a

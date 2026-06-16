@@ -1,0 +1,12 @@
+# import config
+packagefile backend/internal/config=d:\laragon\skripsi\Crowdfunding\.gocache\0e\0e59362f72646dd1f3c46b4475f6b47a08445380bde636637b177b360c09b00f-d
+packagefile backend/internal/database=d:\laragon\skripsi\Crowdfunding\.gocache\73\73caf24f08b541efd4c3d60763eed2101bf23481250cdca1fc05bc585cdb7141-d
+packagefile backend/internal/handler=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build4251700609\b331\_pkg_.a
+packagefile backend/internal/middleware=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build4251700609\b431\_pkg_.a
+packagefile backend/internal/repository=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build4251700609\b334\_pkg_.a
+packagefile backend/internal/service=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build4251700609\b333\_pkg_.a
+packagefile github.com/charmbracelet/log=d:\laragon\skripsi\Crowdfunding\.gocache\eb\eb4024b46c0ee17cd01e8cb7a933e7890a49089f347deb43537f34f7f46a961a-d
+packagefile github.com/gin-gonic/gin=d:\laragon\skripsi\Crowdfunding\.gocache\2a\2a6187a3d9d2e816a2ebc6f4886cd9068f2d21f013487622a2c6d04c4f901f33-d
+packagefile net/http=d:\laragon\skripsi\Crowdfunding\.gocache\b9\b96d3659cae533e43427206ded2fed528c2bb67a98ed30ec80fbe0a12269d974-d
+packagefile time=d:\laragon\skripsi\Crowdfunding\.gocache\6b\6b6b728fcd59a2ea84a13cc62c224b99a029c57c84a63b33792fc34160437768-d
+packagefile runtime=d:\laragon\skripsi\Crowdfunding\.gocache\c6\c68c1df726da3f3e04dbf7af34addaa5367a09c425515a338069b4693cace785-d

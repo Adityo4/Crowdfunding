@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Charity - Yayasan Peduli Amal Indonesia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="js/translations.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#059669',
+                        secondary: '#0f172a',
+                        accent: '#f8fafc'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .gradient-text {
+            background: linear-gradient(135deg, #059669, #0f172a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-900 antialiased">
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 w-full z-50 bg-white shadow-sm border-b" id="navbar">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-heart text-white text-sm"></i>
+                        </div>
+                        <span class="ml-3 text-xl font-bold text-gray-900 hidden sm:block">Yayasan Peduli Amal Indonesia</span>
+                        <span class="ml-3 text-xl font-bold text-gray-900 sm:hidden">YPAI</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                    <a href="charity-list.html" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Programs</a>
+                    <a href="articles.html" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Articles</a>
+                    <a href="create-charity.html" class="text-green-600 px-3 py-2 rounded-md text-sm font-medium">Create Charity</a>
+                    <a href="login.html" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Login</a>
+                    
+                    <!-- Language Switch Dropdown -->
+                    <div class="relative group">
+                        <button class="language-switch-btn flex items-center space-x-2 text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <img src="https://flagcdn.com/w20/id.png" alt="Indonesia" class="w-5 h-4 rounded-sm" id="current-lang-flag-guest">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2">
+                                <button onclick="switchLanguage('en')" class="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+                                    <img src="https://flagcdn.com/w20/us.png" alt="English" class="w-5 h-4 rounded-sm mr-3">
+                                    English
+                                </button>
+                                <button onclick="switchLanguage('id')" class="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+                                    <img src="https://flagcdn.com/w20/id.png" alt="Indonesia" class="w-5 h-4 rounded-sm mr-3">
+                                    Indonesia
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-green-600 p-2 rounded-md transition-colors">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Sidebar -->
+    <div id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-80 bg-white shadow-xl transform -translate-x-full transition-all duration-300 ease-in-out lg:hidden border-r border-gray-100">
+        <!-- Sidebar Header -->
+        <div class="flex items-center justify-between h-16 px-6 border-b border-gray-100">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-heart text-white text-sm"></i>
+                </div>
+                <span class="text-lg font-semibold text-gray-900">YPAI</span>
+            </div>
+            <button id="mobile-sidebar-close" class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                <i class="fas fa-times text-gray-500 hover:text-gray-700"></i>
+            </button>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <div class="p-6">
+            <!-- Main Navigation -->
+            <nav class="space-y-1">
+                <a href="index.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors">
+                    <i class="fas fa-home w-5 h-5 mr-3 text-gray-400"></i>
+                    Home
+                </a>
+                <a href="charity-list.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors">
+                    <i class="fas fa-heart w-5 h-5 mr-3 text-gray-400"></i>
+                    Programs
+                </a>
+                <a href="articles.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors">
+                    <i class="fas fa-newspaper w-5 h-5 mr-3 text-gray-400"></i>
+                    Articles
+                </a>
+                <a href="create-charity.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-green-600 rounded-lg bg-green-50">
+                    <i class="fas fa-plus-circle w-5 h-5 mr-3 text-green-600"></i>
+                    Create Charity
+                </a>
+            </nav>
+            
+            <!-- Login Section -->
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <a href="login.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors">
+                    <i class="fas fa-sign-in-alt w-5 h-5 mr-3 text-gray-400"></i>
+                    Login
+                </a>
+            </div>
+            
+            <!-- Language Switcher -->
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Language</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="switchLanguage('id')" class="flex items-center justify-center px-3 py-2 text-xs font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <img src="https://flagcdn.com/w20/id.png" alt="Indonesia" class="w-4 h-3 mr-2">
+                        ID
+                    </button>
+                    <button onclick="switchLanguage('en')" class="flex items-center justify-center px-3 py-2 text-xs font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <img src="https://flagcdn.com/w20/us.png" alt="English" class="w-4 h-3 mr-2">
+                        EN
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="mobile-sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+
+    <!-- Main Content -->
+    <main class="pt-20">
+        <div class="max-w-4xl mx-auto px-6 py-8">
+            <!-- Header Section -->
+            <div class="text-center mb-8 animate-fade-in">
+                <h1 class="text-4xl font-bold text-gray-800 mb-4">Create New Charity</h1>
+                <p class="text-lg text-gray-600">Start a new fundraising campaign to help those in need</p>
+            </div>
+
+            <!-- Form Section -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 animate-slide-up">
+                <form id="charity-form" class="space-y-6">
+                    <!-- Basic Information -->
+                    <div class="space-y-6">
+                        <h2 class="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-3">Basic Information</h2>
+                        
+                        <!-- Charity Title -->
+                        <div>
+                            <label for="charity-title" class="block text-sm font-medium text-gray-700 mb-2">Charity Title *</label>
+                            <input type="text" id="charity-title" name="title" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                                   placeholder="Enter charity title">
+                        </div>
+
+                        <!-- Description -->
+                        <div>
+                            <label for="charity-description" class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+                            <textarea id="charity-description" name="description" rows="4" required
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                                      placeholder="Describe your charity campaign"></textarea>
+                        </div>
+
+                        <!-- Category -->
+                        <div>
+                            <label for="charity-category" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+                            <select id="charity-category" name="category" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300">
+                                <option value="">Select category</option>
+                                <option value="education">Education</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="housing">Housing</option>
+                                <option value="food">Food Security</option>
+                                <option value="emergency">Emergency Relief</option>
+                                <option value="environment">Environment</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Financial Goals -->
+                    <div class="space-y-6">
+                        <h2 class="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-3">Financial Goals</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Target Amount -->
+                            <div>
+                                <label for="target-amount" class="block text-sm font-medium text-gray-700 mb-2">Target Amount (IDR) *</label>
+                                <input type="number" id="target-amount" name="targetAmount" required min="100000"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                                       placeholder="10000000">
+                            </div>
+
+                            <!-- Current Amount -->
+                            <div>
+                                <label for="current-amount" class="block text-sm font-medium text-gray-700 mb-2">Current Amount (IDR)</label>
+                                <input type="number" id="current-amount" name="currentAmount" min="0"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                                       placeholder="0" value="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Time Goals -->
+                    <div class="space-y-6">
+                        <h2 class="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-3">Time Goals</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Start Date -->
+                            <div>
+                                <label for="start-date" class="block text-sm font-medium text-gray-700 mb-2">Campaign Start Date *</label>
+                                <input type="date" id="start-date" name="startDate" required
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300">
+                            </div>
+
+                            <!-- End Date -->
+                            <div>
+                                <label for="end-date" class="block text-sm font-medium text-gray-700 mb-2">Campaign End Date *</label>
+                                <input type="date" id="end-date" name="endDate" required
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300">
+                                <div id="days-left-display" class="mt-2 text-sm text-gray-600 hidden">
+                                    <i class="fas fa-clock mr-1"></i>
+                                    <span id="days-left-text">0 days left</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Media -->
+                    <div class="space-y-6">
+                        <h2 class="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-3">Media</h2>
+                        
+                        <!-- Cover Image -->
+                        <div>
+                            <label for="cover-image" class="block text-sm font-medium text-gray-700 mb-2">Cover Image *</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-green-400 transition-colors duration-300">
+                                <input type="file" id="cover-image" name="coverImage" accept="image/*" required class="hidden">
+                                <label for="cover-image" class="cursor-pointer">
+                                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                                    <p class="text-gray-600">Click to upload cover image</p>
+                                    <p class="text-sm text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Additional Images -->
+                        <div>
+                            <label for="additional-images" class="block text-sm font-medium text-gray-700 mb-2">Additional Images</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-green-400 transition-colors duration-300">
+                                <input type="file" id="additional-images" name="additionalImages" accept="image/*" multiple class="hidden">
+                                <label for="additional-images" class="cursor-pointer">
+                                    <i class="fas fa-images text-4xl text-gray-400 mb-4"></i>
+                                    <p class="text-gray-600">Click to upload additional images</p>
+                                    <p class="text-sm text-gray-500">PNG, JPG, GIF up to 10MB each</p>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="space-y-6">
+                        <h2 class="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-3">Contact Information</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Contact Person -->
+                            <div>
+                                <label for="contact-person" class="block text-sm font-medium text-gray-700 mb-2">Contact Person *</label>
+                                <input type="text" id="contact-person" name="contactPerson" required
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                                       placeholder="Your full name">
+                            </div>
+
+                            <!-- Email -->
+                            <div>
+                                <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                                <input type="email" id="contact-email" name="contactEmail" required
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                                       placeholder="your@email.com">
+                            </div>
+
+                            <!-- Phone -->
+                            <div>
+                                <label for="contact-phone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" id="contact-phone" name="contactPhone"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                                       placeholder="+62 812 3456 7890">
+                            </div>
+
+                            <!-- Organization -->
+                            <div>
+                                <label for="organization" class="block text-sm font-medium text-gray-700 mb-2">Organization (Optional)</label>
+                                <input type="text" id="organization" name="organization"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                                       placeholder="Organization name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <input type="checkbox" id="terms" name="terms" required
+                                   class="mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
+                            <label for="terms" class="ml-3 text-sm text-gray-700">
+                                I agree to the <a href="#" class="text-green-600 hover:text-green-700 underline">Terms and Conditions</a> and <a href="#" class="text-green-600 hover:text-green-700 underline">Privacy Policy</a>
+                            </label>
+                        </div>
+
+                        <div class="flex items-start">
+                            <input type="checkbox" id="verification" name="verification" required
+                                   class="mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
+                            <label for="verification" class="ml-3 text-sm text-gray-700">
+                                I verify that all information provided is accurate and I am authorized to create this charity campaign
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                        <button type="button" onclick="saveDraft()" 
+                                class="flex-1 bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-all duration-300">
+                            <i class="fas fa-save mr-2"></i>Save as Draft
+                        </button>
+                        <button type="submit" 
+                                class="flex-1 bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+                            <i class="fas fa-rocket mr-2"></i>Create Charity Campaign
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 animate-slide-up">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check text-green-600 text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Campaign Created!</h3>
+                <p class="text-gray-600 mb-6">Your charity campaign has been successfully created and is now live.</p>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="closeSuccessModal()" 
+                            class="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-all duration-300">
+                        Close
+                    </button>
+                    <button onclick="viewCampaign()" 
+                            class="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-700 transition-all duration-300">
+                        View Campaign
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set default start date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('start-date').value = today;
+            
+            // Set default end date to 30 days from today
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() + 30);
+            document.getElementById('end-date').value = endDate.toISOString().split('T')[0];
+            
+            // Calculate days left
+            calculateDaysLeft();
+        });
+
+        // Calculate days left
+        function calculateDaysLeft() {
+            const endDate = document.getElementById('end-date').value;
+            if (!endDate) return;
+            
+            const today = new Date();
+            const end = new Date(endDate);
+            const timeDiff = end.getTime() - today.getTime();
+            const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            
+            const daysLeftDisplay = document.getElementById('days-left-display');
+            const daysLeftText = document.getElementById('days-left-text');
+            
+            if (daysLeft > 0) {
+                daysLeftDisplay.classList.remove('hidden');
+                daysLeftText.textContent = `${daysLeft} days left`;
+                daysLeftText.className = daysLeftText.className.replace(/text-(red|yellow|green)-600/, 'text-green-600');
+            } else if (daysLeft === 0) {
+                daysLeftDisplay.classList.remove('hidden');
+                daysLeftText.textContent = 'Last day!';
+                daysLeftText.className = daysLeftText.className.replace(/text-(red|yellow|green)-600/, 'text-yellow-600');
+            } else {
+                daysLeftDisplay.classList.remove('hidden');
+                daysLeftText.textContent = 'Campaign ended';
+                daysLeftText.className = daysLeftText.className.replace(/text-(red|yellow|green)-600/, 'text-red-600');
+            }
+        }
+
+        // Add event listener for end date change
+        document.getElementById('end-date').addEventListener('change', calculateDaysLeft);
+
+        // Form submission
+        document.getElementById('charity-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const charityData = Object.fromEntries(formData.entries());
+            
+            // Add calculated fields
+            charityData.daysLeft = calculateDaysLeft();
+            charityData.createdAt = new Date().toISOString();
+            charityData.status = 'active';
+            charityData.progress = Math.round((parseInt(charityData.currentAmount) / parseInt(charityData.targetAmount)) * 100);
+            
+            // Simulate API call
+            console.log('Creating charity campaign:', charityData);
+            
+            // Show success modal
+            document.getElementById('success-modal').classList.remove('hidden');
+        });
+
+        // Save as draft
+        function saveDraft() {
+            const formData = new FormData(document.getElementById('charity-form'));
+            const charityData = Object.fromEntries(formData.entries());
+            charityData.status = 'draft';
+            charityData.createdAt = new Date().toISOString();
+            
+            console.log('Saving draft:', charityData);
+            alert('Draft saved successfully!');
+        }
+
+        // Close success modal
+        function closeSuccessModal() {
+            document.getElementById('success-modal').classList.add('hidden');
+        }
+
+        // View campaign
+        function viewCampaign() {
+            window.location.href = 'charity-detail.html';
+        }
+
+        // Language switch function
+        function switchLanguage(lang) {
+            const langFlag = document.getElementById('current-lang-flag');
+            
+            if (langFlag) {
+                if (lang === 'en') {
+                    langFlag.src = 'https://flagcdn.com/w20/us.png';
+                    langFlag.alt = 'English';
+                } else {
+                    langFlag.src = 'https://flagcdn.com/w20/id.png';
+                    langFlag.alt = 'Indonesia';
+                }
+            }
+            
+            localStorage.setItem('language', lang);
+            updatePageLanguage(lang);
+            
+            const message = lang === 'en' ? 'Language switched to English' : 'Bahasa diubah ke Indonesia';
+            showNotification(message);
+        }
+
+        // Update page language content
+        function updatePageLanguage(lang) {
+            document.documentElement.lang = lang;
+            const body = document.body;
+            if (lang === 'en') {
+                body.setAttribute('data-lang', 'en');
+            } else {
+                body.setAttribute('data-lang', 'id');
+            }
+        }
+
+        // Show notification
+        function showNotification(message) {
+            let notification = document.getElementById('notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.id = 'notification';
+                notification.className = 'fixed top-20 right-6 z-50 bg-white rounded-lg shadow-lg p-4 border-l-4 border-green-500 opacity-0 transform translate-x-full transition-all duration-300';
+                document.body.appendChild(notification);
+            }
+            
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            notification.classList.remove('opacity-0', 'translate-x-full');
+            notification.classList.add('opacity-100', 'translate-x-0');
+            
+            setTimeout(() => {
+                notification.classList.remove('opacity-100', 'translate-x-0');
+                notification.classList.add('opacity-0', 'translate-x-full');
+            }, 3000);
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            // Mobile menu functionality can be added here
+        }
+
+        // Mobile sidebar toggle
+        function toggleMobileSidebar() {
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            const mobileSidebarOverlay = document.getElementById('mobile-sidebar-overlay');
+            
+            if (!mobileSidebar || !mobileSidebarOverlay) {
+                return;
+            }
+            
+            if (mobileSidebar.classList.contains('-translate-x-full')) {
+                mobileSidebar.classList.remove('-translate-x-full');
+                mobileSidebarOverlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileSidebar.classList.add('-translate-x-full');
+                mobileSidebarOverlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close mobile sidebar
+        function closeMobileSidebar() {
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            const mobileSidebarOverlay = document.getElementById('mobile-sidebar-overlay');
+            
+            if (mobileSidebar && mobileSidebarOverlay) {
+                mobileSidebar.classList.add('-translate-x-full');
+                mobileSidebarOverlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Language switch function
+        function switchLanguage(lang) {
+            // Update language flags in navbar buttons
+            const guestLangFlag = document.getElementById('current-lang-flag-guest');
+            const userLangFlag = document.getElementById('current-lang-flag-user');
+            
+            if (guestLangFlag) {
+                if (lang === 'en') {
+                    guestLangFlag.src = 'https://flagcdn.com/w20/us.png';
+                    guestLangFlag.alt = 'English';
+                } else {
+                    guestLangFlag.src = 'https://flagcdn.com/w20/id.png';
+                    guestLangFlag.alt = 'Indonesia';
+                }
+            }
+            
+            if (userLangFlag) {
+                if (lang === 'en') {
+                    userLangFlag.src = 'https://flagcdn.com/w20/us.png';
+                    userLangFlag.alt = 'English';
+                } else {
+                    userLangFlag.src = 'https://flagcdn.com/w20/id.png';
+                    userLangFlag.alt = 'Indonesia';
+                }
+            }
+            
+            // Store language preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Initialize navbar on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved language preference
+            const savedLang = localStorage.getItem('preferredLanguage') || 'id';
+            switchLanguage(savedLang);
+            
+            // Mobile sidebar event listeners
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileSidebarClose = document.getElementById('mobile-sidebar-close');
+            const mobileSidebarOverlay = document.getElementById('mobile-sidebar-overlay');
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileSidebar);
+            }
+            
+            if (mobileSidebarClose) {
+                mobileSidebarClose.addEventListener('click', closeMobileSidebar);
+            }
+            
+            if (mobileSidebarOverlay) {
+                mobileSidebarOverlay.addEventListener('click', closeMobileSidebar);
+            }
+            
+            // Close mobile sidebar when clicking outside
+            document.addEventListener('click', function(e) {
+                const mobileSidebar = document.getElementById('mobile-sidebar');
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                
+                if (mobileSidebar && !mobileSidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    if (!mobileSidebar.classList.contains('-translate-x-full')) {
+                        closeMobileSidebar();
+                    }
+                }
+            });
+        });
+        
+        // Close mobile sidebar when clicking any navigation link
+        document.querySelectorAll('#mobile-sidebar a').forEach(link => {
+            link.addEventListener('click', function() {
+                closeMobileSidebar();
+            });
+        });
+    </script>
+</body>
+</html>

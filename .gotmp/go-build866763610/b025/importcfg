@@ -1,0 +1,8 @@
+# import config
+packagefile internal/abi=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b006\_pkg_.a
+packagefile internal/asan=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b026\_pkg_.a
+packagefile internal/goarch=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b007\_pkg_.a
+packagefile internal/msan=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b027\_pkg_.a
+packagefile internal/race=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b028\_pkg_.a
+packagefile internal/runtime/math=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b029\_pkg_.a
+packagefile internal/runtime/sys=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b024\_pkg_.a

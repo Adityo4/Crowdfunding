@@ -1,0 +1,6 @@
+# import config
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b052\_pkg_.a
+packagefile io/fs=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b051\_pkg_.a
+packagefile os=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b003\_pkg_.a
+packagefile slices=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b046\_pkg_.a
+packagefile strings=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b074\_pkg_.a

@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Yayasan Peduli Amal Indonesia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#059669',
+                        secondary: '#0f172a',
+                        accent: '#f8fafc'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'slide-left': 'slideLeft 0.3s ease-out',
+                        'slide-right': 'slideRight 0.3s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                        'gradient-x': 'gradient-x 3s ease infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(20px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        slideRight: {
+                            '0%': { opacity: '0', transform: 'translateX(-20px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        'gradient-x': {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .gradient-text {
+            background: linear-gradient(135deg, #059669, #0f172a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .sidebar-item {
+            transition: all 0.3s ease;
+        }
+        .sidebar-item:hover {
+            background-color: #f0fdf4;
+            color: #059669;
+        }
+        .sidebar-item.active {
+            background-color: #dcfce7;
+            color: #059669;
+            border-right: 3px solid #059669;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+        }
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Dropdown Component Styles */
+        .dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            z-index: 1000;
+            min-width: 240px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            color: #374151;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f9fafb;
+            color: #059669;
+            transform: translateX(4px);
+        }
+        
+        .dropdown-item.danger:hover {
+            background-color: #fef2f2;
+            color: #dc2626;
+        }
+        
+        .dropdown-item.success:hover {
+            background-color: #f0fdf4;
+            color: #059669;
+        }
+        
+        .dropdown-item.warning:hover {
+            background-color: #fffbeb;
+            color: #d97706;
+        }
+        
+        .dropdown-item.info:hover {
+            background-color: #eff6ff;
+            color: #2563eb;
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: #e5e7eb;
+            margin: 8px 0;
+        }
+        
+        .dropdown-header {
+            padding: 12px 16px 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .dropdown-badge {
+            margin-left: auto;
+            padding: 2px 8px;
+            background-color: #f3f4f6;
+            color: #6b7280;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        
+        .dropdown-badge.primary {
+            background-color: #dcfce7;
+            color: #059669;
+        }
+        
+        .dropdown-badge.danger {
+            background-color: #fef2f2;
+            color: #dc2626;
+        }
+        
+        .dropdown-badge.warning {
+            background-color: #fffbeb;
+            color: #d97706;
+        }
+        
+        .dropdown-badge.info {
+            background-color: #eff6ff;
+            color: #2563eb;
+        }
+        
+        .dropdown-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+            border: 2px solid #f3f4f6;
+        }
+        
+        .dropdown-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            color: #6b7280;
+            transition: color 0.2s ease;
+        }
+        
+        .dropdown-item:hover .dropdown-icon {
+            color: inherit;
+        }
+        
+        .dropdown-arrow {
+            position: absolute;
+            top: -6px;
+            right: 20px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transform: rotate(45deg);
+            border-bottom: none;
+            border-right: none;
+        }
+        
+        /* Rich Text Editor Styles */
+        .rich-text-editor {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: white;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .rich-text-editor:focus-within {
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+        }
+        
+        .editor-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 12px 16px;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+            gap: 8px;
+        }
+        
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding-right: 12px;
+            border-right: 1px solid #e5e7eb;
+        }
+        
+        .toolbar-group:last-child {
+            border-right: none;
+            padding-right: 0;
+        }
+        
+        .toolbar-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            color: #6b7280;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+        
+        .toolbar-btn:hover {
+            background: #e5e7eb;
+            color: #374151;
+        }
+        
+        .toolbar-btn.active {
+            background: #059669;
+            color: white;
+        }
+        
+        .toolbar-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .toolbar-select {
+            padding: 6px 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+            color: #374151;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .toolbar-select:focus {
+            outline: none;
+            border-color: #059669;
+            box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.1);
+        }
+        
+        .editor-content {
+            min-height: 200px;
+            padding: 16px;
+            outline: none;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #374151;
+        }
+        
+        .editor-content:empty:before {
+            content: attr(data-placeholder);
+            color: #9ca3af;
+            font-style: italic;
+        }
+        
+        .editor-content h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 16px 0 8px 0;
+            color: #111827;
+        }
+        
+        .editor-content h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 14px 0 6px 0;
+            color: #111827;
+        }
+        
+        .editor-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 12px 0 4px 0;
+            color: #111827;
+        }
+        
+        .editor-content p {
+            margin: 8px 0;
+        }
+        
+        .editor-content ul, .editor-content ol {
+            margin: 8px 0;
+            padding-left: 24px;
+        }
+        
+        .editor-content li {
+            margin: 4px 0;
+        }
+        
+        .editor-content blockquote {
+            border-left: 4px solid #059669;
+            padding-left: 16px;
+            margin: 16px 0;
+            font-style: italic;
+            color: #6b7280;
+        }
+        
+        .editor-content code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        
+        .editor-content pre {
+            background: #f3f4f6;
+            padding: 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 12px 0;
+        }
+        
+        .editor-content a {
+            color: #059669;
+            text-decoration: underline;
+        }
+        
+        .editor-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            margin: 8px 0;
+        }
+        
+        .editor-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            font-size: 12px;
+            color: #6b7280;
+        }
+        
+        .word-count {
+            font-weight: 500;
+        }
+        
+        .editor-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-btn {
+            padding: 4px 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            background: white;
+            color: #6b7280;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .action-btn:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        
+        .action-btn.primary {
+            background: #059669;
+            color: white;
+            border-color: #059669;
+        }
+        
+        .action-btn.primary:hover {
+            background: #047857;
+        }
+        
+        .editor-tab-btn {
+            background: transparent;
+            color: #6b7280;
+        }
+        
+        .editor-tab-btn.active {
+            background: white;
+            color: #059669;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .editor-demo {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-900 antialiased">
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 w-full z-50 transition-all duration-500 bg-white/95 backdrop-blur-md shadow-sm" id="navbar">
+        <nav class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <a href="index.html" class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center transform hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-heart text-white text-sm"></i>
+                        </div>
+                        <span class="text-xl font-semibold text-secondary">Yayasan Peduli Amal Indonesia</span>
+                    </a>
+                </div>
+                
+                <!-- Admin Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-primary transition-colors duration-300 font-medium">Home</a>
+                    <a href="charity-list.html" class="text-gray-600 hover:text-primary transition-colors duration-300 font-medium">Programs</a>
+                    <a href="articles.html" class="text-gray-600 hover:text-primary transition-colors duration-300 font-medium">Articles</a>
+                    <a href="admin-dashboard.html" class="text-primary font-medium">
+                        <i class="fas fa-crown mr-1"></i>Admin Panel
+                    </a>
+                    <div class="dropdown-container">
+                        <button onclick="toggleDropdown('adminProfileDropdown')" class="flex items-center space-x-2 text-gray-600 hover:text-primary transition-colors duration-300 font-medium px-3 py-2 rounded-lg hover:bg-gray-50">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=32&q=80" 
+                                 alt="Admin Avatar" class="w-8 h-8 rounded-full object-cover border-2 border-primary/20">
+                            <span>Admin User</span>
+                            <i class="fas fa-crown text-yellow-500 text-xs"></i>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <!-- Enhanced Dropdown Menu -->
+                        <div id="adminProfileDropdown" class="dropdown-menu">
+                            <div class="dropdown-arrow"></div>
+                            <div class="dropdown-header">Administration</div>
+                            <a href="#" class="dropdown-item">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=32&q=80" 
+                                     alt="Admin Avatar" class="dropdown-avatar">
+                                <div>
+                                    <div class="font-medium">Admin User</div>
+                                    <div class="text-sm text-gray-500">admin@yayasanpeduli.org</div>
+                                </div>
+                                <span class="dropdown-badge danger">Admin</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="admin-dashboard.html" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt dropdown-icon"></i>
+                                Dashboard
+                            </a>
+                            <a href="admin-dashboard.html#programs" class="dropdown-item">
+                                <i class="fas fa-hands-helping dropdown-icon"></i>
+                                Manage Programs
+                            </a>
+                            <a href="admin-dashboard.html#users" class="dropdown-item">
+                                <i class="fas fa-users dropdown-icon"></i>
+                                Manage Users
+                            </a>
+                            <a href="admin-dashboard.html#donations" class="dropdown-item">
+                                <i class="fas fa-heart dropdown-icon"></i>
+                                Donations
+                            </a>
+                            <a href="admin-dashboard.html#reports" class="dropdown-item">
+                                <i class="fas fa-chart-bar dropdown-icon"></i>
+                                Reports
+                            </a>
+                            <a href="admin-dashboard.html#settings" class="dropdown-item">
+                                <i class="fas fa-cog dropdown-icon"></i>
+                                Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user dropdown-icon"></i>
+                                Profile Settings
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-bell dropdown-icon"></i>
+                                Notifications
+                                <span class="dropdown-badge primary">3</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" onclick="logout()" class="dropdown-item danger">
+                                <i class="fas fa-sign-out-alt dropdown-icon"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-600 hover:text-primary transition-colors duration-300">
+                    <i class="fas fa-bars text-lg"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Dashboard Container -->
+    <div class="pt-20 min-h-screen">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 sticky top-24">
+                        <!-- Admin Profile Card -->
+                        <div class="text-center mb-8 animate-fade-in">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" 
+                                 alt="Admin Avatar" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+                            <h3 class="text-lg font-semibold text-secondary mb-1">Admin User</h3>
+                            <p class="text-sm text-gray-600 mb-4">admin@yayasanpeduli.org</p>
+                            <div class="flex items-center justify-center space-x-2">
+                                <span class="px-2 py-1 bg-red-100 text-red-600 text-xs font-medium rounded-full">Administrator</span>
+                                <i class="fas fa-crown text-yellow-500"></i>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Menu -->
+                        <nav class="space-y-2">
+                            <button onclick="showTab('overview')" class="sidebar-item w-full text-left px-4 py-3 rounded-lg flex items-center space-x-3 active" id="overviewTab">
+                                <i class="fas fa-chart-pie w-5"></i>
+                                <span>Overview</span>
+                            </button>
+                            <button onclick="showTab('programs')" class="sidebar-item w-full text-left px-4 py-3 rounded-lg flex items-center space-x-3" id="programsTab">
+                                <i class="fas fa-hands-helping w-5"></i>
+                                <span>Manage Programs</span>
+                            </button>
+                            <button onclick="showTab('users')" class="sidebar-item w-full text-left px-4 py-3 rounded-lg flex items-center space-x-3" id="usersTab">
+                                <i class="fas fa-users w-5"></i>
+                                <span>Manage Users</span>
+                            </button>
+                            <button onclick="showTab('donations')" class="sidebar-item w-full text-left px-4 py-3 rounded-lg flex items-center space-x-3" id="donationsTab">
+                                <i class="fas fa-heart w-5"></i>
+                                <span>Donations</span>
+                            </button>
+                            <button onclick="showTab('reports')" class="sidebar-item w-full text-left px-4 py-3 rounded-lg flex items-center space-x-3" id="reportsTab">
+                                <i class="fas fa-chart-bar w-5"></i>
+                                <span>Reports</span>
+                            </button>
+                            
+                            <!-- Components Section -->
+                            <div class="mt-6">
+                                <div class="flex items-center justify-between px-4 py-2">
+                                    <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Components</span>
+                                    <i class="fas fa-chevron-down text-xs text-gray-400" id="componentsArrow"></i>
+                                </div>
+                                <div class="mt-2 space-y-1" id="componentsSubmenu">
+                                    <button onclick="showTab('richTextEditor')" class="sidebar-item w-full text-left px-4 py-2 rounded-lg flex items-center space-x-3 text-sm" id="richTextEditorTab">
+                                        <i class="fas fa-edit w-4"></i>
+                                        <span>Rich Text Editor</span>
+                                    </button>
+                                    <button onclick="showTab('formComponents')" class="sidebar-item w-full text-left px-4 py-2 rounded-lg flex items-center space-x-3 text-sm" id="formComponentsTab">
+                                        <i class="fas fa-wpforms w-4"></i>
+                                        <span>Form Components</span>
+                                    </button>
+                                    <button onclick="showTab('uiComponents')" class="sidebar-item w-full text-left px-4 py-2 rounded-lg flex items-center space-x-3 text-sm" id="uiComponentsTab">
+                                        <i class="fas fa-puzzle-piece w-4"></i>
+                                        <span>UI Components</span>
+                                    </button>
+                                    <button onclick="showTab('dataComponents')" class="sidebar-item w-full text-left px-4 py-2 rounded-lg flex items-center space-x-3 text-sm" id="dataComponentsTab">
+                                        <i class="fas fa-database w-4"></i>
+                                        <span>Data Components</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <button onclick="showTab('settings')" class="sidebar-item w-full text-left px-4 py-3 rounded-lg flex items-center space-x-3" id="settingsTab">
+                                <i class="fas fa-cog w-5"></i>
+                                <span>Settings</span>
+                            </button>
+                        </nav>
+
+                        <!-- Logout Button -->
+                        <div class="mt-8 pt-6 border-t border-gray-200">
+                            <button onclick="logout()" class="w-full text-left px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg flex items-center space-x-3 transition-colors">
+                                <i class="fas fa-sign-out-alt w-5"></i>
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="lg:col-span-3">
+                    <!-- Overview Tab -->
+                    <div id="overview" class="tab-content active">
+                        <!-- Welcome Section -->
+                        <div class="bg-gradient-to-r from-primary to-emerald-600 rounded-2xl p-8 text-white mb-8 animate-fade-in">
+                            <h1 class="text-3xl font-bold mb-2">Welcome back, Admin!</h1>
+                            <p class="text-white/90 mb-6">Here's what's happening with your foundation and programs.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <i class="fas fa-hands-helping text-2xl"></i>
+                                        <span class="text-2xl font-bold">12</span>
+                                    </div>
+                                    <p class="text-sm text-white/80">Active Programs</p>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <i class="fas fa-heart text-2xl"></i>
+                                        <span class="text-2xl font-bold">$45,230</span>
+                                    </div>
+                                    <p class="text-sm text-white/80">Total Donations</p>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <i class="fas fa-users text-2xl"></i>
+                                        <span class="text-2xl font-bold">1,256</span>
+                                    </div>
+                                    <p class="text-sm text-white/80">Total Users</p>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <i class="fas fa-chart-line text-2xl"></i>
+                                        <span class="text-2xl font-bold">+15%</span>
+                                    </div>
+                                    <p class="text-sm text-white/80">Growth Rate</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 animate-slide-up">
+                            <h2 class="text-2xl font-bold text-secondary mb-6">Recent Activity</h2>
+                            <div class="space-y-4">
+                                <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl">
+                                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-plus text-primary"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold text-secondary">New Program Created</h3>
+                                        <p class="text-sm text-gray-600">Education Program - Rural Schools • 2 hours ago</p>
+                                    </div>
+                                    <span class="text-green-600 font-semibold">Active</span>
+                                </div>
+                                <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-user-plus text-blue-600"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold text-secondary">New User Registration</h3>
+                                        <p class="text-sm text-gray-600">John Smith registered • 4 hours ago</p>
+                                    </div>
+                                    <span class="text-blue-600 font-semibold">Verified</span>
+                                </div>
+                                <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl">
+                                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-heart text-green-600"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold text-secondary">New Donation Received</h3>
+                                        <p class="text-sm text-gray-600">$500 donation to Healthcare Program • 6 hours ago</p>
+                                    </div>
+                                    <span class="text-green-600 font-semibold">Processed</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 animate-slide-up">
+                            <div class="bg-white rounded-2xl shadow-lg p-8">
+                                <h3 class="text-xl font-bold text-secondary mb-6">Quick Actions</h3>
+                                <div class="space-y-4">
+                                    <button onclick="showTab('programs')" class="w-full flex items-center space-x-3 p-4 bg-primary/10 text-primary rounded-xl hover:bg-primary/20 transition-colors">
+                                        <i class="fas fa-plus w-5"></i>
+                                        <span>Create New Program</span>
+                                    </button>
+                                    <button onclick="showTab('users')" class="w-full flex items-center space-x-3 p-4 bg-blue-100 text-blue-600 rounded-xl hover:bg-blue-200 transition-colors">
+                                        <i class="fas fa-user-plus w-5"></i>
+                                        <span>Add New User</span>
+                                    </button>
+                                    <button onclick="showTab('reports')" class="w-full flex items-center space-x-3 p-4 bg-green-100 text-green-600 rounded-xl hover:bg-green-200 transition-colors">
+                                        <i class="fas fa-chart-bar w-5"></i>
+                                        <span>Generate Report</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-2xl shadow-lg p-8">
+                                <h3 class="text-xl font-bold text-secondary mb-6">Program Status</h3>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">Active Programs</span>
+                                        <span class="font-semibold text-secondary">12</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">Draft Programs</span>
+                                        <span class="font-semibold text-secondary">3</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">Completed Programs</span>
+                                        <span class="font-semibold text-secondary">8</span>
+                                    </div>
+                                    <div class="border-t border-gray-200 pt-4">
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-semibold text-secondary">Total Programs</span>
+                                            <span class="text-2xl font-bold text-primary">23</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Programs Tab -->
+                    <div id="programs" class="tab-content">
+                        <div class="bg-white rounded-2xl shadow-lg p-8 animate-fade-in">
+                            <div class="flex justify-between items-center mb-8">
+                                <h2 class="text-2xl font-bold text-secondary">Manage Programs</h2>
+                                <button onclick="openCreateProgramModal()" class="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-600 transition-colors">
+                                    <i class="fas fa-plus mr-2"></i>Create New Program
+                                </button>
+                            </div>
+
+                            <!-- Programs List -->
+                            <div class="space-y-6">
+                                <div class="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center space-x-4">
+                                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                                                 alt="Program" class="w-16 h-16 rounded-lg object-cover">
+                                            <div>
+                                                <h3 class="text-lg font-semibold text-secondary">Education Program - Rural Schools</h3>
+                                                <p class="text-gray-600">Providing quality education to rural communities</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="px-3 py-1 bg-green-100 text-green-600 text-sm font-medium rounded-full">Active</span>
+                                            <div class="dropdown-container">
+                                                <button onclick="toggleDropdown('programActions1')" class="flex items-center space-x-1 px-3 py-1 text-gray-600 hover:text-primary transition-colors duration-200 rounded-lg hover:bg-gray-50">
+                                                    <i class="fas fa-ellipsis-v text-sm"></i>
+                                                </button>
+                                                <div id="programActions1" class="dropdown-menu">
+                                                    <div class="dropdown-arrow"></div>
+                                                    <a href="#" class="dropdown-item success">
+                                                        <i class="fas fa-play dropdown-icon"></i>
+                                                        Activate
+                                                    </a>
+                                                    <a href="#" class="dropdown-item warning">
+                                                        <i class="fas fa-pause dropdown-icon"></i>
+                                                        Pause
+                                                    </a>
+                                                    <a href="#" class="dropdown-item">
+                                                        <i class="fas fa-edit dropdown-icon"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a href="#" class="dropdown-item info">
+                                                        <i class="fas fa-copy dropdown-icon"></i>
+                                                        Duplicate
+                                                    </a>
+                                                    <a href="#" class="dropdown-item">
+                                                        <i class="fas fa-chart-line dropdown-icon"></i>
+                                                        Analytics
+                                                    </a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a href="#" class="dropdown-item danger">
+                                                        <i class="fas fa-trash dropdown-icon"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-4 text-sm">
+                                        <div>
+                                            <span class="text-gray-600">Target:</span>
+                                            <span class="font-semibold">$50,000</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-gray-600">Raised:</span>
+                                            <span class="font-semibold">$32,500</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-gray-600">Donors:</span>
+                                            <span class="font-semibold">156</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center space-x-4">
+                                            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                                                 alt="Program" class="w-16 h-16 rounded-lg object-cover">
+                                            <div>
+                                                <h3 class="text-lg font-semibold text-secondary">Healthcare Initiative</h3>
+                                                <p class="text-gray-600">Mobile healthcare services for remote areas</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="px-3 py-1 bg-blue-100 text-blue-600 text-sm font-medium rounded-full">Draft</span>
+                                            <div class="dropdown-container">
+                                                <button onclick="toggleDropdown('programActions2')" class="flex items-center space-x-1 px-3 py-1 text-gray-600 hover:text-primary transition-colors duration-200 rounded-lg hover:bg-gray-50">
+                                                    <i class="fas fa-ellipsis-v text-sm"></i>
+                                                </button>
+                                                <div id="programActions2" class="dropdown-menu">
+                                                    <div class="dropdown-arrow"></div>
+                                                    <a href="#" class="dropdown-item success">
+                                                        <i class="fas fa-play dropdown-icon"></i>
+                                                        Publish
+                                                    </a>
+                                                    <a href="#" class="dropdown-item">
+                                                        <i class="fas fa-edit dropdown-icon"></i>
+                                                        Edit
+                                                    </a>
+                                                    <a href="#" class="dropdown-item info">
+                                                        <i class="fas fa-eye dropdown-icon"></i>
+                                                        Preview
+                                                    </a>
+                                                    <a href="#" class="dropdown-item">
+                                                        <i class="fas fa-copy dropdown-icon"></i>
+                                                        Duplicate
+                                                    </a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a href="#" class="dropdown-item danger">
+                                                        <i class="fas fa-trash dropdown-icon"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-4 text-sm">
+                                        <div>
+                                            <span class="text-gray-600">Target:</span>
+                                            <span class="font-semibold">$75,000</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-gray-600">Raised:</span>
+                                            <span class="font-semibold">$0</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-gray-600">Donors:</span>
+                                            <span class="font-semibold">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Users Tab -->
+                    <div id="users" class="tab-content">
+                        <div class="bg-white rounded-2xl shadow-lg p-8 animate-fade-in">
+                            <div class="flex justify-between items-center mb-8">
+                                <h2 class="text-2xl font-bold text-secondary">Manage Users</h2>
+                                <button class="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-600 transition-colors">
+                                    <i class="fas fa-user-plus mr-2"></i>Add New User
+                                </button>
+                            </div>
+
+                            <!-- Users Table -->
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="border-b border-gray-200">
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-700">User</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Email</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Role</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b border-gray-100">
+                                            <td class="py-3 px-4">
+                                                <div class="flex items-center space-x-3">
+                                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=40&q=80" 
+                                                         alt="User" class="w-8 h-8 rounded-full object-cover">
+                                                    <span class="font-medium">John Smith</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-4 text-gray-600">john.smith@email.com</td>
+                                            <td class="py-3 px-4">
+                                                <span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs font-medium rounded-full">User</span>
+                                            </td>
+                                            <td class="py-3 px-4">
+                                                <span class="px-2 py-1 bg-green-100 text-green-600 text-xs font-medium rounded-full">Active</span>
+                                            </td>
+                                            <td class="py-3 px-4">
+                                                <button class="text-primary hover:text-emerald-600 font-medium mr-3">Edit</button>
+                                                <button class="text-red-600 hover:text-red-700 font-medium">Delete</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="border-b border-gray-100">
+                                            <td class="py-3 px-4">
+                                                <div class="flex items-center space-x-3">
+                                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=40&q=80" 
+                                                         alt="User" class="w-8 h-8 rounded-full object-cover">
+                                                    <span class="font-medium">Maria Rodriguez</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-4 text-gray-600">maria.rodriguez@email.com</td>
+                                            <td class="py-3 px-4">
+                                                <span class="px-2 py-1 bg-red-100 text-red-600 text-xs font-medium rounded-full">Admin</span>
+                                            </td>
+                                            <td class="py-3 px-4">
+                                                <span class="px-2 py-1 bg-green-100 text-green-600 text-xs font-medium rounded-full">Active</span>
+                                            </td>
+                                            <td class="py-3 px-4">
+                                                <button class="text-primary hover:text-emerald-600 font-medium mr-3">Edit</button>
+                                                <button class="text-red-600 hover:text-red-700 font-medium">Delete</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Donations Tab -->
+                    <div id="donations" class="tab-content">
+                        <div class="bg-white rounded-2xl shadow-lg p-8 animate-fade-in">
+                            <h2 class="text-2xl font-bold text-secondary mb-8">Donation Management</h2>
+                            
+                            <!-- Donations List -->
+                            <div class="space-y-4">
+                                <div class="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <div>
+                                            <h3 class="text-lg font-semibold text-secondary">Education Program - Rural Schools</h3>
+                                            <p class="text-gray-600">Donation from John Smith</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-2xl font-bold text-primary">$100</span>
+                                            <p class="text-sm text-gray-600">March 10, 2024</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="px-3 py-1 bg-green-100 text-green-600 text-sm font-medium rounded-full">Completed</span>
+                                        <button class="text-primary hover:text-emerald-600 font-medium">View Details</button>
+                                    </div>
+                                </div>
+
+                                <div class="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <div>
+                                            <h3 class="text-lg font-semibold text-secondary">Healthcare Initiative</h3>
+                                            <p class="text-gray-600">Monthly recurring donation from Maria Rodriguez</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-2xl font-bold text-primary">$50</span>
+                                            <p class="text-sm text-gray-600">Next: March 20, 2024</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-600 text-sm font-medium rounded-full">Recurring</span>
+                                        <button class="text-primary hover:text-emerald-600 font-medium">Manage</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reports Tab -->
+                    <div id="reports" class="tab-content">
+                        <div class="bg-white rounded-2xl shadow-lg p-8 animate-fade-in">
+                            <h2 class="text-2xl font-bold text-secondary mb-8">Reports & Analytics</h2>
+                            
+                            <!-- Report Cards -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="border border-gray-200 rounded-xl p-6">
+                                    <h3 class="text-lg font-semibold text-secondary mb-4">Monthly Donations</h3>
+                                    <div class="h-32 bg-gray-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-gray-500">Chart Placeholder</span>
+                                    </div>
+                                </div>
+                                <div class="border border-gray-200 rounded-xl p-6">
+                                    <h3 class="text-lg font-semibold text-secondary mb-4">Program Performance</h3>
+                                    <div class="h-32 bg-gray-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-gray-500">Chart Placeholder</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rich Text Editor Tab -->
+                    <div id="richTextEditor" class="tab-content">
+                        <div class="bg-white rounded-2xl shadow-lg p-8 animate-fade-in">
+                            <h2 class="text-2xl font-bold text-secondary mb-8">Rich Text Editor Components</h2>
+                            
+                            <!-- Editor Demo Tabs -->
+                            <div class="mb-8">
+                                <div class="flex space-x-1 bg-gray-100 p-1 rounded-lg">
+                                    <button onclick="showEditorDemo('basic')" class="editor-tab-btn px-4 py-2 rounded-md text-sm font-medium transition-colors active" id="basicTab">
+                                        Basic Editor
+                                    </button>
+                                    <button onclick="showEditorDemo('advanced')" class="editor-tab-btn px-4 py-2 rounded-md text-sm font-medium transition-colors" id="advancedTab">
+                                        Advanced Editor
+                                    </button>
+                                    <button onclick="showEditorDemo('charity')" class="editor-tab-btn px-4 py-2 rounded-md text-sm font-medium transition-colors" id="charityTab">
+                                        Charity Description
+                                    </button>
+                                    <button onclick="showEditorDemo('article')" class="editor-tab-btn px-4 py-2 rounded-md text-sm font-medium transition-colors" id="articleTab">
+                                        Article Content
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Basic Editor Demo -->
+                            <div id="basicEditorDemo" class="editor-demo">
+                                <h3 class="text-lg font-semibold text-secondary mb-4">Basic Rich Text Editor</h3>
+                                <div class="form-group">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                                    <div class="rich-text-editor">
+                                        <div class="editor-toolbar">
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="formatText('bold')" title="Bold">
+                                                    <i class="fas fa-bold"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('italic')" title="Italic">
+                                                    <i class="fas fa-italic"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('underline')" title="Underline">
+                                                    <i class="fas fa-underline"></i>
+                                                </button>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="formatText('insertUnorderedList')" title="Bullet List">
+                                                    <i class="fas fa-list-ul"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('insertOrderedList')" title="Numbered List">
+                                                    <i class="fas fa-list-ol"></i>
+                                                </button>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="formatText('justifyLeft')" title="Align Left">
+                                                    <i class="fas fa-align-left"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('justifyCenter')" title="Align Center">
+                                                    <i class="fas fa-align-center"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('justifyRight')" title="Align Right">
+                                                    <i class="fas fa-align-right"></i>
+                                                </button>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="formatText('undo')" title="Undo">
+                                                    <i class="fas fa-undo"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('redo')" title="Redo">
+                                                    <i class="fas fa-redo"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="editor-content" contenteditable="true" data-placeholder="Start typing your description here..."></div>
+                                        <div class="editor-footer">
+                                            <span class="word-count">Words: <span id="wordCount">0</span></span>
+                                            <div class="editor-actions">
+                                                <button class="action-btn" onclick="clearEditor()">Clear</button>
+                                                <button class="action-btn primary" onclick="saveContent()">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Advanced Editor Demo -->
+                            <div id="advancedEditorDemo" class="editor-demo" style="display: none;">
+                                <h3 class="text-lg font-semibold text-secondary mb-4">Advanced Rich Text Editor</h3>
+                                <div class="form-group">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Advanced Content</label>
+                                    <div class="rich-text-editor">
+                                        <div class="editor-toolbar">
+                                            <div class="toolbar-group">
+                                                <select class="toolbar-select" onchange="formatText('formatBlock', this.value)">
+                                                    <option value="p">Paragraph</option>
+                                                    <option value="h1">Heading 1</option>
+                                                    <option value="h2">Heading 2</option>
+                                                    <option value="h3">Heading 3</option>
+                                                </select>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="formatText('bold')" title="Bold">
+                                                    <i class="fas fa-bold"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('italic')" title="Italic">
+                                                    <i class="fas fa-italic"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('underline')" title="Underline">
+                                                    <i class="fas fa-underline"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('strikeThrough')" title="Strikethrough">
+                                                    <i class="fas fa-strikethrough"></i>
+                                                </button>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="formatText('foreColor', '#059669')" title="Text Color">
+                                                    <i class="fas fa-palette"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('backColor', '#f0fdf4')" title="Background Color">
+                                                    <i class="fas fa-highlighter"></i>
+                                                </button>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="formatText('insertUnorderedList')" title="Bullet List">
+                                                    <i class="fas fa-list-ul"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('insertOrderedList')" title="Numbered List">
+                                                    <i class="fas fa-list-ol"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('outdent')" title="Decrease Indent">
+                                                    <i class="fas fa-outdent"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('indent')" title="Increase Indent">
+                                                    <i class="fas fa-indent"></i>
+                                                </button>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="insertLink()" title="Insert Link">
+                                                    <i class="fas fa-link"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="insertImage()" title="Insert Image">
+                                                    <i class="fas fa-image"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('insertHorizontalRule')" title="Horizontal Rule">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="formatText('undo')" title="Undo">
+                                                    <i class="fas fa-undo"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('redo')" title="Redo">
+                                                    <i class="fas fa-redo"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="editor-content" contenteditable="true" data-placeholder="Start typing your advanced content here..."></div>
+                                        <div class="editor-footer">
+                                            <span class="word-count">Words: <span id="wordCount2">0</span></span>
+                                            <div class="editor-actions">
+                                                <button class="action-btn" onclick="clearEditor()">Clear</button>
+                                                <button class="action-btn" onclick="previewContent()">Preview</button>
+                                                <button class="action-btn primary" onclick="saveContent()">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Charity Editor Demo -->
+                            <div id="charityEditorDemo" class="editor-demo" style="display: none;">
+                                <h3 class="text-lg font-semibold text-secondary mb-4">Charity Program Description Editor</h3>
+                                <div class="form-group">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Program Title</label>
+                                    <input type="text" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none" placeholder="Enter program title" value="Education for All - Rural Schools Initiative">
+                                </div>
+                                <div class="form-group">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Program Description</label>
+                                    <div class="rich-text-editor">
+                                        <div class="editor-toolbar">
+                                            <div class="toolbar-group">
+                                                <select class="toolbar-select" onchange="formatText('formatBlock', this.value)">
+                                                    <option value="p">Paragraph</option>
+                                                    <option value="h1">Heading 1</option>
+                                                    <option value="h2">Heading 2</option>
+                                                    <option value="h3">Heading 3</option>
+                                                </select>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="formatText('bold')" title="Bold">
+                                                    <i class="fas fa-bold"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('italic')" title="Italic">
+                                                    <i class="fas fa-italic"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('underline')" title="Underline">
+                                                    <i class="fas fa-underline"></i>
+                                                </button>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="formatText('insertUnorderedList')" title="Bullet List">
+                                                    <i class="fas fa-list-ul"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('insertOrderedList')" title="Numbered List">
+                                                    <i class="fas fa-list-ol"></i>
+                                                </button>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="insertLink()" title="Insert Link">
+                                                    <i class="fas fa-link"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="insertImage()" title="Insert Image">
+                                                    <i class="fas fa-image"></i>
+                                                </button>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="formatText('undo')" title="Undo">
+                                                    <i class="fas fa-undo"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('redo')" title="Redo">
+                                                    <i class="fas fa-redo"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="editor-content" contenteditable="true" data-placeholder="Describe your charity program in detail...">
+                                            <h2>About This Program</h2>
+                                            <p>Our <strong>Education for All</strong> initiative aims to provide quality education to children in rural areas who lack access to proper schooling facilities.</p>
+                                            
+                                            <h3>What We Do</h3>
+                                            <ul>
+                                                <li>Build and renovate school buildings</li>
+                                                <li>Provide educational materials and supplies</li>
+                                                <li>Train local teachers</li>
+                                                <li>Support student transportation</li>
+                                            </ul>
+                                            
+                                            <h3>Impact</h3>
+                                            <p>Since 2020, we have helped over <strong>2,500 children</strong> access quality education in 15 rural communities across Indonesia.</p>
+                                            
+                                            <blockquote>
+                                                "Education is the most powerful weapon which you can use to change the world." - Nelson Mandela
+                                            </blockquote>
+                                        </div>
+                                        <div class="editor-footer">
+                                            <span class="word-count">Words: <span id="wordCount3">0</span></span>
+                                            <div class="editor-actions">
+                                                <button class="action-btn" onclick="clearEditor()">Clear</button>
+                                                <button class="action-btn" onclick="previewContent()">Preview</button>
+                                                <button class="action-btn primary" onclick="saveContent()">Save Program</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Article Editor Demo -->
+                            <div id="articleEditorDemo" class="editor-demo" style="display: none;">
+                                <h3 class="text-lg font-semibold text-secondary mb-4">Article Content Editor</h3>
+                                <div class="form-group">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Article Title</label>
+                                    <input type="text" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none" placeholder="Enter article title" value="The Impact of Community Support in Education">
+                                </div>
+                                <div class="form-group">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Article Content</label>
+                                    <div class="rich-text-editor">
+                                        <div class="editor-toolbar">
+                                            <div class="toolbar-group">
+                                                <select class="toolbar-select" onchange="formatText('formatBlock', this.value)">
+                                                    <option value="p">Paragraph</option>
+                                                    <option value="h1">Heading 1</option>
+                                                    <option value="h2">Heading 2</option>
+                                                    <option value="h3">Heading 3</option>
+                                                </select>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="formatText('bold')" title="Bold">
+                                                    <i class="fas fa-bold"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('italic')" title="Italic">
+                                                    <i class="fas fa-italic"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('underline')" title="Underline">
+                                                    <i class="fas fa-underline"></i>
+                                                </button>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="formatText('insertUnorderedList')" title="Bullet List">
+                                                    <i class="fas fa-list-ul"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('insertOrderedList')" title="Numbered List">
+                                                    <i class="fas fa-list-ol"></i>
+                                                </button>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="insertLink()" title="Insert Link">
+                                                    <i class="fas fa-link"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="insertImage()" title="Insert Image">
+                                                    <i class="fas fa-image"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('insertHorizontalRule')" title="Horizontal Rule">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </div>
+                                            <div class="toolbar-group">
+                                                <button class="toolbar-btn" onclick="formatText('undo')" title="Undo">
+                                                    <i class="fas fa-undo"></i>
+                                                </button>
+                                                <button class="toolbar-btn" onclick="formatText('redo')" title="Redo">
+                                                    <i class="fas fa-redo"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="editor-content" contenteditable="true" data-placeholder="Write your article content here...">
+                                            <h1>The Impact of Community Support in Education</h1>
+                                            
+                                            <p>Education is the foundation of a prosperous society, and community support plays a crucial role in ensuring that every child has access to quality learning opportunities.</p>
+                                            
+                                            <h2>Why Community Support Matters</h2>
+                                            
+                                            <p>When communities come together to support education, the results are remarkable. Research shows that schools with strong community involvement have:</p>
+                                            
+                                            <ul>
+                                                <li>Higher student achievement rates</li>
+                                                <li>Better teacher retention</li>
+                                                <li>Improved school facilities</li>
+                                                <li>Increased student engagement</li>
+                                            </ul>
+                                            
+                                            <h2>Success Stories</h2>
+                                            
+                                            <p>In rural areas where resources are limited, community support has transformed educational outcomes. Parents, local businesses, and volunteers work together to:</p>
+                                            
+                                            <ol>
+                                                <li>Provide additional learning materials</li>
+                                                <li>Organize after-school programs</li>
+                                                <li>Support teacher training initiatives</li>
+                                                <li>Create safe learning environments</li>
+                                            </ol>
+                                            
+                                            <blockquote>
+                                                "It takes a village to raise a child, and it takes a community to educate them all."
+                                            </blockquote>
+                                            
+                                            <p>These collaborative efforts demonstrate that when we invest in education together, we create lasting positive change for future generations.</p>
+                                        </div>
+                                        <div class="editor-footer">
+                                            <span class="word-count">Words: <span id="wordCount4">0</span></span>
+                                            <div class="editor-actions">
+                                                <button class="action-btn" onclick="clearEditor()">Clear</button>
+                                                <button class="action-btn" onclick="previewContent()">Preview</button>
+                                                <button class="action-btn primary" onclick="saveContent()">Publish Article</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Tab -->
+                    <div id="settings" class="tab-content">
+                        <div class="bg-white rounded-2xl shadow-lg p-8 animate-fade-in">
+                            <h2 class="text-2xl font-bold text-secondary mb-8">Admin Settings</h2>
+                            
+                            <!-- Settings Form -->
+                            <form class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Foundation Name</label>
+                                        <input type="text" value="Yayasan Peduli Amal Indonesia" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Contact Email</label>
+                                        <input type="email" value="admin@yayasanpeduli.org" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Foundation Description</label>
+                                    <textarea rows="4" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none">Making hope happen through education, healthcare, housing, and food security programs. Together, we can create lasting change in communities worldwide.</textarea>
+                                </div>
+                                <button type="submit" class="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-600 transition-colors">
+                                    Save Settings
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Program Modal -->
+    <div id="createProgramModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-secondary">Create New Program</h3>
+                <button onclick="closeCreateProgramModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <form class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Program Title</label>
+                    <input type="text" placeholder="Enter program title" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    <textarea rows="4" placeholder="Enter program description" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none"></textarea>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Target Amount</label>
+                        <input type="number" placeholder="Enter target amount" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                        <select class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none">
+                            <option>Education</option>
+                            <option>Healthcare</option>
+                            <option>Housing</option>
+                            <option>Food Security</option>
+                            <option>Emergency Relief</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Program Image</label>
+                    <input type="file" accept="image/*" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none">
+                </div>
+                
+                <div class="flex justify-end space-x-4">
+                    <button type="button" onclick="closeCreateProgramModal()" class="px-6 py-3 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                        Cancel
+                    </button>
+                    <button type="submit" class="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-600 transition-colors">
+                        Create Program
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <div class="bg-white rounded-lg shadow-lg p-4 border-l-4 border-primary">
+            <div class="flex items-center">
+                <i class="fas fa-check-circle text-primary mr-3"></i>
+                <span id="notificationMessage">Action completed successfully!</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Check admin role (disabled for testing)
+        function checkAdminRole() {
+            // Role check disabled for testing purposes
+            return true;
+        }
+
+        // Tab switching functionality
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all sidebar items
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            sidebarItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to selected sidebar item
+            document.getElementById(tabName + 'Tab').classList.add('active');
+        }
+
+        // Modal functions
+        function openCreateProgramModal() {
+            document.getElementById('createProgramModal').classList.remove('hidden');
+            document.getElementById('createProgramModal').classList.add('flex');
+        }
+
+        function closeCreateProgramModal() {
+            document.getElementById('createProgramModal').classList.add('hidden');
+            document.getElementById('createProgramModal').classList.remove('flex');
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userData');
+                localStorage.removeItem('userRole');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const messageElement = document.getElementById('notificationMessage');
+            
+            messageElement.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Dropdown toggle functionality
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            const isVisible = dropdown.classList.contains('show');
+            
+            // Close all other dropdowns
+            document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                if (menu.id !== dropdownId) {
+                    menu.classList.remove('show');
+                }
+            });
+            
+            // Toggle current dropdown
+            if (isVisible) {
+                dropdown.classList.remove('show');
+            } else {
+                dropdown.classList.add('show');
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown-container')) {
+                document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+            }
+        });
+
+        // Rich text editor functionality
+        function formatText(command, value = null) {
+            document.execCommand(command, false, value);
+            updateWordCount();
+        }
+
+        function insertLink() {
+            const url = prompt('Enter URL:');
+            if (url) {
+                document.execCommand('createLink', false, url);
+            }
+        }
+
+        function insertImage() {
+            const url = prompt('Enter image URL:');
+            if (url) {
+                document.execCommand('insertImage', false, url);
+            }
+        }
+
+        function clearEditor() {
+            const editor = document.querySelector('.editor-content');
+            editor.innerHTML = '';
+            updateWordCount();
+        }
+
+        function saveContent() {
+            const content = document.querySelector('.editor-content').innerHTML;
+            console.log('Saving content:', content);
+            showNotification('Content saved successfully!');
+        }
+
+        function previewContent() {
+            const content = document.querySelector('.editor-content').innerHTML;
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Content Preview</title>
+                        <style>
+                            body { font-family: Inter, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+                            h1, h2, h3 { color: #111827; }
+                            blockquote { border-left: 4px solid #059669; padding-left: 16px; margin: 16px 0; font-style: italic; color: #6b7280; }
+                        </style>
+                    </head>
+                    <body>${content}</body>
+                </html>
+            `);
+        }
+
+        function updateWordCount() {
+            const editors = document.querySelectorAll('.editor-content');
+            editors.forEach((editor, index) => {
+                const text = editor.textContent || editor.innerText || '';
+                const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+                const wordCountElement = document.getElementById(`wordCount${index === 0 ? '' : index + 1}`);
+                if (wordCountElement) {
+                    wordCountElement.textContent = wordCount;
+                }
+            });
+        }
+
+        function showEditorDemo(demoType) {
+            // Hide all editor demos
+            document.querySelectorAll('.editor-demo').forEach(demo => {
+                demo.style.display = 'none';
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.editor-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected demo
+            document.getElementById(`${demoType}EditorDemo`).style.display = 'block';
+            document.getElementById(`${demoType}Tab`).classList.add('active');
+        }
+
+        // Initialize admin dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Admin role check disabled for testing
+            updateWordCount();
+            
+            // Add event listeners to all editors
+            document.querySelectorAll('.editor-content').forEach(editor => {
+                editor.addEventListener('input', updateWordCount);
+                editor.addEventListener('paste', function() {
+                    setTimeout(updateWordCount, 100);
+                });
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        document.querySelectorAll('.animate-fade-in, .animate-slide-up').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

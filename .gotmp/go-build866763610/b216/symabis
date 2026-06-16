@@ -1,0 +1,5 @@
+def github.com/klauspost/cpuid/v2.asmCpuid ABI0
+def github.com/klauspost/cpuid/v2.asmCpuidex ABI0
+def github.com/klauspost/cpuid/v2.asmXgetbv ABI0
+def github.com/klauspost/cpuid/v2.asmRdtscpAsm ABI0
+def github.com/klauspost/cpuid/v2.asmDarwinHasAVX512 ABI0

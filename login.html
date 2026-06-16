@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Yayasan Peduli Amal Indonesia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#059669',
+                        secondary: '#0f172a'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'float': 'float 3s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .gradient-text {
+            background: linear-gradient(135deg, #059669, #0f172a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-50 to-white font-sans">
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 w-full z-50 bg-white shadow-sm border-b">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-heart text-white text-sm"></i>
+                        </div>
+                        <span class="ml-3 text-xl font-bold text-gray-900 hidden sm:block">Yayasan Peduli Amal Indonesia</span>
+                        <span class="ml-3 text-xl font-bold text-gray-900 sm:hidden">YPAI</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                    <a href="index.html#about" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                    <a href="charity-list.html" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Programs</a>
+                    <a href="articles.html" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Articles</a>
+                    <a href="index.html#contact" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+                    <a href="login.html" class="text-green-600 px-3 py-2 rounded-md text-sm font-medium">Login</a>
+                    
+                    <!-- Language Switch Dropdown -->
+                    <div class="relative group">
+                        <button class="language-switch-btn flex items-center space-x-2 text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <img src="https://flagcdn.com/w20/id.png" alt="Indonesia" class="w-5 h-4 rounded-sm" id="current-lang-flag-guest">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2">
+                                <button onclick="switchLanguage('en')" class="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+                                    <img src="https://flagcdn.com/w20/us.png" alt="English" class="w-5 h-4 rounded-sm mr-3">
+                                    English
+                                </button>
+                                <button onclick="switchLanguage('id')" class="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+                                    <img src="https://flagcdn.com/w20/id.png" alt="Indonesia" class="w-5 h-4 rounded-sm mr-3">
+                                    Indonesia
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-green-600 p-2 rounded-md transition-colors">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Sidebar -->
+    <div id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-80 bg-white shadow-xl transform -translate-x-full transition-all duration-300 ease-in-out lg:hidden border-r border-gray-100">
+        <!-- Sidebar Header -->
+        <div class="flex items-center justify-between h-16 px-6 border-b border-gray-100">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-heart text-white text-sm"></i>
+                </div>
+                <span class="text-lg font-semibold text-gray-900">YPAI</span>
+            </div>
+            <button id="mobile-sidebar-close" class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                <i class="fas fa-times text-gray-500 hover:text-gray-700"></i>
+            </button>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <div class="p-6">
+            <!-- Main Navigation -->
+            <nav class="space-y-1">
+                <a href="index.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors">
+                    <i class="fas fa-home w-5 h-5 mr-3 text-gray-400"></i>
+                    Home
+                </a>
+                <a href="index.html#about" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors">
+                    <i class="fas fa-info-circle w-5 h-5 mr-3 text-gray-400"></i>
+                    About
+                </a>
+                <a href="charity-list.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors">
+                    <i class="fas fa-heart w-5 h-5 mr-3 text-gray-400"></i>
+                    Programs
+                </a>
+                <a href="articles.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors">
+                    <i class="fas fa-newspaper w-5 h-5 mr-3 text-gray-400"></i>
+                    Articles
+                </a>
+                <a href="index.html#contact" class="flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-green-600 transition-colors">
+                    <i class="fas fa-envelope w-5 h-5 mr-3 text-gray-400"></i>
+                    Contact
+                </a>
+            </nav>
+            
+            <!-- Login Section -->
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <a href="login.html" class="flex items-center px-3 py-2.5 text-sm font-medium text-green-600 rounded-lg bg-green-50">
+                    <i class="fas fa-sign-in-alt w-5 h-5 mr-3 text-green-600"></i>
+                    Login
+                </a>
+            </div>
+            
+            <!-- Language Switcher -->
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Language</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="switchLanguage('id')" class="flex items-center justify-center px-3 py-2 text-xs font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <img src="https://flagcdn.com/w20/id.png" alt="Indonesia" class="w-4 h-3 mr-2">
+                        ID
+                    </button>
+                    <button onclick="switchLanguage('en')" class="flex items-center justify-center px-3 py-2 text-xs font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <img src="https://flagcdn.com/w20/us.png" alt="English" class="w-4 h-3 mr-2">
+                        EN
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="mobile-sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+
+    <!-- Main Container -->
+    <div class="flex items-center justify-center p-4 pt-24">
+        <div class="w-full max-w-md animate-fade-in">
+        <!-- Logo and Header -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-6 shadow-lg">
+                <i class="fas fa-heart text-2xl text-white"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-secondary mb-2">Yayasan Peduli Amal Indonesia</h1>
+            <p class="text-gray-600 text-sm">Making Hope Happen Together</p>
+        </div>
+
+        <!-- Form Container -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 animate-slide-up">
+            <!-- Form Tabs -->
+            <div class="flex mb-8 border-b border-gray-200">
+                <button onclick="showForm('login')" id="loginTab" class="flex-1 py-3 px-4 text-center font-semibold text-primary border-b-2 border-primary transition-colors">
+                    <i class="fas fa-sign-in-alt mr-2"></i>Login
+                </button>
+                <button onclick="showForm('register')" id="registerTab" class="flex-1 py-3 px-4 text-center font-semibold text-gray-500 hover:text-primary transition-colors">
+                    <i class="fas fa-user-plus mr-2"></i>Register
+                </button>
+                <button onclick="showForm('forgot')" id="forgotTab" class="flex-1 py-3 px-4 text-center font-semibold text-gray-500 hover:text-primary transition-colors">
+                    <i class="fas fa-key mr-2"></i>Reset
+                </button>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="form-content">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-secondary mb-2">Welcome Back</h2>
+                    <p class="text-gray-600">Sign in to your account to continue making a difference</p>
+                </div>
+                
+                <form class="space-y-5">
+                    <!-- Email Field -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700">Email Address</label>
+                        <div class="relative group">
+                            <input type="email" 
+                                   required
+                                   class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 group-hover:border-primary/50"
+                                   placeholder="Enter your email">
+                            <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-primary transition-colors duration-300"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Password Field -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700">Password</label>
+                        <div class="relative group">
+                            <input type="password" 
+                                   id="loginPassword"
+                                   required
+                                   class="w-full px-4 py-3 pl-12 pr-12 border border-gray-200 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 group-hover:border-primary/50"
+                                   placeholder="Enter your password">
+                            <i class="fas fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-primary transition-colors duration-300"></i>
+                            <button type="button" 
+                                    onclick="togglePassword('loginPassword', 'loginToggleIcon')"
+                                    class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary transition-colors duration-300">
+                                <i class="fas fa-eye" id="loginToggleIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary focus:ring-2">
+                            <span class="text-sm text-gray-600">Remember me</span>
+                        </label>
+                        <button type="button" onclick="showForm('forgot')" class="text-sm text-primary hover:text-emerald-600 transition-colors duration-300">Forgot password?</button>
+                    </div>
+                    
+                    <!-- Login Button -->
+                    <button type="submit" 
+                            class="w-full bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:bg-emerald-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                        <span>Sign In</span>
+                    </button>
+                    
+                    <!-- Divider -->
+                    <div class="relative my-6">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-200"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-4 bg-white text-gray-500">Or continue with</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Login Buttons -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <button type="button" 
+                                class="flex items-center justify-center px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-100 transition-all duration-300 group">
+                            <i class="fab fa-google text-lg mr-2 group-hover:scale-110 transition-transform duration-300"></i>
+                            <span class="text-sm font-medium">Google</span>
+                        </button>
+                        <button type="button" 
+                                class="flex items-center justify-center px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-100 transition-all duration-300 group">
+                            <i class="fab fa-facebook text-lg mr-2 group-hover:scale-110 transition-transform duration-300"></i>
+                            <span class="text-sm font-medium">Facebook</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Register Form -->
+            <div id="registerForm" class="form-content hidden">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-secondary mb-2">Create Account</h2>
+                    <p class="text-gray-600">Join us in making a difference in the world</p>
+                </div>
+                
+                <form class="space-y-5">
+                    <!-- Name Fields -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">First Name</label>
+                            <div class="relative group">
+                                <input type="text" 
+                                       required
+                                       class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 group-hover:border-primary/50"
+                                       placeholder="First name">
+                                <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-primary transition-colors duration-300"></i>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">Last Name</label>
+                            <div class="relative group">
+                                <input type="text" 
+                                       required
+                                       class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 group-hover:border-primary/50"
+                                       placeholder="Last name">
+                                <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-primary transition-colors duration-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Email Field -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700">Email Address</label>
+                        <div class="relative group">
+                            <input type="email" 
+                                   required
+                                   class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 group-hover:border-primary/50"
+                                   placeholder="Enter your email">
+                            <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-primary transition-colors duration-300"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Password Fields -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700">Password</label>
+                        <div class="relative group">
+                            <input type="password" 
+                                   id="registerPassword"
+                                   required
+                                   class="w-full px-4 py-3 pl-12 pr-12 border border-gray-200 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 group-hover:border-primary/50"
+                                   placeholder="Create a password">
+                            <i class="fas fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-primary transition-colors duration-300"></i>
+                            <button type="button" 
+                                    onclick="togglePassword('registerPassword', 'registerToggleIcon')"
+                                    class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary transition-colors duration-300">
+                                <i class="fas fa-eye" id="registerToggleIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                        <div class="relative group">
+                            <input type="password" 
+                                   id="confirmPassword"
+                                   required
+                                   class="w-full px-4 py-3 pl-12 pr-12 border border-gray-200 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 group-hover:border-primary/50"
+                                   placeholder="Confirm your password">
+                            <i class="fas fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-primary transition-colors duration-300"></i>
+                            <button type="button" 
+                                    onclick="togglePassword('confirmPassword', 'confirmToggleIcon')"
+                                    class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary transition-colors duration-300">
+                                <i class="fas fa-eye" id="confirmToggleIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Terms and Conditions -->
+                    <div class="flex items-start space-x-2">
+                        <input type="checkbox" id="terms" required class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary focus:ring-2 mt-1">
+                        <label for="terms" class="text-sm text-gray-600">
+                            I agree to the <a href="#" class="text-primary hover:text-emerald-600">Terms of Service</a> and <a href="#" class="text-primary hover:text-emerald-600">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <!-- Register Button -->
+                    <button type="submit" 
+                            class="w-full bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:bg-emerald-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                        <span>Create Account</span>
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Forgot Password Form -->
+            <div id="forgotForm" class="form-content hidden">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-secondary mb-2">Reset Password</h2>
+                    <p class="text-gray-600">Enter your email address and we'll send you a link to reset your password</p>
+                </div>
+                
+                <form class="space-y-5">
+                    <!-- Email Field -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-700">Email Address</label>
+                        <div class="relative group">
+                            <input type="email" 
+                                   required
+                                   class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 group-hover:border-primary/50"
+                                   placeholder="Enter your email">
+                            <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-primary transition-colors duration-300"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Reset Button -->
+                    <button type="submit" 
+                            class="w-full bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:bg-emerald-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                        <span>Send Reset Link</span>
+                    </button>
+                    
+                    <!-- Back to Login -->
+                    <div class="text-center">
+                        <button type="button" onclick="showForm('login')" class="text-sm text-primary hover:text-emerald-600 transition-colors duration-300">
+                            <i class="fas fa-arrow-left mr-2"></i>Back to Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Back to Home -->
+        <div class="text-center mt-6">
+            <a href="index.html" 
+               class="inline-flex items-center text-gray-600 hover:text-primary transition-colors duration-300">
+                <i class="fas fa-arrow-left mr-2"></i>
+                <span>Back to Home</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Language Switcher -->
+    <div class="fixed top-6 right-6 z-50">
+        <div class="bg-white rounded-xl p-2 shadow-lg border border-gray-100">
+            <div class="flex space-x-1">
+                <button onclick="changeLanguage('en')" 
+                        class="language-btn px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 bg-primary text-white">
+                    EN
+                </button>
+                <button onclick="changeLanguage('id')" 
+                        class="language-btn px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 text-gray-600 hover:text-primary hover:bg-gray-50">
+                    ID
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/translations.js"></script>
+    <script>
+        // Form switching functionality
+        function showForm(formType) {
+            // Hide all forms
+            document.querySelectorAll('.form-content').forEach(form => {
+                form.classList.add('hidden');
+            });
+            
+            // Remove active state from all tabs
+            document.querySelectorAll('[id$="Tab"]').forEach(tab => {
+                tab.classList.remove('text-primary', 'border-primary');
+                tab.classList.add('text-gray-500');
+            });
+            
+            // Show selected form
+            document.getElementById(formType + 'Form').classList.remove('hidden');
+            
+            // Activate selected tab
+            const activeTab = document.getElementById(formType + 'Tab');
+            activeTab.classList.remove('text-gray-500');
+            activeTab.classList.add('text-primary', 'border-primary');
+        }
+        
+        // Password toggle functionality
+        function togglePassword(inputId, iconId) {
+            const passwordInput = document.getElementById(inputId);
+            const toggleIcon = document.getElementById(iconId);
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Form submission handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Login form
+            const loginForm = document.querySelector('#loginForm form');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const email = this.querySelector('input[type="email"]').value;
+                    const password = this.querySelector('input[type="password"]').value;
+                    
+                    if (!email || !password) {
+                        showNotification('Please fill in all fields', 'error');
+                        return;
+                    }
+                    
+                    showNotification('Logging in...', 'info');
+                    
+                    setTimeout(() => {
+                        // Determine user role based on email
+                        const isAdmin = email === 'admin@yayasanpeduli.org';
+                        const userRole = isAdmin ? 'admin' : 'user';
+                        const userName = isAdmin ? 'Admin User' : 'John Smith';
+                        const userAvatar = isAdmin ? 
+                            'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80' : 
+                            'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80';
+                        
+                        // Save login status and user data
+                        localStorage.setItem('isLoggedIn', 'true');
+                        localStorage.setItem('userRole', userRole);
+                        localStorage.setItem('userData', JSON.stringify({
+                            name: userName,
+                            email: email,
+                            avatar: userAvatar,
+                            role: userRole
+                        }));
+                        
+                        showNotification('Login successful! Redirecting to dashboard...', 'success');
+                        setTimeout(() => {
+                            // Redirect based on role
+                            if (isAdmin) {
+                                window.location.href = 'admin-dashboard.html';
+                            } else {
+                                window.location.href = 'user-dashboard.html';
+                            }
+                        }, 1500);
+                    }, 2000);
+                });
+            }
+            
+            // Register form
+            const registerForm = document.querySelector('#registerForm form');
+            if (registerForm) {
+                registerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const firstName = this.querySelector('input[placeholder="First name"]').value;
+                    const lastName = this.querySelector('input[placeholder="Last name"]').value;
+                    const email = this.querySelector('input[type="email"]').value;
+                    const password = this.querySelector('input[placeholder="Create a password"]').value;
+                    const confirmPassword = this.querySelector('input[placeholder="Confirm your password"]').value;
+                    const terms = this.querySelector('#terms').checked;
+                    
+                    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+                        showNotification('Please fill in all fields', 'error');
+                        return;
+                    }
+                    
+                    if (password !== confirmPassword) {
+                        showNotification('Passwords do not match', 'error');
+                        return;
+                    }
+                    
+                    if (!terms) {
+                        showNotification('Please accept the terms and conditions', 'error');
+                        return;
+                    }
+                    
+                    showNotification('Creating account...', 'info');
+                    
+                    setTimeout(() => {
+                        showNotification('Account created successfully! Redirecting...', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1500);
+                    }, 2000);
+                });
+            }
+            
+            // Forgot password form
+            const forgotForm = document.querySelector('#forgotForm form');
+            if (forgotForm) {
+                forgotForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const email = this.querySelector('input[type="email"]').value;
+                    
+                    if (!email) {
+                        showNotification('Please enter your email address', 'error');
+                        return;
+                    }
+                    
+                    showNotification('Sending reset link...', 'info');
+                    
+                    setTimeout(() => {
+                        showNotification('Reset link sent! Check your email.', 'success');
+                        setTimeout(() => {
+                            showForm('login');
+                        }, 2000);
+                    }, 2000);
+                });
+            }
+        });
+
+        // Notification system
+        function showNotification(message, type) {
+            // Remove existing notifications
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+            
+            const notification = document.createElement('div');
+            notification.className = `fixed top-20 right-6 z-50 px-6 py-4 rounded-xl shadow-xl backdrop-blur-sm border transition-all duration-500 transform translate-x-full ${
+                type === 'success' ? 'bg-green-500/20 border-green-500/30 text-green-100' :
+                type === 'error' ? 'bg-red-500/20 border-red-500/30 text-red-100' :
+                'bg-blue-500/20 border-blue-500/30 text-blue-100'
+            }`;
+            
+            notification.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <i class="fas ${
+                        type === 'success' ? 'fa-check-circle' :
+                        type === 'error' ? 'fa-exclamation-circle' :
+                        'fa-info-circle'
+                    }"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Auto remove
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => notification.remove(), 500);
+            }, 3000);
+        }
+
+        // Initialize language
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageManager = new LanguageManager();
+            languageManager.init();
+        });
+
+        // Mobile sidebar toggle
+        function toggleMobileSidebar() {
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            const mobileSidebarOverlay = document.getElementById('mobile-sidebar-overlay');
+            
+            if (!mobileSidebar || !mobileSidebarOverlay) {
+                return;
+            }
+            
+            if (mobileSidebar.classList.contains('-translate-x-full')) {
+                mobileSidebar.classList.remove('-translate-x-full');
+                mobileSidebarOverlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileSidebar.classList.add('-translate-x-full');
+                mobileSidebarOverlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close mobile sidebar
+        function closeMobileSidebar() {
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            const mobileSidebarOverlay = document.getElementById('mobile-sidebar-overlay');
+            
+            if (mobileSidebar && mobileSidebarOverlay) {
+                mobileSidebar.classList.add('-translate-x-full');
+                mobileSidebarOverlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Language switch function
+        function switchLanguage(lang) {
+            // Update language flags in navbar buttons
+            const guestLangFlag = document.getElementById('current-lang-flag-guest');
+            const userLangFlag = document.getElementById('current-lang-flag-user');
+            
+            if (guestLangFlag) {
+                if (lang === 'en') {
+                    guestLangFlag.src = 'https://flagcdn.com/w20/us.png';
+                    guestLangFlag.alt = 'English';
+                } else {
+                    guestLangFlag.src = 'https://flagcdn.com/w20/id.png';
+                    guestLangFlag.alt = 'Indonesia';
+                }
+            }
+            
+            if (userLangFlag) {
+                if (lang === 'en') {
+                    userLangFlag.src = 'https://flagcdn.com/w20/us.png';
+                    userLangFlag.alt = 'English';
+                } else {
+                    userLangFlag.src = 'https://flagcdn.com/w20/id.png';
+                    userLangFlag.alt = 'Indonesia';
+                }
+            }
+            
+            // Store language preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Initialize navbar on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved language preference
+            const savedLang = localStorage.getItem('preferredLanguage') || 'id';
+            switchLanguage(savedLang);
+            
+            // Mobile sidebar event listeners
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileSidebarClose = document.getElementById('mobile-sidebar-close');
+            const mobileSidebarOverlay = document.getElementById('mobile-sidebar-overlay');
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileSidebar);
+            }
+            
+            if (mobileSidebarClose) {
+                mobileSidebarClose.addEventListener('click', closeMobileSidebar);
+            }
+            
+            if (mobileSidebarOverlay) {
+                mobileSidebarOverlay.addEventListener('click', closeMobileSidebar);
+            }
+            
+            // Close mobile sidebar when clicking outside
+            document.addEventListener('click', function(e) {
+                const mobileSidebar = document.getElementById('mobile-sidebar');
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                
+                if (mobileSidebar && !mobileSidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    if (!mobileSidebar.classList.contains('-translate-x-full')) {
+                        closeMobileSidebar();
+                    }
+                }
+            });
+        });
+        
+        // Close mobile sidebar when clicking any navigation link
+        document.querySelectorAll('#mobile-sidebar a').forEach(link => {
+            link.addEventListener('click', function() {
+                closeMobileSidebar();
+            });
+        });
+    </script>
+</body>
+</html>

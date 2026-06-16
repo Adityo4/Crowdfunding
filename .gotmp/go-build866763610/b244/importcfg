@@ -1,0 +1,6 @@
+# import config
+packagefile encoding/binary=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b096\_pkg_.a
+packagefile golang.org/x/crypto/blake2b=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b245\_pkg_.a
+packagefile golang.org/x/sys/cpu=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b214\_pkg_.a
+packagefile hash=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b124\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a

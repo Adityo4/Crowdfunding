@@ -1,0 +1,9 @@
+# import config
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile internal/godebug=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b055\_pkg_.a
+packagefile net/netip=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b089\_pkg_.a
+packagefile path=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b053\_pkg_.a
+packagefile slices=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b046\_pkg_.a
+packagefile strconv=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b067\_pkg_.a
+packagefile strings=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b074\_pkg_.a

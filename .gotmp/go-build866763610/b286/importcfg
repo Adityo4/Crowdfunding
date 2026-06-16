@@ -1,0 +1,7 @@
+# import config
+packagefile context=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b062\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile github.com/redis/go-redis/v9/internal=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b273\_pkg_.a
+packagefile github.com/redis/go-redis/v9/internal/proto=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b279\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a

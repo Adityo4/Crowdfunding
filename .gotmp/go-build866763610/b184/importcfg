@@ -1,0 +1,7 @@
+# import config
+packagefile crypto/internal/boring=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b146\_pkg_.a
+packagefile crypto/internal/fips140/hmac=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b130\_pkg_.a
+packagefile crypto/internal/fips140hash=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b172\_pkg_.a
+packagefile crypto/internal/fips140only=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b125\_pkg_.a
+packagefile crypto/subtle=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b149\_pkg_.a
+packagefile hash=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b124\_pkg_.a

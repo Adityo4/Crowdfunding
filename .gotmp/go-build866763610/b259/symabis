@@ -1,0 +1,6 @@
+def github.com/zeebo/xxh3.accumAVX512 ABI0
+def github.com/zeebo/xxh3.accumBlockAVX512 ABI0
+def github.com/zeebo/xxh3.accumAVX2 ABI0
+def github.com/zeebo/xxh3.accumBlockAVX2 ABI0
+def github.com/zeebo/xxh3.accumSSE ABI0
+def github.com/zeebo/xxh3.accumBlockSSE ABI0

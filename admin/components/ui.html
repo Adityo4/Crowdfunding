@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Components - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="../../js/translations.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#059669',
+                        secondary: '#0f172a',
+                        accent: '#f8fafc'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .sidebar-transition { transition: all 0.3s ease-in-out; }
+        .content-transition { transition: margin-left 0.3s ease-in-out; }
+        
+        /* UI Tab Styles */
+        .ui-tab-btn {
+            background: transparent;
+            color: #6b7280;
+        }
+        
+        .ui-tab-btn.active {
+            background: white;
+            color: #059669;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .ui-demo {
+            display: block;
+        }
+        
+        /* Modal Styles */
+        .modal-backdrop {
+            backdrop-filter: blur(4px);
+        }
+        
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Alert Animation */
+        .alert-slide-in {
+            animation: slideInRight 0.3s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Button Loading State */
+        .btn-loading {
+            position: relative;
+            color: transparent;
+        }
+        
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            margin: -8px 0 0 -8px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-900 antialiased">
+    <!-- Sidebar -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg sidebar-transition -translate-x-full lg:translate-x-0">
+        <!-- Sidebar Header -->
+        <div class="flex items-center justify-between h-16 px-6 border-b border-gray-200">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-crown text-white text-sm"></i>
+                </div>
+                <span class="text-lg font-bold text-gray-800">Admin Panel</span>
+            </div>
+            <button id="sidebar-toggle" class="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                <i class="fas fa-bars text-gray-600"></i>
+            </button>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <nav class="px-4 py-6 space-y-2">
+            <a href="../index.html" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors duration-200">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="../charities.html" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors duration-200">
+                <i class="fas fa-heart"></i>
+                <span>Charities</span>
+            </a>
+            <a href="../donations.html" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors duration-200">
+                <i class="fas fa-donate"></i>
+                <span>Donations</span>
+            </a>
+            <a href="../users.html" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors duration-200">
+                <i class="fas fa-users"></i>
+                <span>Users</span>
+            </a>
+            <a href="../articles.html" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors duration-200">
+                <i class="fas fa-newspaper"></i>
+                <span>Articles</span>
+            </a>
+            <a href="../reports.html" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors duration-200">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reports</span>
+            </a>
+            
+            <!-- Components Section -->
+            <div class="mt-6">
+                <div class="flex items-center justify-between px-4 py-2">
+                    <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Components</span>
+                </div>
+                <div class="mt-2 space-y-1">
+                    <a href="form.html" class="flex items-center space-x-3 px-4 py-2 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors duration-200">
+                        <i class="fas fa-wpforms w-4"></i>
+                        <span>Form Components</span>
+                    </a>
+                    <a href="ui.html" class="flex items-center space-x-3 px-4 py-2 text-green-600 bg-green-50 rounded-lg font-medium transition-colors duration-200">
+                        <i class="fas fa-puzzle-piece w-4"></i>
+                        <span>UI Components</span>
+                    </a>
+                    <a href="data.html" class="flex items-center space-x-3 px-4 py-2 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors duration-200">
+                        <i class="fas fa-database w-4"></i>
+                        <span>Data Components</span>
+                    </a>
+                    <a href="editor.html" class="flex items-center space-x-3 px-4 py-2 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors duration-200">
+                        <i class="fas fa-edit w-4"></i>
+                        <span>Rich Text Editor</span>
+                    </a>
+                </div>
+            </div>
+            
+            <a href="../settings.html" class="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg font-medium transition-colors duration-200">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <!-- Sidebar Footer -->
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
+            <div class="flex items-center space-x-3 mb-4">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=32&q=80" 
+                     alt="Admin Avatar" class="w-8 h-8 rounded-full object-cover">
+                <div>
+                    <p class="text-sm font-medium text-gray-800">Admin User</p>
+                    <p class="text-xs text-gray-500">admin@yayasan.com</p>
+                </div>
+            </div>
+            <button onclick="logout()" class="w-full flex items-center space-x-3 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg font-medium transition-colors duration-200">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="content-transition lg:ml-64">
+        <!-- Top Bar -->
+        <header class="bg-white shadow-sm border-b border-gray-200 h-16 flex items-center justify-between px-4 lg:px-6">
+            <div class="flex items-center space-x-2 lg:space-x-4">
+                <button id="mobile-sidebar-toggle" class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                    <i class="fas fa-bars text-gray-600"></i>
+                </button>
+                <h1 class="text-lg lg:text-2xl font-bold text-gray-800">UI Components</h1>
+            </div>
+            
+            <div class="flex items-center space-x-2 lg:space-x-4">
+                <!-- Notifications -->
+                <button class="relative p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                    <i class="fas fa-bell text-gray-600"></i>
+                    <span class="absolute -top-1 -right-1 w-4 h-4 lg:w-5 lg:h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
+                </button>
+                
+                <!-- Language Switch -->
+                <div class="relative group">
+                    <button class="flex items-center space-x-1 lg:space-x-2 text-gray-600 hover:text-green-600 transition-colors duration-300 font-medium px-2 lg:px-3 py-2 rounded-lg hover:bg-green-50">
+                        <img src="https://flagcdn.com/w20/id.png" alt="Indonesia" class="w-4 h-3 lg:w-5 lg:h-4 rounded-sm" id="current-lang-flag">
+                        <i class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                    </button>
+                    
+                    <div class="absolute right-0 mt-2 w-36 lg:w-40 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <div class="py-2">
+                            <button onclick="switchLanguage('en')" class="flex items-center w-full px-3 lg:px-4 py-2 text-xs lg:text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors duration-200">
+                                <img src="https://flagcdn.com/w20/us.png" alt="English" class="w-4 h-3 lg:w-5 lg:h-4 rounded-sm mr-2 lg:mr-3">
+                                English
+                            </button>
+                            <button onclick="switchLanguage('id')" class="flex items-center w-full px-3 lg:px-4 py-2 text-xs lg:text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors duration-200">
+                                <img src="https://flagcdn.com/w20/id.png" alt="Indonesia" class="w-4 h-3 lg:w-5 lg:h-4 rounded-sm mr-2 lg:mr-3">
+                                Indonesia
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="p-4 lg:p-6">
+            <!-- Page Header -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">UI Components</h2>
+                <p class="text-gray-600">Beautiful and interactive user interface components including buttons, modals, cards, alerts, and more for building modern web applications.</p>
+            </div>
+
+            <!-- UI Demo Tabs -->
+            <div class="mb-8">
+                <div class="flex space-x-1 bg-gray-100 p-1 rounded-lg">
+                    <button onclick="showUIDemo('buttons')" class="ui-tab-btn px-4 py-2 rounded-md text-sm font-medium transition-colors active" id="buttonsTab">
+                        Buttons
+                    </button>
+                    <button onclick="showUIDemo('modals')" class="ui-tab-btn px-4 py-2 rounded-md text-sm font-medium transition-colors" id="modalsTab">
+                        Modals
+                    </button>
+                    <button onclick="showUIDemo('cards')" class="ui-tab-btn px-4 py-2 rounded-md text-sm font-medium transition-colors" id="cardsTab">
+                        Cards
+                    </button>
+                    <button onclick="showUIDemo('alerts')" class="ui-tab-btn px-4 py-2 rounded-md text-sm font-medium transition-colors" id="alertsTab">
+                        Alerts
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Buttons Demo -->
+            <div id="buttonsDemo" class="ui-demo">
+                <div class="bg-white rounded-xl shadow-sm p-8 animate-fade-in">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-6">Button Components</h3>
+                    <div class="space-y-8">
+                        <!-- Button Variants -->
+                        <div>
+                            <h4 class="text-lg font-medium text-gray-700 mb-4">Button Variants</h4>
+                            <div class="flex flex-wrap gap-4">
+                                <button class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-emerald-600 transition-colors">Primary</button>
+                                <button class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">Secondary</button>
+                                <button class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">Success</button>
+                                <button class="px-6 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors">Warning</button>
+                                <button class="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">Danger</button>
+                                <button class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">Info</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Button Sizes -->
+                        <div>
+                            <h4 class="text-lg font-medium text-gray-700 mb-4">Button Sizes</h4>
+                            <div class="flex flex-wrap items-center gap-4">
+                                <button class="px-3 py-1 text-xs bg-primary text-white rounded hover:bg-emerald-600 transition-colors">Small</button>
+                                <button class="px-4 py-2 text-sm bg-primary text-white rounded-lg hover:bg-emerald-600 transition-colors">Medium</button>
+                                <button class="px-6 py-3 text-base bg-primary text-white rounded-lg hover:bg-emerald-600 transition-colors">Large</button>
+                                <button class="px-8 py-4 text-lg bg-primary text-white rounded-lg hover:bg-emerald-600 transition-colors">Extra Large</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Button Styles -->
+                        <div>
+                            <h4 class="text-lg font-medium text-gray-700 mb-4">Button Styles</h4>
+                            <div class="flex flex-wrap gap-4">
+                                <button class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-emerald-600 transition-colors">Filled</button>
+                                <button class="px-6 py-3 border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-colors">Outlined</button>
+                                <button class="px-6 py-3 text-primary hover:bg-primary hover:text-white rounded-lg transition-colors">Text</button>
+                                <button class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-emerald-600 transition-colors shadow-lg">With Shadow</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Button with Icons -->
+                        <div>
+                            <h4 class="text-lg font-medium text-gray-700 mb-4">Buttons with Icons</h4>
+                            <div class="flex flex-wrap gap-4">
+                                <button class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-emerald-600 transition-colors flex items-center">
+                                    <i class="fas fa-plus mr-2"></i>
+                                    Add Item
+                                </button>
+                                <button class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center">
+                                    <i class="fas fa-save mr-2"></i>
+                                    Save
+                                </button>
+                                <button class="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center">
+                                    <i class="fas fa-trash mr-2"></i>
+                                    Delete
+                                </button>
+                                <button class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Button States -->
+                        <div>
+                            <h4 class="text-lg font-medium text-gray-700 mb-4">Button States</h4>
+                            <div class="flex flex-wrap gap-4">
+                                <button class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-emerald-600 transition-colors">Normal</button>
+                                <button class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-emerald-600 transition-colors btn-loading">Loading</button>
+                                <button class="px-6 py-3 bg-gray-400 text-white rounded-lg cursor-not-allowed" disabled>Disabled</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modals Demo -->
+            <div id="modalsDemo" class="ui-demo" style="display: none;">
+                <div class="bg-white rounded-xl shadow-sm p-8 animate-fade-in">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-6">Modal Components</h3>
+                    <div class="space-y-6">
+                        <div class="flex flex-wrap gap-4">
+                            <button onclick="openModal('basicModal')" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-emerald-600 transition-colors">
+                                Basic Modal
+                            </button>
+                            <button onclick="openModal('confirmModal')" class="px-6 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors">
+                                Confirmation Modal
+                            </button>
+                            <button onclick="openModal('formModal')" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                                Form Modal
+                            </button>
+                        </div>
+                        
+                        <!-- Modal Examples -->
+                        <div class="mt-8">
+                            <h4 class="text-lg font-medium text-gray-700 mb-4">Modal Types</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <h5 class="font-medium text-gray-800 mb-2">Basic Modal</h5>
+                                    <p class="text-sm text-gray-600 mb-4">Simple modal with content and action buttons</p>
+                                    <button onclick="openModal('basicModal')" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-emerald-600 transition-colors text-sm">
+                                        Open Modal
+                                    </button>
+                                </div>
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <h5 class="font-medium text-gray-800 mb-2">Confirmation Modal</h5>
+                                    <p class="text-sm text-gray-600 mb-4">Modal for confirming destructive actions</p>
+                                    <button onclick="openModal('confirmModal')" class="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors text-sm">
+                                        Open Modal
+                                    </button>
+                                </div>
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <h5 class="font-medium text-gray-800 mb-2">Form Modal</h5>
+                                    <p class="text-sm text-gray-600 mb-4">Modal containing form inputs</p>
+                                    <button onclick="openModal('formModal')" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                                        Open Modal
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cards Demo -->
+            <div id="cardsDemo" class="ui-demo" style="display: none;">
+                <div class="bg-white rounded-xl shadow-sm p-8 animate-fade-in">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-6">Card Components</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Basic Card -->
+                        <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden card-hover">
+                            <div class="p-6">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-2">Basic Card</h4>
+                                <p class="text-gray-600 mb-4">This is a basic card component with simple content and clean design.</p>
+                                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-emerald-600 transition-colors">
+                                    Action
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Card with Image -->
+                        <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden card-hover">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                                 alt="Card Image" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-2">Card with Image</h4>
+                                <p class="text-gray-600">This card includes a header image for visual appeal.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Stats Card -->
+                        <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden card-hover">
+                            <div class="p-6">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-600">Total Donations</p>
+                                        <p class="text-3xl font-bold text-gray-900">Rp 2.5M</p>
+                                    </div>
+                                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-donate text-green-600 text-xl"></i>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <span class="text-sm text-green-600 flex items-center">
+                                        <i class="fas fa-arrow-up mr-1"></i>
+                                        +12.5% from last month
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Feature Card -->
+                        <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden card-hover">
+                            <div class="p-6">
+                                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                                    <i class="fas fa-star text-blue-600 text-xl"></i>
+                                </div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-2">Feature Card</h4>
+                                <p class="text-gray-600">Highlight important features or services with this card design.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Profile Card -->
+                        <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden card-hover">
+                            <div class="p-6 text-center">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" 
+                                     alt="Profile" class="w-16 h-16 rounded-full mx-auto mb-4">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-1">John Doe</h4>
+                                <p class="text-sm text-gray-600 mb-4">Administrator</p>
+                                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-emerald-600 transition-colors">
+                                    View Profile
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Card -->
+                        <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden card-hover">
+                            <div class="p-6">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-2">Action Card</h4>
+                                <p class="text-gray-600 mb-4">Card with multiple action buttons for different operations.</p>
+                                <div class="flex space-x-2">
+                                    <button class="px-3 py-2 bg-primary text-white rounded-lg hover:bg-emerald-600 transition-colors text-sm">
+                                        Edit
+                                    </button>
+                                    <button class="px-3 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm">
+                                        View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Alerts Demo -->
+            <div id="alertsDemo" class="ui-demo" style="display: none;">
+                <div class="bg-white rounded-xl shadow-sm p-8 animate-fade-in">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-6">Alert Components</h3>
+                    <div class="space-y-6">
+                        <!-- Success Alert -->
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4 alert-slide-in">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-check-circle text-green-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="text-sm font-medium text-green-800">Success!</h4>
+                                    <div class="mt-2 text-sm text-green-700">
+                                        <p>Your changes have been saved successfully. The data has been updated in the database.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Warning Alert -->
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 alert-slide-in">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="text-sm font-medium text-yellow-800">Warning</h4>
+                                    <div class="mt-2 text-sm text-yellow-700">
+                                        <p>Please review your information before proceeding. Some fields may require attention.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Error Alert -->
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-4 alert-slide-in">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-times-circle text-red-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="text-sm font-medium text-red-800">Error</h4>
+                                    <div class="mt-2 text-sm text-red-700">
+                                        <p>There was an error processing your request. Please try again or contact support if the problem persists.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Info Alert -->
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 alert-slide-in">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-info-circle text-blue-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="text-sm font-medium text-blue-800">Information</h4>
+                                    <div class="mt-2 text-sm text-blue-700">
+                                        <p>This is an informational message for your reference. You can use this to provide helpful context.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Dismissible Alert -->
+                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 alert-slide-in">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-info-circle text-gray-400"></i>
+                                </div>
+                                <div class="ml-3 flex-1">
+                                    <h4 class="text-sm font-medium text-gray-800">Dismissible Alert</h4>
+                                    <div class="mt-2 text-sm text-gray-700">
+                                        <p>This alert can be dismissed by clicking the close button.</p>
+                                    </div>
+                                </div>
+                                <div class="ml-3">
+                                    <button class="text-gray-400 hover:text-gray-600">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sidebar toggle functionality
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            
+            if (sidebar.classList.contains('-translate-x-full')) {
+                // Open sidebar
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                mainContent.classList.remove('ml-0');
+                mainContent.classList.add('lg:ml-64');
+            } else {
+                // Close sidebar
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                mainContent.classList.remove('lg:ml-64');
+                mainContent.classList.add('ml-0');
+            }
+        }
+
+        // Mobile sidebar toggle
+        document.getElementById('mobile-sidebar-toggle').addEventListener('click', toggleSidebar);
+        
+        // Sidebar hamburger toggle (inside sidebar)
+        document.getElementById('sidebar-toggle').addEventListener('click', toggleSidebar);
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const mobileToggle = document.getElementById('mobile-sidebar-toggle');
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const isMobile = window.innerWidth < 1024; // lg breakpoint
+            
+            if (isMobile && !sidebar.contains(event.target) && !mobileToggle.contains(event.target) && !sidebarToggle.contains(event.target)) {
+                if (!sidebar.classList.contains('-translate-x-full')) {
+                    sidebar.classList.add('-translate-x-full');
+                    sidebar.classList.remove('translate-x-0');
+                    document.getElementById('main-content').classList.remove('lg:ml-64');
+                    document.getElementById('main-content').classList.add('ml-0');
+                }
+            }
+        });
+
+        // Language switch function
+        function switchLanguage(lang) {
+            const langFlag = document.getElementById('current-lang-flag');
+            
+            if (langFlag) {
+                if (lang === 'en') {
+                    langFlag.src = 'https://flagcdn.com/w20/us.png';
+                    langFlag.alt = 'English';
+                } else {
+                    langFlag.src = 'https://flagcdn.com/w20/id.png';
+                    langFlag.alt = 'Indonesia';
+                }
+            }
+            
+            localStorage.setItem('language', lang);
+            updatePageLanguage(lang);
+            
+            const message = lang === 'en' ? 'Language switched to English' : 'Bahasa diubah ke Indonesia';
+            showNotification(message);
+        }
+
+        // Update page language content
+        function updatePageLanguage(lang) {
+            document.documentElement.lang = lang;
+            const body = document.body;
+            if (lang === 'en') {
+                body.setAttribute('data-lang', 'en');
+            } else {
+                body.setAttribute('data-lang', 'id');
+            }
+        }
+
+        // Show notification
+        function showNotification(message) {
+            let notification = document.getElementById('notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.id = 'notification';
+                notification.className = 'fixed top-20 right-6 z-50 bg-white rounded-lg shadow-lg p-4 border-l-4 border-green-500 opacity-0 transform translate-x-full transition-all duration-300';
+                document.body.appendChild(notification);
+            }
+            
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            notification.classList.remove('opacity-0', 'translate-x-full');
+            notification.classList.add('opacity-100', 'translate-x-0');
+            
+            setTimeout(() => {
+                notification.classList.remove('opacity-100', 'translate-x-0');
+                notification.classList.add('opacity-0', 'translate-x-full');
+            }, 3000);
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userData');
+                window.location.href = '../../index.html';
+            }
+        }
+
+        // UI components functionality
+        function showUIDemo(demoType) {
+            // Hide all UI demos
+            document.querySelectorAll('.ui-demo').forEach(demo => {
+                demo.style.display = 'none';
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.ui-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected demo
+            document.getElementById(`${demoType}Demo`).style.display = 'block';
+            document.getElementById(`${demoType}Tab`).classList.add('active');
+        }
+
+        // Modal functionality
+        function openModal(modalType) {
+            // Create modal if it doesn't exist
+            let modal = document.getElementById(modalType);
+            if (!modal) {
+                modal = createModal(modalType);
+                document.body.appendChild(modal);
+            }
+            
+            // Show modal
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalType) {
+            const modal = document.getElementById(modalType);
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function createModal(modalType) {
+            const modal = document.createElement('div');
+            modal.id = modalType;
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden modal-backdrop';
+            
+            if (modalType === 'basicModal') {
+                modal.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-800">Basic Modal</h3>
+                                <button onclick="closeModal('${modalType}')" class="text-gray-400 hover:text-gray-600">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <p class="text-gray-600 mb-6">This is a basic modal component. You can add any content here and customize it according to your needs.</p>
+                            <div class="flex justify-end space-x-3">
+                                <button onclick="closeModal('${modalType}')" class="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</button>
+                                <button onclick="closeModal('${modalType}')" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-emerald-600">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (modalType === 'confirmModal') {
+                modal.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-exclamation-triangle text-yellow-600 text-xl"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800">Confirm Action</h3>
+                            </div>
+                            <p class="text-gray-600 mb-6">Are you sure you want to perform this action? This action cannot be undone and may affect other parts of the system.</p>
+                            <div class="flex justify-end space-x-3">
+                                <button onclick="closeModal('${modalType}')" class="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</button>
+                                <button onclick="closeModal('${modalType}')" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (modalType === 'formModal') {
+                modal.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-xl max-w-lg w-full mx-4">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-800">Form Modal</h3>
+                                <button onclick="closeModal('${modalType}')" class="text-gray-400 hover:text-gray-600">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <form class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                                    <input type="text" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none" placeholder="Enter name">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                    <input type="email" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none" placeholder="Enter email">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                                    <textarea rows="3" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-primary focus:outline-none" placeholder="Enter message"></textarea>
+                                </div>
+                                <div class="flex justify-end space-x-3 pt-4">
+                                    <button type="button" onclick="closeModal('${modalType}')" class="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</button>
+                                    <button type="submit" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-emerald-600">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            return modal;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize language from localStorage
+            const savedLang = localStorage.getItem('language') || 'id';
+            updatePageLanguage(savedLang);
+            
+            // Update language flag
+            const langFlag = document.getElementById('current-lang-flag');
+            if (langFlag) {
+                if (savedLang === 'en') {
+                    langFlag.src = 'https://flagcdn.com/w20/us.png';
+                    langFlag.alt = 'English';
+                } else {
+                    langFlag.src = 'https://flagcdn.com/w20/id.png';
+                    langFlag.alt = 'Indonesia';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# import config
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gocache\60\60b2b16cf97e7047df9762a969461630da96999df5504f3be1758c726a04b111-d
+packagefile github.com/golang-jwt/jwt/v5=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build4251700609\b336\_pkg_.a
+packagefile golang.org/x/crypto/bcrypt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build4251700609\b337\_pkg_.a
+packagefile time=d:\laragon\skripsi\Crowdfunding\.gocache\6b\6b6b728fcd59a2ea84a13cc62c224b99a029c57c84a63b33792fc34160437768-d

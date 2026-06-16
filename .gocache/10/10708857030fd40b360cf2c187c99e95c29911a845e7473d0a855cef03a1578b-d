@@ -1,0 +1,5 @@
+./article_handler.go
+./auth_handler.go
+./category_handler.go
+./charity_handler.go
+./donation_handler.go

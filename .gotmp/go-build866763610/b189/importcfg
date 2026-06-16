@@ -1,0 +1,8 @@
+# import config
+importmap golang.org/x/crypto/internal/alias=vendor/golang.org/x/crypto/internal/alias
+packagefile crypto/cipher=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b147\_pkg_.a
+packagefile encoding/binary=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b096\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile vendor/golang.org/x/crypto/internal/alias=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b190\_pkg_.a
+packagefile math/bits=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b033\_pkg_.a
+packagefile runtime=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b010\_pkg_.a

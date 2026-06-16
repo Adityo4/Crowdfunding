@@ -1,0 +1,6 @@
+# import config
+packagefile encoding/asn1=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b175\_pkg_.a
+packagefile encoding/hex=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b077\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile math/big=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b167\_pkg_.a
+packagefile time=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b054\_pkg_.a

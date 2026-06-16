@@ -1,0 +1,5 @@
+# import config
+packagefile encoding/json=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b071\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile github.com/redis/go-redis/v9/internal=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b273\_pkg_.a
+packagefile regexp=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b206\_pkg_.a

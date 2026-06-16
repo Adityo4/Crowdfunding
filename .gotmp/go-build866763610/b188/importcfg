@@ -1,0 +1,13 @@
+# import config
+importmap golang.org/x/crypto/chacha20=vendor/golang.org/x/crypto/chacha20
+importmap golang.org/x/crypto/internal/alias=vendor/golang.org/x/crypto/internal/alias
+importmap golang.org/x/crypto/internal/poly1305=vendor/golang.org/x/crypto/internal/poly1305
+importmap golang.org/x/sys/cpu=vendor/golang.org/x/sys/cpu
+packagefile crypto/cipher=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b147\_pkg_.a
+packagefile crypto/fips140=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b126\_pkg_.a
+packagefile encoding/binary=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b096\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile vendor/golang.org/x/crypto/chacha20=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b189\_pkg_.a
+packagefile vendor/golang.org/x/crypto/internal/alias=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b190\_pkg_.a
+packagefile vendor/golang.org/x/crypto/internal/poly1305=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b191\_pkg_.a
+packagefile vendor/golang.org/x/sys/cpu=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b192\_pkg_.a

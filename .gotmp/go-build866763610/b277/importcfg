@@ -1,0 +1,15 @@
+# import config
+packagefile bufio=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b081\_pkg_.a
+packagefile container/list=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b154\_pkg_.a
+packagefile context=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b062\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile github.com/redis/go-redis/v9/internal=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b273\_pkg_.a
+packagefile github.com/redis/go-redis/v9/internal/maintnotifications/logs=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b278\_pkg_.a
+packagefile github.com/redis/go-redis/v9/internal/proto=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b279\_pkg_.a
+packagefile go.uber.org/atomic=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b275\_pkg_.a
+packagefile math/rand=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b085\_pkg_.a
+packagefile net=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b097\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a
+packagefile sync/atomic=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b043\_pkg_.a
+packagefile time=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b054\_pkg_.a

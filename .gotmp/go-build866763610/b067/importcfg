@@ -1,0 +1,6 @@
+# import config
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile internal/bytealg=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b011\_pkg_.a
+packagefile internal/strconv=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b032\_pkg_.a
+packagefile internal/stringslite=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b034\_pkg_.a
+packagefile unicode/utf8=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b050\_pkg_.a

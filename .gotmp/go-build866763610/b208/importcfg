@@ -1,0 +1,18 @@
+# import config
+packagefile bytes=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b070\_pkg_.a
+packagefile crypto/md5=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b122\_pkg_.a
+packagefile crypto/rand=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b181\_pkg_.a
+packagefile crypto/sha1=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b145\_pkg_.a
+packagefile database/sql/driver=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b083\_pkg_.a
+packagefile encoding/binary=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b096\_pkg_.a
+packagefile encoding/hex=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b077\_pkg_.a
+packagefile encoding/json=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b071\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile hash=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b124\_pkg_.a
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b052\_pkg_.a
+packagefile net=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b097\_pkg_.a
+packagefile os=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b003\_pkg_.a
+packagefile strings=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b074\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a
+packagefile time=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b054\_pkg_.a

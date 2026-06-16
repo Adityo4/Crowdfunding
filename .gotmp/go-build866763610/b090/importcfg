@@ -1,0 +1,9 @@
+# import config
+packagefile internal/abi=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b006\_pkg_.a
+packagefile internal/goarch=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b007\_pkg_.a
+packagefile internal/stringslite=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b034\_pkg_.a
+packagefile internal/sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b042\_pkg_.a
+packagefile runtime=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b010\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a
+packagefile sync/atomic=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b043\_pkg_.a
+packagefile weak=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b091\_pkg_.a

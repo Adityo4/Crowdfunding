@@ -1,0 +1,3 @@
+def golang.org/x/crypto/blake2b.hashBlocksAVX2 ABI0
+def golang.org/x/crypto/blake2b.hashBlocksAVX ABI0
+def golang.org/x/crypto/blake2b.hashBlocksSSE4 ABI0

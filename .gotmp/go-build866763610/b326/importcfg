@@ -1,0 +1,7 @@
+# import config
+packagefile context=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b062\_pkg_.a
+packagefile database/sql=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b288\_pkg_.a
+packagefile gorm.io/gorm/internal/lru=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b327\_pkg_.a
+packagefile math=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b066\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a
+packagefile time=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b054\_pkg_.a

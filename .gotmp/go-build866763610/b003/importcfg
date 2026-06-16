@@ -1,0 +1,19 @@
+# import config
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile internal/bytealg=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b011\_pkg_.a
+packagefile internal/filepathlite=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b036\_pkg_.a
+packagefile internal/godebug=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b055\_pkg_.a
+packagefile internal/poll=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b058\_pkg_.a
+packagefile internal/strconv=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b032\_pkg_.a
+packagefile internal/stringslite=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b034\_pkg_.a
+packagefile internal/syscall/execenv=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b059\_pkg_.a
+packagefile internal/syscall/windows=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b037\_pkg_.a
+packagefile internal/testlog=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b060\_pkg_.a
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b052\_pkg_.a
+packagefile io/fs=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b051\_pkg_.a
+packagefile runtime=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b010\_pkg_.a
+packagefile slices=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b046\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a
+packagefile sync/atomic=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b043\_pkg_.a
+packagefile syscall=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b045\_pkg_.a
+packagefile time=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b054\_pkg_.a

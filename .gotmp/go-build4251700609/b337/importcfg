@@ -1,0 +1,9 @@
+# import config
+packagefile crypto/rand=d:\laragon\skripsi\Crowdfunding\.gocache\87\87bcc7b5bcab27e9fde9a6eef86f99f122551b1f80525fdaf57ea194462f4662-d
+packagefile crypto/subtle=d:\laragon\skripsi\Crowdfunding\.gocache\b1\b156f56213ba1420bef7d7ac03ccde33285fb502b0e54ecd36c086856b218cba-d
+packagefile encoding/base64=d:\laragon\skripsi\Crowdfunding\.gocache\10\107abb2f1260fdf718b9ec17b176bb8a7fd5bc0534583b5cc8179b9031cfee71-d
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gocache\60\60b2b16cf97e7047df9762a969461630da96999df5504f3be1758c726a04b111-d
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gocache\20\207f6635331b9a1c4d35dd7629029b2e850226585f05c753c5eca3310391c2be-d
+packagefile golang.org/x/crypto/blowfish=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build4251700609\b338\_pkg_.a
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gocache\4f\4f513c0fcdffdbeb1bb65d558ffcbc5d771527b40158479683574ca1585ecc49-d
+packagefile strconv=d:\laragon\skripsi\Crowdfunding\.gocache\7a\7a7047a6d27ce084c219cc8e17245669b1e290c2d77594f6f19714bbb4a3dd8a-d

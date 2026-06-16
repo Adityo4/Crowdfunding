@@ -1,0 +1,5 @@
+# import config
+packagefile encoding/json=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b071\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile github.com/leodido/go-urn/scim/schema=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b356\_pkg_.a
+packagefile strings=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b074\_pkg_.a

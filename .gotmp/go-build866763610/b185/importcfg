@@ -1,0 +1,22 @@
+# import config
+importmap golang.org/x/crypto/chacha20poly1305=vendor/golang.org/x/crypto/chacha20poly1305
+packagefile bytes=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b070\_pkg_.a
+packagefile crypto=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b123\_pkg_.a
+packagefile crypto/cipher=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b147\_pkg_.a
+packagefile crypto/ecdh=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b157\_pkg_.a
+packagefile crypto/fips140=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b126\_pkg_.a
+packagefile crypto/hkdf=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b182\_pkg_.a
+packagefile crypto/internal/fips140/aes=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b143\_pkg_.a
+packagefile crypto/internal/fips140/aes/gcm=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b148\_pkg_.a
+packagefile crypto/internal/fips140/drbg=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b140\_pkg_.a
+packagefile crypto/internal/rand=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b162\_pkg_.a
+packagefile crypto/mlkem=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b186\_pkg_.a
+packagefile crypto/sha256=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b151\_pkg_.a
+packagefile crypto/sha3=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b173\_pkg_.a
+packagefile crypto/sha512=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b152\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile vendor/golang.org/x/crypto/chacha20poly1305=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b188\_pkg_.a
+packagefile hash=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b124\_pkg_.a
+packagefile internal/byteorder=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b013\_pkg_.a
+packagefile slices=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b046\_pkg_.a

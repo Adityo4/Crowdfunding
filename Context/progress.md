@@ -6,7 +6,7 @@
 ---
 
 ## 🗓️ Last Updated
-`2026-06-15`
+`2026-06-16`
 
 ---
 
@@ -34,7 +34,13 @@
 
 ## 🔄 In Progress
 
-*Tidak ada yang sedang dikerjakan saat ini.*
+- [ ] **Inisialisasi Proyek Crowdfunding**
+  - [x] Desain Skema Database (ERD) & DDL (`database/schema.sql`)
+  - [x] Desain API Specification (`docs/api_specification.md`)
+  - [x] Setup Infrastruktur dengan Docker Compose (PostgreSQL, Redis, MinIO)
+  - [x] Inisialisasi Backend Go (Gin & GORM setup)
+  - [x] Implementasi API Backend (Gin + GORM)
+  - [x] Inisialisasi Frontend Nuxt.js 3 & Tailwind CSS (Slicing Index, Login/Register, Charities List/Detail/Create, Articles List/Detail)
 
 ---
 
@@ -77,3 +83,4 @@
 ---
 
 *Progress log — [Harness Engineering](./README.md)*
+

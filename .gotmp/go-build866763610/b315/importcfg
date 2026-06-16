@@ -1,0 +1,8 @@
+# import config
+packagefile context=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b062\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile github.com/jackc/puddle/v2/internal/genstack=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b316\_pkg_.a
+packagefile golang.org/x/sync/semaphore=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b317\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a
+packagefile sync/atomic=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b043\_pkg_.a
+packagefile time=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b054\_pkg_.a

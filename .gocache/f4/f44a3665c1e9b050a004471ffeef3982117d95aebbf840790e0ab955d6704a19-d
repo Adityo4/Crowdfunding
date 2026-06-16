@@ -1,0 +1,5 @@
+./article.go
+./category.go
+./charity.go
+./donation.go
+./user.go

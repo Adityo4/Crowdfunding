@@ -1,0 +1,17 @@
+# import config
+packagefile bytes=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b070\_pkg_.a
+packagefile errors=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b004\_pkg_.a
+packagefile fmt=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b063\_pkg_.a
+packagefile github.com/charmbracelet/colorprofile=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b093\_pkg_.a
+packagefile github.com/charmbracelet/x/ansi=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b076\_pkg_.a
+packagefile github.com/charmbracelet/x/term=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b094\_pkg_.a
+packagefile github.com/mattn/go-runewidth=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b087\_pkg_.a
+packagefile github.com/rivo/uniseg=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b106\_pkg_.a
+packagefile image=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b107\_pkg_.a
+packagefile image/color=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b084\_pkg_.a
+packagefile io=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b052\_pkg_.a
+packagefile os=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b003\_pkg_.a
+packagefile strings=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b074\_pkg_.a
+packagefile sync=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b041\_pkg_.a
+packagefile unicode=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b068\_pkg_.a
+packagefile unicode/utf8=d:\laragon\skripsi\Crowdfunding\.gotmp\go-build866763610\b050\_pkg_.a
