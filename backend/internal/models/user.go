@@ -35,3 +35,9 @@ type AuthResponse struct {
 	ExpiresAt time.Time `json:"expiresAt"`
 	User      User      `json:"user"`
 }
+
+type UpdateProfileRequest struct {
+	FullName    string `json:"fullName" binding:"required,min=2"`
+	PhoneNumber string `json:"phoneNumber"`
+	Password    string `json:"password"`
+}

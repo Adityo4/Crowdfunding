@@ -50,7 +50,10 @@ const logout = () => {
             <NuxtLink to="/#contact" class="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</NuxtLink>
             
             <template v-if="authStore.user">
-              <span class="text-xs text-gray-500 font-semibold">Hai, {{ authStore.user.name }}</span>
+              <NuxtLink :to="authStore.user?.role === 'admin' ? '/admin' : '/dashboard'" class="text-xs text-gray-700 hover:text-green-600 font-semibold flex items-center space-x-1 border border-gray-200 px-2.5 py-1 rounded-lg hover:bg-slate-50 transition-colors">
+                <i class="fas fa-user-circle text-sm text-green-600"></i>
+                <span>Hai, {{ authStore.user.name }}</span>
+              </NuxtLink>
               <button @click="logout" class="text-gray-600 hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Logout</button>
             </template>
             <template v-else>
@@ -130,7 +133,10 @@ const logout = () => {
         
         <div class="mt-6 pt-6 border-t border-gray-200">
           <template v-if="authStore.user">
-            <div class="px-3 py-2 text-xs text-gray-500 font-semibold mb-2">Hai, {{ authStore.user.name }}</div>
+            <NuxtLink :to="authStore.user?.role === 'admin' ? '/admin' : '/dashboard'" @click="toggleMobileMenu" class="flex items-center px-3 py-2 text-xs font-semibold text-gray-700 hover:text-green-600 mb-2">
+              <i class="fas fa-user-circle mr-2 text-green-600 text-sm"></i>
+              <span>Hai, {{ authStore.user.name }}</span>
+            </NuxtLink>
             <button @click="logout" class="flex items-center w-full px-3 py-2.5 text-sm font-medium text-red-600 rounded-lg hover:bg-red-50 transition-colors">
               <i class="fas fa-sign-out-alt w-5 h-5 mr-3 text-red-600"></i>
               Logout

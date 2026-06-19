@@ -14,6 +14,7 @@ type Article struct {
 	Slug          string     `gorm:"type:varchar(255);uniqueIndex;not null" json:"slug"`
 	Content       string     `gorm:"type:text;not null" json:"content"`
 	CoverImageUrl string     `gorm:"type:varchar(255)" json:"coverImageUrl"`
+	Images        string     `gorm:"type:text" json:"images"` // Comma-separated list of image URLs
 	IsPublished   bool       `gorm:"type:boolean;default:false;not null" json:"isPublished"`
 	PublishedAt   *time.Time `json:"publishedAt,omitempty"`
 	CreatedAt     time.Time  `gorm:"not null;default:now()" json:"createdAt"`

@@ -7,8 +7,9 @@ import (
 )
 
 type ArticleRepository interface {
-	GetAll() ([]models.Article, error)
+	GetAll(all bool) ([]models.Article, error)
 	GetBySlug(slug string) (*models.Article, error)
+	Create(article *models.Article) error
 }
 
 type articleRepository struct {
@@ -19,10 +20,13 @@ func NewArticleRepository(db *gorm.DB) ArticleRepository {
 	return &articleRepository{db}
 }
 
-func (r *articleRepository) GetAll() ([]models.Article, error) {
+func (r *articleRepository) GetAll(all bool) ([]models.Article, error) {
 	var articles []models.Article
-	err := r.db.Preload("Author").Where("is_published = ? AND deleted_at IS NULL", true).
-		Order("published_at DESC").Find(&articles).Error
+	query := r.db.Preload("Author").Where("deleted_at IS NULL")
+	if !all {
+		query = query.Where("is_published = ?", true)
+	}
+	err := query.Order("published_at DESC, created_at DESC").Find(&articles).Error
 	return articles, err
 }
 
@@ -33,4 +37,8 @@ func (r *articleRepository) GetBySlug(slug string) (*models.Article, error) {
 		return nil, err
 	}
 	return &article, nil
+}
+
+func (r *articleRepository) Create(article *models.Article) error {
+	return r.db.Create(article).Error
 }

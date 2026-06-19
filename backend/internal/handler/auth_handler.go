@@ -112,3 +112,70 @@ func (h *AuthHandler) Me(c *gin.Context) {
 		"data": profile,
 	})
 }
+
+func (h *AuthHandler) GetUsers(c *gin.Context) {
+	users, err := h.authService.GetAllUsers()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": gin.H{
+				"code":    "INTERNAL_SERVER_ERROR",
+				"message": "Gagal memuat pengguna",
+			},
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"data": users,
+	})
+}
+
+func (h *AuthHandler) UpdateProfile(c *gin.Context) {
+	userIDStr, exists := c.Get("userID")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"error": gin.H{
+				"code":    "UNAUTHORIZED",
+				"message": "Token tidak valid",
+			},
+		})
+		return
+	}
+
+	userID, err := uuid.Parse(userIDStr.(string))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": gin.H{
+				"code":    "BAD_REQUEST",
+				"message": "User ID tidak valid",
+			},
+		})
+		return
+	}
+
+	var req models.UpdateProfileRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": gin.H{
+				"code":    "BAD_REQUEST",
+				"message": "Format data profil tidak valid: " + err.Error(),
+			},
+		})
+		return
+	}
+
+	user, err := h.authService.UpdateProfile(userID, req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": gin.H{
+				"code":    "INTERNAL_SERVER_ERROR",
+				"message": err.Error(),
+			},
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"data": user,
+	})
+}

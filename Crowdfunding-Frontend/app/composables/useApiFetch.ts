@@ -10,21 +10,23 @@ export const useApiFetch = (path, opts = {}) => {
     token = localStorage.getItem('auth_token')
   }
 
-  const defaultHeaders = {}
-  if (token) {
-    defaultHeaders['Authorization'] = `Bearer ${token}`
-  }
-
   return useFetch(path, {
     baseURL: apiBase,
     ...opts,
-    headers: {
-      ...defaultHeaders,
-      ...opts.headers,
+    async onRequest({ options }) {
+      // Fetch token dynamically inside request hook to make it reactive on client side
+      if (typeof window !== 'undefined') {
+        const token = localStorage.getItem('auth_token')
+        if (token) {
+          options.headers = {
+            ...options.headers,
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      }
     },
     async onResponseError({ response }) {
       if (response.status === 401 && typeof window !== 'undefined') {
-        // Handle token expiration or unauthorized requests
         localStorage.removeItem('auth_token')
         localStorage.removeItem('user_data')
         window.location.href = '/login'

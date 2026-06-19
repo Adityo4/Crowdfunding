@@ -66,6 +66,10 @@ const logout = () => {
 
       <!-- Sidebar Navigation -->
       <nav class="flex-grow px-4 py-6 space-y-1 overflow-y-auto">
+        <NuxtLink to="/" class="flex items-center space-x-3 px-4 py-3 rounded-lg font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 transition-colors">
+          <i class="fas fa-home w-5"></i>
+          <span>Kembali ke Home</span>
+        </NuxtLink>
         <NuxtLink to="/admin" class="flex items-center space-x-3 px-4 py-3 rounded-lg font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 transition-colors" active-class="text-green-600 bg-green-50">
           <i class="fas fa-tachometer-alt w-5"></i>
           <span>Dashboard</span>
@@ -108,15 +112,16 @@ const logout = () => {
 
       <!-- Sidebar Footer -->
       <div class="p-4 border-t border-gray-200">
-        <div class="flex items-center space-x-3 mb-4" v-if="authStore.user">
-          <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-700 font-bold">
-            A
+        <NuxtLink to="/dashboard" class="flex items-center space-x-3 mb-4 p-2 rounded-xl hover:bg-slate-50 border border-gray-100/50 hover:border-gray-200 transition-all text-left" v-if="authStore.user">
+          <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-700 font-bold flex-shrink-0">
+            {{ authStore.user.name?.charAt(0) || 'A' }}
           </div>
-          <div class="overflow-hidden">
-            <p class="text-sm font-medium text-gray-800 truncate">{{ authStore.user.name }}</p>
-            <p class="text-xs text-gray-500 truncate">{{ authStore.user.email }}</p>
+          <div class="overflow-hidden flex-grow">
+            <p class="text-xs font-semibold text-gray-800 truncate">{{ authStore.user.name }}</p>
+            <p class="text-[10px] text-gray-500 truncate">{{ authStore.user.email }}</p>
           </div>
-        </div>
+          <i class="fas fa-cog text-xs text-gray-400"></i>
+        </NuxtLink>
         <button @click="logout" class="w-full flex items-center space-x-3 px-4 py-2.5 text-red-600 hover:bg-red-50 rounded-lg font-medium transition-colors">
           <i class="fas fa-sign-out-alt"></i>
           <span>Logout</span>
@@ -151,6 +156,10 @@ const logout = () => {
       </div>
 
       <nav class="flex-grow px-4 py-6 space-y-1 overflow-y-auto">
+        <NuxtLink to="/" @click="toggleMobileSidebar" class="flex items-center space-x-3 px-4 py-3 rounded-lg font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 transition-colors">
+          <i class="fas fa-home w-5"></i>
+          <span>Kembali ke Home</span>
+        </NuxtLink>
         <NuxtLink to="/admin" @click="toggleMobileSidebar" class="flex items-center space-x-3 px-4 py-3 rounded-lg font-medium text-gray-600 hover:text-green-600 hover:bg-green-50 transition-colors" active-class="text-green-600 bg-green-50">
           <i class="fas fa-tachometer-alt w-5"></i>
           <span>Dashboard</span>
@@ -196,6 +205,8 @@ const logout = () => {
         </div>
 
         <div class="flex items-center space-x-4">
+
+
           <!-- Notification Bell -->
           <button class="relative p-2 rounded-lg hover:bg-gray-100 text-gray-600">
             <i class="fas fa-bell"></i>

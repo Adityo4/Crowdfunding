@@ -15,6 +15,8 @@ type AuthService interface {
 	Register(req models.RegisterRequest) (*models.User, error)
 	Login(req models.LoginRequest) (*models.AuthResponse, error)
 	GetProfile(id uuid.UUID) (*models.User, error)
+	GetAllUsers() ([]models.User, error)
+	UpdateProfile(id uuid.UUID, req models.UpdateProfileRequest) (*models.User, error)
 }
 
 type authService struct {
@@ -81,4 +83,34 @@ func (s *authService) Login(req models.LoginRequest) (*models.AuthResponse, erro
 
 func (s *authService) GetProfile(id uuid.UUID) (*models.User, error) {
 	return s.userRepo.GetByID(id)
+}
+
+func (s *authService) GetAllUsers() ([]models.User, error) {
+	return s.userRepo.GetAll()
+}
+
+func (s *authService) UpdateProfile(id uuid.UUID, req models.UpdateProfileRequest) (*models.User, error) {
+	user, err := s.userRepo.GetByID(id)
+	if err != nil {
+		return nil, errors.New("user tidak ditemukan")
+	}
+
+	user.FullName = req.FullName
+	user.PhoneNumber = req.PhoneNumber
+	user.UpdatedAt = time.Now()
+
+	if req.Password != "" {
+		hashed, err := utils.HashPassword(req.Password)
+		if err != nil {
+			return nil, err
+		}
+		user.PasswordHash = hashed
+	}
+
+	err = s.userRepo.Update(user)
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
 }

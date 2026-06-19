@@ -20,6 +20,7 @@ type CharityService interface {
 	GetCharities(q string, categorySlug string, status string, sort string, page, perPage int) ([]models.Charity, int, int, error)
 	GetCharityBySlug(slug string) (*models.Charity, error)
 	UpdateCharityStatus(id uuid.UUID, status string) error
+	UpdateCharity(id uuid.UUID, req models.CreateCharityRequest) error
 }
 
 type charityService struct {
@@ -137,6 +138,32 @@ func (s *charityService) UpdateCharityStatus(id uuid.UUID, status string) error 
 	}
 	charity.Status = status
 	charity.UpdatedAt = time.Now()
+	return s.charityRepo.Update(charity)
+}
+
+func (s *charityService) UpdateCharity(id uuid.UUID, req models.CreateCharityRequest) error {
+	charity, err := s.charityRepo.GetByID(id)
+	if err != nil {
+		return err
+	}
+
+	categoryUUID, err := uuid.Parse(req.CategoryID)
+	if err != nil {
+		return fmt.Errorf("kategori ID tidak valid")
+	}
+
+	charity.Title = req.Title
+	charity.Description = req.Description
+	charity.CategoryID = categoryUUID
+	charity.TargetAmount = req.TargetAmount
+	charity.StartDate = req.StartDate
+	charity.EndDate = req.EndDate
+	charity.ContactPerson = req.ContactPerson
+	charity.ContactEmail = req.ContactEmail
+	charity.ContactPhone = req.ContactPhone
+	charity.OrganizationName = req.OrganizationName
+	charity.UpdatedAt = time.Now()
+
 	return s.charityRepo.Update(charity)
 }
 

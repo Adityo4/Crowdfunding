@@ -43,9 +43,11 @@ const handleLogin = async () => {
     if (response?.data?.token) {
       const userData = response.data.user || {}
       const parsedUser = {
+        id: userData.id,
         name: userData.fullName || userData.email || 'User',
         email: userData.email,
-        role: userData.role
+        role: userData.role,
+        phoneNumber: userData.phoneNumber || ''
       }
       
       // Save using Pinia store

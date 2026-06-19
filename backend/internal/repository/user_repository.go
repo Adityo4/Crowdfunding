@@ -11,6 +11,8 @@ type UserRepository interface {
 	Create(user *models.User) error
 	GetByEmail(email string) (*models.User, error)
 	GetByID(id uuid.UUID) (*models.User, error)
+	GetAll() ([]models.User, error)
+	Update(user *models.User) error
 }
 
 type userRepository struct {
@@ -41,4 +43,14 @@ func (r *userRepository) GetByID(id uuid.UUID) (*models.User, error) {
 		return nil, err
 	}
 	return &user, nil
+}
+
+func (r *userRepository) GetAll() ([]models.User, error) {
+	var users []models.User
+	err := r.db.Where("deleted_at IS NULL").Find(&users).Error
+	return users, err
+}
+
+func (r *userRepository) Update(user *models.User) error {
+	return r.db.Save(user).Error
 }

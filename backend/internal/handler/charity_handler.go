@@ -178,3 +178,43 @@ func (h *CharityHandler) UpdateStatus(c *gin.Context) {
 		"message": "Status penggalangan dana berhasil diperbarui",
 	})
 }
+
+func (h *CharityHandler) UpdateCharity(c *gin.Context) {
+	charityIDStr := c.Param("id")
+	charityID, err := uuid.Parse(charityIDStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": gin.H{
+				"code":    "BAD_REQUEST",
+				"message": "Charity ID tidak valid",
+			},
+		})
+		return
+	}
+
+	var req models.CreateCharityRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": gin.H{
+				"code":    "BAD_REQUEST",
+				"message": "Data body tidak valid: " + err.Error(),
+			},
+		})
+		return
+	}
+
+	err = h.charityService.UpdateCharity(charityID, req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": gin.H{
+				"code":    "INTERNAL_SERVER_ERROR",
+				"message": err.Error(),
+			},
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Penggalangan dana berhasil diperbarui",
+	})
+}

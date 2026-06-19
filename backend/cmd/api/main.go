@@ -8,6 +8,7 @@ import (
 	"backend/internal/database"
 	"backend/internal/handler"
 	"backend/internal/middleware"
+	"backend/internal/models"
 	"backend/internal/repository"
 	"backend/internal/service"
 
@@ -28,6 +29,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("Gagal inisialisasi database PostgreSQL: %v", err)
 	}
+
+	// Auto Migrate
+	_ = db.AutoMigrate(&models.Article{})
 
 	// Init Redis
 	rdb, err := database.InitRedis(cfg)
@@ -54,7 +58,7 @@ func main() {
 	categoryService := service.NewCategoryService(categoryRepo)
 	charityService := service.NewCharityService(charityRepo, minioClient)
 	donationService := service.NewDonationService(donationRepo, charityRepo)
-	articleService := service.NewArticleService(articleRepo)
+	articleService := service.NewArticleService(articleRepo, minioClient)
 
 	// Dependency Injection: Handlers
 	authHandler := handler.NewAuthHandler(authService)
@@ -107,6 +111,8 @@ func main() {
 
 		// User Routes
 		v1.GET("/users/me", middleware.AuthMiddleware(), authHandler.Me)
+		v1.GET("/users", middleware.AuthMiddleware(), authHandler.GetUsers)
+		v1.PUT("/users/profile", middleware.AuthMiddleware(), authHandler.UpdateProfile)
 
 		// Category Routes
 		v1.GET("/categories", categoryHandler.GetCategories)
@@ -115,6 +121,7 @@ func main() {
 		v1.GET("/charities", charityHandler.GetCharities)
 		v1.GET("/charities/:slug", charityHandler.GetCharityBySlug)
 		v1.POST("/charities", middleware.AuthMiddleware(), charityHandler.CreateCharity)
+		v1.PUT("/charities/:id", middleware.AuthMiddleware(), charityHandler.UpdateCharity)
 		v1.PUT("/charities/:id/status", middleware.AuthMiddleware(), charityHandler.UpdateStatus)
 
 		// Donation Routes
@@ -124,6 +131,7 @@ func main() {
 		// Article Routes
 		v1.GET("/articles", articleHandler.GetArticles)
 		v1.GET("/articles/:slug", articleHandler.GetArticleBySlug)
+		v1.POST("/articles", middleware.AuthMiddleware(), articleHandler.CreateArticle)
 	}
 
 	log.Infof("Server backend berhasil berjalan pada port %s", cfg.AppPort)
