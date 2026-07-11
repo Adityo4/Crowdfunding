@@ -27,7 +27,7 @@ func (r *donationRepository) Create(donation *models.Donation) error {
 
 func (r *donationRepository) GetByID(id uuid.UUID) (*models.Donation, error) {
 	var donation models.Donation
-	err := r.db.Preload("Charity").Where("id = ?", id).First(&donation).Error
+	err := r.db.Preload("Charity").Preload("User").Where("id = ?", id).First(&donation).Error
 	if err != nil {
 		return nil, err
 	}

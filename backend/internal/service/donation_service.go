@@ -12,6 +12,7 @@ import (
 
 	"backend/internal/models"
 	"backend/internal/repository"
+	"backend/internal/utils"
 
 	"github.com/google/uuid"
 )
@@ -163,10 +164,88 @@ func (s *donationService) ProcessCallback(req models.CallbackRequest) (*models.D
 			charity.CurrentAmount += donation.Amount
 			_ = s.charityRepo.Update(charity)
 		}
+
+		// Kirim email konfirmasi pembayaran jika user ada
+		if donation.User != nil && donation.User.Email != "" {
+			subject := "Konfirmasi Donasi Berhasil - Yayasan Peduli Amal Indonesia"
+			htmlBody := fmt.Sprintf(`
+				<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+					<h2 style="color: #16a34a; text-align: center;">Donasi Anda Berhasil Diterima!</h2>
+					<p>Halo <strong>%s</strong>,</p>
+					<p>Terima kasih atas kebaikan Anda. Kami ingin mengonfirmasi bahwa pembayaran donasi Anda untuk program penggalangan dana telah berhasil diverifikasi oleh sistem kami.</p>
+					
+					<div style="background-color: #f8fafc; border: 1px solid #f1f5f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
+						<table style="width: 100%%; font-size: 14px; border-collapse: collapse;">
+							<tr>
+								<td style="padding: 6px 0; color: #64748b;">Program Donasi:</td>
+								<td style="padding: 6px 0; font-weight: bold; text-align: right;">%s</td>
+							</tr>
+							<tr>
+								<td style="padding: 6px 0; color: #64748b;">Jumlah Donasi:</td>
+								<td style="padding: 6px 0; font-weight: bold; text-align: right; color: #16a34a; font-size: 16px;">Rp %s</td>
+							</tr>
+							<tr>
+								<td style="padding: 6px 0; color: #64748b;">Ref Transaksi:</td>
+								<td style="padding: 6px 0; font-family: monospace; text-align: right;">%s</td>
+							</tr>
+							<tr>
+								<td style="padding: 6px 0; color: #64748b;">Status:</td>
+								<td style="padding: 6px 0; text-align: right;"><span style="background-color: #dcfce7; color: #16a34a; padding: 3px 8px; border-radius: 9999px; font-size: 12px; font-weight: bold;">BERHASIL</span></td>
+							</tr>
+						</table>
+					</div>
+
+					<p style="font-style: italic; color: #64748b; text-align: center; margin: 25px 0;">"Semoga kebaikan yang Anda tanamkan membawa berkah dan kebahagiaan bagi Anda serta penerima manfaat."</p>
+					<hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;" />
+					<p style="font-size: 12px; color: #94a3b8; text-align: center;">Ini adalah email otomatis, mohon tidak membalas email ini.<br>&copy; 2026 Yayasan Peduli Amal Indonesia. All rights reserved.</p>
+				</div>
+			`, donation.User.FullName, donation.Charity.Title, fmt.Sprintf("%.0f", donation.Amount), donation.PaymentReference)
+			
+			go func() {
+				_ = utils.SendEmail(donation.User.Email, subject, htmlBody)
+			}()
+		}
 	} else if req.Status == "failed" || req.Status == "expire" {
 		donation.Status = "failed"
 		donation.UpdatedAt = time.Now()
 		_ = s.donationRepo.Update(donation)
+
+		// Kirim email notifikasi donasi gagal/expired jika user ada
+		if donation.User != nil && donation.User.Email != "" {
+			subject := "Transaksi Donasi Gagal - Yayasan Peduli Amal Indonesia"
+			htmlBody := fmt.Sprintf(`
+				<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+					<h2 style="color: #dc2626; text-align: center;">Transaksi Donasi Gagal</h2>
+					<p>Halo <strong>%s</strong>,</p>
+					<p>Kami menginformasikan bahwa pembayaran donasi Anda untuk program penggalangan dana telah gagal atau kedaluwarsa.</p>
+					
+					<div style="background-color: #f8fafc; border: 1px solid #f1f5f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
+						<table style="width: 100%%; font-size: 14px; border-collapse: collapse;">
+							<tr>
+								<td style="padding: 6px 0; color: #64748b;">Program Donasi:</td>
+								<td style="padding: 6px 0; font-weight: bold; text-align: right;">%s</td>
+							</tr>
+							<tr>
+								<td style="padding: 6px 0; color: #64748b;">Jumlah Donasi:</td>
+								<td style="padding: 6px 0; font-weight: bold; text-align: right;">Rp %s</td>
+							</tr>
+							<tr>
+								<td style="padding: 6px 0; color: #64748b;">Status:</td>
+								<td style="padding: 6px 0; text-align: right;"><span style="background-color: #fee2e2; color: #dc2626; padding: 3px 8px; border-radius: 9999px; font-size: 12px; font-weight: bold;">GAGAL/EXPIRED</span></td>
+							</tr>
+						</table>
+					</div>
+
+					<p>Anda dapat mencoba melakukan donasi kembali melalui situs kami jika Anda masih ingin berpartisipasi.</p>
+					<hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;" />
+					<p style="font-size: 12px; color: #94a3b8; text-align: center;">Ini adalah email otomatis, mohon tidak membalas email ini.<br>&copy; 2026 Yayasan Peduli Amal Indonesia. All rights reserved.</p>
+				</div>
+			`, donation.User.FullName, donation.Charity.Title, fmt.Sprintf("%.0f", donation.Amount))
+			
+			go func() {
+				_ = utils.SendEmail(donation.User.Email, subject, htmlBody)
+			}()
+		}
 	}
 
 	return donation, nil
