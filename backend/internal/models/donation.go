@@ -18,6 +18,8 @@ type Donation struct {
 	PaymentReference string     `gorm:"type:varchar(255)" json:"paymentReference,omitempty"`
 	Anonymous        bool       `gorm:"type:boolean;default:false;not null" json:"anonymous"`
 	Message          string     `gorm:"type:text" json:"message"`
+	SnapToken        string     `gorm:"-" json:"snapToken,omitempty"`
+	RedirectURL      string     `gorm:"-" json:"redirectUrl,omitempty"`
 	CreatedAt        time.Time  `gorm:"not null;default:now()" json:"createdAt"`
 	UpdatedAt        time.Time  `gorm:"not null;default:now()" json:"updatedAt"`
 }

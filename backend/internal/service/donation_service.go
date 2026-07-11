@@ -1,7 +1,13 @@
 package service
 
 import (
+	"bytes"
+	"encoding/base64"
+	"encoding/json"
 	"errors"
+	"fmt"
+	"io"
+	"net/http"
 	"time"
 
 	"backend/internal/models"
@@ -22,6 +28,65 @@ type donationService struct {
 
 func NewDonationService(donationRepo repository.DonationRepository, charityRepo repository.CharityRepository) DonationService {
 	return &donationService{donationRepo, charityRepo}
+}
+
+type MidtransTransactionDetails struct {
+	OrderID     string  `json:"order_id"`
+	GrossAmount float64 `json:"gross_amount"`
+}
+
+type MidtransRequest struct {
+	TransactionDetails MidtransTransactionDetails `json:"transaction_details"`
+}
+
+type MidtransResponse struct {
+	Token       string `json:"token"`
+	RedirectURL string `json:"redirect_url"`
+}
+
+func (s *donationService) getMidtransSnapToken(orderID string, amount float64) (string, string, error) {
+	midtransReq := MidtransRequest{
+		TransactionDetails: MidtransTransactionDetails{
+			OrderID:     orderID,
+			GrossAmount: amount,
+		},
+	}
+
+	payload, err := json.Marshal(midtransReq)
+	if err != nil {
+		return "", "", err
+	}
+
+	req, err := http.NewRequest("POST", "https://app.sandbox.midtrans.com/snap/v1/transactions", bytes.NewBuffer(payload))
+	if err != nil {
+		return "", "", err
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Accept", "application/json")
+	
+	serverKey := "SB-Mid-server-r_sQ4bvvoYrkeot4PdJNa1XL:"
+	authHeader := "Basic " + base64.StdEncoding.EncodeToString([]byte(serverKey))
+	req.Header.Set("Authorization", authHeader)
+
+	client := &http.Client{Timeout: 10 * time.Second}
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", "", err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusCreated && resp.StatusCode != http.StatusOK {
+		bodyBytes, _ := io.ReadAll(resp.Body)
+		return "", "", fmt.Errorf("midtrans error status code: %d, response: %s", resp.StatusCode, string(bodyBytes))
+	}
+
+	var midtransResp MidtransResponse
+	if err := json.NewDecoder(resp.Body).Decode(&midtransResp); err != nil {
+		return "", "", err
+	}
+
+	return midtransResp.Token, midtransResp.RedirectURL, nil
 }
 
 func (s *donationService) CreateDonation(req models.CreateDonationRequest, userID *uuid.UUID) (*models.Donation, error) {
@@ -48,8 +113,16 @@ func (s *donationService) CreateDonation(req models.CreateDonationRequest, userI
 		UpdatedAt:     time.Now(),
 	}
 
-	// Buat reference pembayaran dummy
+	// Buat reference pembayaran
 	donation.PaymentReference = "PAY-REF-" + donation.ID.String()[:8]
+
+	// Dapatkan Snap Token dari Midtrans
+	token, redirectURL, err := s.getMidtransSnapToken(donation.ID.String(), donation.Amount)
+	if err != nil {
+		return nil, fmt.Errorf("gagal menghubungkan ke payment gateway Midtrans: %w", err)
+	}
+	donation.SnapToken = token
+	donation.RedirectURL = redirectURL
 
 	err = s.donationRepo.Create(donation)
 	if err != nil {

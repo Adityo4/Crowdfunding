@@ -28,7 +28,13 @@ const selectAmount = (amount) => {
 const handleDonate = async () => {
   isLoading.value = true
   errorMessage.value = ''
-  isSuccess.value = false
+  
+  if (!donationAmount.value || donationAmount.value < 1000) {
+    alert('Nominal donasi minimal Rp 1.000')
+    return
+  }
+  
+  isLoading.value = true
   
   try {
     const token = localStorage.getItem('auth_token')
@@ -44,48 +50,41 @@ const handleDonate = async () => {
       body: {
         charityId: charity.value.id,
         amount: Number(donationAmount.value),
-        paymentMethod: paymentMethod.value,
+        paymentMethod: 'midtrans', // Midtrans handles payment method inside Snap
         anonymous: anonymous.value,
         message: message.value
       }
     })
     
-    if (response?.data) {
-      donationResult.value = response.data
-      isSuccess.value = true
+    if (response?.data?.snapToken) {
+      if (window.snap) {
+        window.snap.pay(response.data.snapToken, {
+          onSuccess: function(result) {
+            alert('Pembayaran Sukses! Terima kasih atas kebaikan Anda.')
+            donationAmount.value = 0
+            message.value = ''
+            refresh()
+          },
+          onPending: function(result) {
+            alert('Menunggu Pembayaran. Silakan selesaikan pembayaran Anda.')
+            donationAmount.value = 0
+            message.value = ''
+            refresh()
+          },
+          onError: function(result) {
+            alert('Pembayaran Gagal. Silakan coba kembali.')
+          },
+          onClose: function() {
+            alert('Pembayaran dibatalkan.')
+          }
+        })
+      } else {
+        // Redirect jika script Snap gagal dimuat
+        window.open(response.data.snapUrl, '_blank')
+      }
     }
   } catch (error) {
     errorMessage.value = error.data?.error?.message || 'Gagal memproses donasi. Silakan coba lagi.'
-  } finally {
-    isLoading.value = false
-  }
-}
-
-// Simulasi konfirmasi pembayaran
-const handleConfirmPayment = async () => {
-  if (!donationResult.value) return
-  isLoading.value = true
-  
-  try {
-    const config = useRuntimeConfig()
-    const response = await $fetch(`${config.public.apiBase}/donations/callback`, {
-      method: 'POST',
-      body: {
-        donationId: donationResult.value.donationId,
-        paymentReference: 'PAY-SIM-' + donationResult.value.donationId.slice(0, 8),
-        status: 'settlement' // simulate payment success
-      }
-    })
-    
-    if (response?.data?.status === 'paid') {
-      alert('Pembayaran Terkonfirmasi! Terima kasih atas kebaikan Anda.')
-      isSuccess.value = false
-      donationResult.value = null
-      message.value = ''
-      refresh() // update collected amount
-    }
-  } catch (err) {
-    alert('Konfirmasi pembayaran gagal.')
   } finally {
     isLoading.value = false
   }
@@ -152,41 +151,51 @@ const handleConfirmPayment = async () => {
               </div>
             </div>
           </div>
+
+          <!-- List Donatur / Donasi -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-4">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+              <h2 class="text-lg font-bold text-slate-900">Donatur & Dukungan</h2>
+              <span class="text-xs font-semibold text-green-600 bg-green-50 px-2.5 py-1 rounded-full">{{ charity.donations?.length || 0 }} Donatur</span>
+            </div>
+            
+            <div v-if="charity.donations && charity.donations.length > 0" class="divide-y divide-gray-50 max-h-[400px] overflow-y-auto pr-1">
+              <div v-for="don in charity.donations" :key="don.id" class="py-3.5 flex items-start space-x-3.5">
+                <!-- Avatar -->
+                <div class="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center font-bold text-slate-600 text-sm flex-shrink-0">
+                  {{ don.anonymous ? 'A' : ((don.user?.fullName || 'D').charAt(0).toUpperCase()) }}
+                </div>
+                <!-- Details -->
+                <div class="flex-grow min-w-0">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-800 truncate">
+                      {{ don.anonymous ? 'Hamba Allah (Anonim)' : (don.user?.fullName || 'Donatur Umum') }}
+                    </span>
+                    <span class="text-xs font-black text-green-600">Rp {{ don.amount.toLocaleString('id-ID') }}</span>
+                  </div>
+                  <span class="text-[10px] text-gray-400 block mt-0.5">
+                    {{ new Date(don.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) }}
+                  </span>
+                  <!-- Message -->
+                  <p v-if="don.message" class="text-xs text-gray-500 italic mt-1.5 bg-slate-50 p-2 rounded-lg border border-slate-100">
+                    "{{ don.message }}"
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div v-else class="text-center py-8 text-gray-400 text-xs">
+              <i class="fas fa-hand-holding-heart text-2xl mb-2 block text-gray-300"></i>
+              Belum ada donasi yang terkumpul untuk program ini. Mari menjadi yang pertama berbagi kebaikan!
+            </div>
+          </div>
         </div>
 
         <!-- Sidebar / Donation Widget -->
         <div class="lg:col-span-1 space-y-6">
           <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sticky top-24">
             
-            <!-- Success Modal / Invoice -->
-            <div v-if="isSuccess && donationResult" class="space-y-4 text-center">
-              <div class="w-12 h-12 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto text-xl">
-                <i class="fas fa-file-invoice-dollar"></i>
-              </div>
-              <h3 class="text-lg font-bold text-slate-900">Invoice Pembayaran</h3>
-              <p class="text-xs text-gray-500">Silakan scan QR Code atau bayar menggunakan tautan pembayaran di bawah ini.</p>
-              
-              <div class="p-4 bg-slate-50 rounded-xl border border-gray-100">
-                <span class="text-xs text-gray-500 block">Total Pembayaran</span>
-                <span class="text-xl font-black text-slate-900">Rp {{ donationResult.amount.toLocaleString('id-ID') }}</span>
-              </div>
-              
-              <!-- QR Code Mock -->
-              <div class="border border-dashed border-gray-200 p-3 bg-white rounded-xl inline-block">
-                <i class="fas fa-qrcode text-8xl text-slate-900"></i>
-              </div>
-              
-              <div class="space-y-2">
-                <button @click="handleConfirmPayment" :disabled="isLoading" class="w-full bg-green-600 text-white py-2.5 rounded-xl text-sm font-semibold hover:bg-green-700 transition-all disabled:opacity-50">
-                  <span v-if="isLoading">Menghubungkan...</span>
-                  <span v-else>Simulasi Bayar Sukses</span>
-                </button>
-                <button @click="isSuccess = false" class="w-full text-xs text-gray-400 hover:text-gray-600 py-1">Kembali</button>
-              </div>
-            </div>
-
             <!-- Form Donasi -->
-            <div v-else>
+            <div>
               <h3 class="text-lg font-bold text-slate-900 mb-4 border-b border-gray-100 pb-2">Kirim Donasi</h3>
               
               <div v-if="errorMessage" class="mb-4 p-3 bg-red-50 text-red-600 rounded-xl text-xs">
@@ -204,22 +213,11 @@ const handleConfirmPayment = async () => {
                 
                 <!-- Custom Amount -->
                 <div class="space-y-1">
-                  <label class="block text-xs font-semibold text-gray-600">Nominal Donasi Lainnya</label>
+                  <label class="block text-xs font-semibold text-gray-600">Nominal Donasi</label>
                   <div class="relative">
                     <input v-model="donationAmount" type="number" min="1000" class="w-full py-2.5 pl-10 pr-4 border border-gray-200 rounded-xl focus:outline-none focus:border-green-600" placeholder="0">
                     <span class="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-sm text-gray-400 font-semibold">Rp</span>
                   </div>
-                </div>
-
-                <!-- Payment Method -->
-                <div class="space-y-1">
-                  <label class="block text-xs font-semibold text-gray-600">Metode Pembayaran</label>
-                  <select v-model="paymentMethod" class="w-full px-3 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:border-green-600 text-sm">
-                    <option value="gopay">GoPay</option>
-                    <option value="ovo">OVO</option>
-                    <option value="shopeepay">ShopeePay</option>
-                    <option value="bank_transfer">Transfer Bank (Virtual Account)</option>
-                  </select>
                 </div>
 
                 <!-- Message -->

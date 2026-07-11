@@ -89,6 +89,9 @@ func (r *charityRepository) GetAll(q string, categorySlug string, status string,
 func (r *charityRepository) GetBySlug(slug string) (*models.Charity, error) {
 	var charity models.Charity
 	err := r.db.Preload("Category").Preload("User").Preload("Images").
+		Preload("Donations", func(db *gorm.DB) *gorm.DB {
+			return db.Preload("User").Where("status = ?", "paid").Order("created_at DESC")
+		}).
 		Where("slug = ? AND deleted_at IS NULL", slug).First(&charity).Error
 	if err != nil {
 		return nil, err

@@ -50,13 +50,15 @@ func (h *DonationHandler) CreateDonation(c *gin.Context) {
 		return
 	}
 
-	// Buat response simulasi invoice
+	// Buat response dengan Snap Token Midtrans
 	c.JSON(http.StatusCreated, gin.H{
 		"data": gin.H{
 			"donationId":    donation.ID,
 			"amount":        donation.Amount,
 			"status":        donation.Status,
 			"paymentMethod": donation.PaymentMethod,
+			"snapToken":     donation.SnapToken,
+			"snapUrl":       donation.RedirectURL,
 			"paymentAction": gin.H{
 				"qrUrl":    "https://payment-gateway.com/qr/" + donation.PaymentReference,
 				"deeplink": donation.PaymentMethod + "://pay?code=" + donation.PaymentReference,
@@ -66,18 +68,45 @@ func (h *DonationHandler) CreateDonation(c *gin.Context) {
 }
 
 func (h *DonationHandler) ProcessCallback(c *gin.Context) {
-	var req models.CallbackRequest
-	if err := c.ShouldBindJSON(&req); err != nil {
+	var body map[string]interface{}
+	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": gin.H{
 				"code":    "BAD_REQUEST",
-				"message": "Input callback tidak valid",
+				"message": "Input callback tidak valid: " + err.Error(),
 			},
 		})
 		return
 	}
 
-	donation, err := h.donationService.ProcessCallback(req)
+	var donationID, paymentRef, status string
+
+	// Deteksi format webhook Midtrans atau simulasi internal
+	if orderID, exists := body["order_id"].(string); exists {
+		donationID = orderID
+		paymentRef, _ = body["transaction_id"].(string)
+		status, _ = body["transaction_status"].(string)
+	} else {
+		donationID, _ = body["donationId"].(string)
+		paymentRef, _ = body["paymentReference"].(string)
+		status, _ = body["status"].(string)
+	}
+
+	if donationID == "" || status == "" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": gin.H{
+				"code":    "BAD_REQUEST",
+				"message": "Donation ID dan status pembayaran wajib diisi",
+			},
+		})
+		return
+	}
+
+	donation, err := h.donationService.ProcessCallback(models.CallbackRequest{
+		DonationID:       donationID,
+		PaymentReference: paymentRef,
+		Status:           status,
+	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": gin.H{

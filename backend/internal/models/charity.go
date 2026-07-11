@@ -27,6 +27,7 @@ type Charity struct {
 	Status           string         `gorm:"type:varchar(50);default:'pending';not null" json:"status"`
 	IsVerified       bool           `gorm:"type:boolean;default:false;not null" json:"isVerified"`
 	Images           []CharityImage `gorm:"foreignKey:CharityID" json:"additionalImages,omitempty"`
+	Donations        []Donation     `gorm:"foreignKey:CharityID" json:"donations,omitempty"`
 	CreatedAt        time.Time      `gorm:"not null;default:now()" json:"createdAt"`
 	UpdatedAt        time.Time      `gorm:"not null;default:now()" json:"updatedAt"`
 	DeletedAt        *time.Time     `gorm:"index" json:"-"`
