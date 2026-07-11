@@ -124,3 +124,20 @@ func (h *DonationHandler) ProcessCallback(c *gin.Context) {
 		},
 	})
 }
+
+func (h *DonationHandler) GetDonations(c *gin.Context) {
+	donations, err := h.donationService.GetDonations()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": gin.H{
+				"code":    "INTERNAL_SERVER_ERROR",
+				"message": "Gagal mengambil data donasi: " + err.Error(),
+			},
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"data": donations,
+	})
+}

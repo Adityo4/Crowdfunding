@@ -20,6 +20,7 @@ import (
 type DonationService interface {
 	CreateDonation(req models.CreateDonationRequest, userID *uuid.UUID) (*models.Donation, error)
 	ProcessCallback(req models.CallbackRequest) (*models.Donation, error)
+	GetDonations() ([]models.Donation, error)
 }
 
 type donationService struct {
@@ -249,4 +250,8 @@ func (s *donationService) ProcessCallback(req models.CallbackRequest) (*models.D
 	}
 
 	return donation, nil
+}
+
+func (s *donationService) GetDonations() ([]models.Donation, error) {
+	return s.donationRepo.GetAll()
 }

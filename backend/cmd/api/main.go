@@ -31,7 +31,7 @@ func main() {
 	}
 
 	// Auto Migrate
-	_ = db.AutoMigrate(&models.Article{})
+	_ = db.AutoMigrate(&models.Article{}, &models.ArticleComment{})
 
 	// Init Redis
 	rdb, err := database.InitRedis(cfg)
@@ -52,6 +52,7 @@ func main() {
 	charityRepo := repository.NewCharityRepository(db)
 	donationRepo := repository.NewDonationRepository(db)
 	articleRepo := repository.NewArticleRepository(db)
+	articleCommentRepo := repository.NewArticleCommentRepository(db)
 
 	// Dependency Injection: Services
 	authService := service.NewAuthService(userRepo)
@@ -59,6 +60,7 @@ func main() {
 	charityService := service.NewCharityService(charityRepo, minioClient)
 	donationService := service.NewDonationService(donationRepo, charityRepo)
 	articleService := service.NewArticleService(articleRepo, minioClient)
+	articleCommentService := service.NewArticleCommentService(articleCommentRepo, articleRepo)
 
 	// Dependency Injection: Handlers
 	authHandler := handler.NewAuthHandler(authService)
@@ -66,6 +68,7 @@ func main() {
 	charityHandler := handler.NewCharityHandler(charityService)
 	donationHandler := handler.NewDonationHandler(donationService)
 	articleHandler := handler.NewArticleHandler(articleService)
+	articleCommentHandler := handler.NewArticleCommentHandler(articleCommentService)
 
 	// Set mode Gin
 	gin.SetMode(gin.DebugMode)
@@ -125,6 +128,7 @@ func main() {
 		v1.PUT("/charities/:id/status", middleware.AuthMiddleware(), charityHandler.UpdateStatus)
 
 		// Donation Routes
+		v1.GET("/donations", middleware.AuthMiddleware(), donationHandler.GetDonations)
 		v1.POST("/donations", middleware.OptionalAuthMiddleware(), donationHandler.CreateDonation)
 		v1.POST("/donations/callback", donationHandler.ProcessCallback)
 
@@ -132,6 +136,8 @@ func main() {
 		v1.GET("/articles", articleHandler.GetArticles)
 		v1.GET("/articles/:slug", articleHandler.GetArticleBySlug)
 		v1.POST("/articles", middleware.AuthMiddleware(), articleHandler.CreateArticle)
+		v1.GET("/articles/:slug/comments", articleCommentHandler.GetComments)
+		v1.POST("/articles/:slug/comments", articleCommentHandler.CreateComment)
 	}
 
 	log.Infof("Server backend berhasil berjalan pada port %s", cfg.AppPort)

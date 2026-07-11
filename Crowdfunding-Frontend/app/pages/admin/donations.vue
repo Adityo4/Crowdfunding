@@ -9,12 +9,18 @@ definePageMeta({
 const searchQuery = ref('')
 
 // Fetch donations dynamically (for admin overview)
-const { data: donationsResponse, refresh } = await useApiFetch('/donations?limit=50')
+const { data: donationsResponse, refresh } = await useApiFetch('/donations?limit=50', { server: false })
 const donations = computed(() => {
   let list = donationsResponse.value?.data || []
+  
+  // Filter only paid/lunas donations
+  list = list.filter(item => item.status === 'paid')
+
   if (searchQuery.value) {
     list = list.filter(item => 
       item.guestName?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      item.user?.fullName?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      item.charity?.title?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
       item.id?.toLowerCase().includes(searchQuery.value.toLowerCase())
     )
   }
@@ -52,6 +58,7 @@ const donations = computed(() => {
             <tr>
               <th class="px-6 py-3">ID Transaksi</th>
               <th class="px-6 py-3">Donatur</th>
+              <th class="px-6 py-3">Kampanye</th>
               <th class="px-6 py-3">Nominal</th>
               <th class="px-6 py-3">Metode</th>
               <th class="px-6 py-3">Status</th>
@@ -62,7 +69,10 @@ const donations = computed(() => {
             <tr v-for="item in donations" :key="item.id" class="hover:bg-slate-50 transition-colors">
               <td class="px-6 py-4 font-bold text-slate-700">#{{ item.id?.slice(0, 8) }}</td>
               <td class="px-6 py-4 font-semibold text-slate-700">
-                {{ item.anonymous ? 'Hamba Allah (Anonim)' : (item.guestName || 'User YPAI') }}
+                {{ item.anonymous ? 'Hamba Allah (Anonim)' : (item.guestName || (item.user ? item.user.fullName : 'User YPAI')) }}
+              </td>
+              <td class="px-6 py-4 text-gray-500 truncate max-w-[200px]" :title="item.charity?.title">
+                {{ item.charity ? item.charity.title : 'Kampanye' }}
               </td>
               <td class="px-6 py-4 font-extrabold text-slate-800">Rp {{ item.amount?.toLocaleString('id-ID') }}</td>
               <td class="px-6 py-4 text-gray-500 uppercase">{{ item.paymentMethod }}</td>
@@ -79,7 +89,7 @@ const donations = computed(() => {
               </td>
             </tr>
             <tr v-if="donations.length === 0">
-              <td colspan="6" class="text-center py-12 text-gray-400">Tidak ada riwayat donasi masuk.</td>
+              <td colspan="7" class="text-center py-12 text-gray-400">Tidak ada riwayat donasi masuk.</td>
             </tr>
           </tbody>
         </table>

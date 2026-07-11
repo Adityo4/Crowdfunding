@@ -10,43 +10,53 @@ const { data: articleResponse, error } = await useFetch(`http://localhost:8080/v
 
 const article = computed(() => articleResponse.value?.data || null)
 
-// Comments list (local mock/reactive state for comments since backend details may vary)
-const comments = ref([
-  {
-    id: 1,
-    name: 'John Smith',
-    time: '2 jam yang lalu',
-    content: 'Kisah yang sangat menginspirasi! Luar biasa sekali melihat bagaimana pendidikan mampu mengubah jalan hidup seseorang. Sukses selalu untuk YPAI!',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=100&q=80'
-  },
-  {
-    id: 2,
-    name: 'Emily Johnson',
-    time: '4 jam yang lalu',
-    content: 'Terima kasih YPAI atas kerja kerasnya menyalurkan kepedulian dari donatur secara transparan dan berdaya guna.',
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&q=80'
-  }
-])
+// Fetch comments from backend
+const { data: commentsResponse, refresh: refreshComments } = await useFetch(`http://localhost:8080/v1/articles/${slug}/comments`)
+const comments = computed(() => commentsResponse.value?.data || [])
 
 const newCommentName = ref('')
 const newCommentEmail = ref('')
 const newCommentBody = ref('')
 
-const submitComment = (e) => {
+const submitComment = async (e) => {
   e.preventDefault()
   if (!newCommentName.value || !newCommentBody.value) return
   
-  comments.value.unshift({
-    id: Date.now(),
-    name: newCommentName.value,
-    time: 'Baru saja',
-    content: newCommentBody.value,
-    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80'
-  })
-  
-  newCommentName.value = ''
-  newCommentEmail.value = ''
-  newCommentBody.value = ''
+  try {
+    await $fetch(`http://localhost:8080/v1/articles/${slug}/comments`, {
+      method: 'POST',
+      body: {
+        name: newCommentName.value,
+        email: newCommentEmail.value,
+        content: newCommentBody.value
+      }
+    })
+    
+    newCommentName.value = ''
+    newCommentEmail.value = ''
+    newCommentBody.value = ''
+    
+    await refreshComments()
+  } catch (err) {
+    console.error('Error posting comment:', err)
+    alert('Gagal mengirim komentar. Silakan coba lagi.')
+  }
+}
+
+const formatTime = (dateStr) => {
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  const now = new Date()
+  const diffMs = now - date
+  const diffMins = Math.floor(diffMs / 60000)
+  const diffHours = Math.floor(diffMins / 60)
+  const diffDays = Math.floor(diffHours / 24)
+
+  if (diffMins < 1) return 'Baru saja'
+  if (diffMins < 60) return `${diffMins} menit yang lalu`
+  if (diffHours < 24) return `${diffHours} jam yang lalu`
+  if (diffDays < 7) return `${diffDays} hari yang lalu`
+  return date.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
 const copyLink = () => {
@@ -205,11 +215,11 @@ const copyLink = () => {
             <!-- Comments List -->
             <div class="space-y-6">
               <div v-for="comment in comments" :key="comment.id" class="flex space-x-4">
-                <img :src="comment.avatar" :alt="comment.name" class="w-9 h-9 rounded-full object-cover">
+                <img :src="`https://ui-avatars.com/api/?name=${encodeURIComponent(comment.name)}&background=059669&color=fff&bold=true`" :alt="comment.name" class="w-9 h-9 rounded-full object-cover">
                 <div class="flex-1">
                   <div class="flex items-center space-x-2 mb-1">
                     <span class="font-bold text-slate-800 text-sm">{{ comment.name }}</span>
-                    <span class="text-xs text-gray-400">{{ comment.time }}</span>
+                    <span class="text-xs text-gray-400">{{ formatTime(comment.createdAt) }}</span>
                   </div>
                   <p class="text-gray-600 text-xs leading-relaxed">{{ comment.content }}</p>
                 </div>

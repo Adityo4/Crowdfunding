@@ -112,3 +112,19 @@ CREATE TABLE articles (
 
 CREATE UNIQUE INDEX idx_articles_slug ON articles(slug);
 CREATE INDEX idx_articles_published ON articles(is_published, published_at DESC);
+
+-- ==========================================
+-- Tabel Article Comments
+-- ==========================================
+CREATE TABLE article_comments (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    article_id UUID REFERENCES articles(id) ON DELETE CASCADE,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255),
+    content TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    deleted_at TIMESTAMP WITH TIME ZONE
+);
+
+CREATE INDEX idx_article_comments_article_id ON article_comments(article_id);

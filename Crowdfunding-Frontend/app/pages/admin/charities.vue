@@ -12,6 +12,7 @@ const selectedStatus = ref('')
 
 // Fetch campaigns from backend
 const { data: charitiesResponse, refresh } = await useApiFetch('/charities', {
+  server: false,
   params: {
     status: 'all' // admin should be able to fetch drafts and paused campaigns too
   }

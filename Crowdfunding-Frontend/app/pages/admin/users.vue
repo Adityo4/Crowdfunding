@@ -9,7 +9,7 @@ definePageMeta({
 const searchQuery = ref('')
 
 // Fetch registered users (for admin users list)
-const { data: usersResponse, refresh } = await useApiFetch('/users')
+const { data: usersResponse, refresh } = await useApiFetch('/users', { server: false })
 const users = computed(() => {
   let list = usersResponse.value?.data || []
   if (searchQuery.value) {

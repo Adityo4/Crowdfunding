@@ -11,6 +11,7 @@ type DonationRepository interface {
 	Create(donation *models.Donation) error
 	GetByID(id uuid.UUID) (*models.Donation, error)
 	Update(donation *models.Donation) error
+	GetAll() ([]models.Donation, error)
 }
 
 type donationRepository struct {
@@ -36,4 +37,10 @@ func (r *donationRepository) GetByID(id uuid.UUID) (*models.Donation, error) {
 
 func (r *donationRepository) Update(donation *models.Donation) error {
 	return r.db.Save(donation).Error
+}
+
+func (r *donationRepository) GetAll() ([]models.Donation, error) {
+	var donations []models.Donation
+	err := r.db.Preload("Charity").Preload("User").Order("created_at DESC").Find(&donations).Error
+	return donations, err
 }

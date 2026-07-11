@@ -9,7 +9,7 @@ definePageMeta({
 const searchQuery = ref('')
 
 // Fetch articles dynamically (for admin articles overview)
-const { data: articlesResponse, refresh } = await useApiFetch('/articles?all=true')
+const { data: articlesResponse, refresh } = await useApiFetch('/articles?all=true', { server: false })
 const articles = computed(() => {
   let list = articlesResponse.value?.data || []
   if (searchQuery.value) {

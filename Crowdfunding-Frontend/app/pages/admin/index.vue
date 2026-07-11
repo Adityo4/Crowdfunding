@@ -1,21 +1,63 @@
 <script setup>
-import { ref } from 'vue'
+import { computed } from 'vue'
 
 definePageMeta({
   layout: 'admin'
 })
 
-// Mock or async stats info
-const totalDonations = ref('Rp 2.5M')
-const activeCharities = ref(24)
-const totalUsers = ref(1247)
-const successRate = ref('98%')
+// Fetch all donations, charities, and users from backend API (client-side only to ensure token is present)
+const { data: donationsResponse } = await useApiFetch('/donations', { server: false })
+const { data: charitiesResponse } = await useApiFetch('/charities', { server: false })
+const { data: usersResponse } = await useApiFetch('/users', { server: false })
 
-const recentDonations = ref([
-  { id: 1, name: 'Budi Santoso', amount: 'Rp 500,000', campaign: 'Peduli Bencana Alam', status: 'Lunas', date: '2 jam yang lalu' },
-  { id: 2, name: 'Siti Rahma', amount: 'Rp 1,000,000', campaign: 'Pendidikan untuk Anak Pesisir', status: 'Lunas', date: '4 jam yang lalu' },
-  { id: 3, name: 'Hendra Wijaya', amount: 'Rp 250,000', campaign: 'Pangan Sehat Dhuafa', status: 'Pending', date: '5 jam yang lalu' }
-])
+const donationsList = computed(() => donationsResponse.value?.data || [])
+const charitiesList = computed(() => charitiesResponse.value?.data || [])
+const usersList = computed(() => usersResponse.value?.data || [])
+
+// Compute dynamic stats
+const totalDonationsAmount = computed(() => {
+  const total = donationsList.value
+    .filter(item => item.status === 'paid')
+    .reduce((sum, item) => sum + (item.amount || 0), 0)
+  return `Rp ${total.toLocaleString('id-ID')}`
+})
+
+const activeCharitiesCount = computed(() => {
+  return charitiesList.value.filter(item => item.status === 'active').length
+})
+
+const totalUsersCount = computed(() => {
+  return usersList.value.length
+})
+
+// Dynamic success rate based on paid donations vs total donations
+const successRateValue = computed(() => {
+  const all = donationsList.value.length
+  if (all === 0) return '100%'
+  const paid = donationsList.value.filter(item => item.status === 'paid').length
+  const percentage = Math.round((paid / all) * 100)
+  return `${percentage}%`
+})
+
+// Retrieve 5 most recent paid donations
+const recentDonations = computed(() => {
+  return donationsList.value.filter(item => item.status === 'paid').slice(0, 5)
+})
+
+const formatTime = (dateStr) => {
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  const now = new Date()
+  const diffMs = now - date
+  const diffMins = Math.floor(diffMs / 60000)
+  const diffHours = Math.floor(diffMins / 60)
+  const diffDays = Math.floor(diffHours / 24)
+
+  if (diffMins < 1) return 'Baru saja'
+  if (diffMins < 60) return `${diffMins} mnt yang lalu`
+  if (diffHours < 24) return `${diffHours} jam yang lalu`
+  return `${diffDays} hari yang lalu`
+}
 </script>
 
 <template>
@@ -25,7 +67,7 @@ const recentDonations = ref([
       <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center justify-between">
         <div>
           <p class="text-sm text-gray-500 font-medium">Total Donasi</p>
-          <h3 class="text-2xl font-bold text-slate-800 mt-1">{{ totalDonations }}</h3>
+          <h3 class="text-2xl font-bold text-slate-800 mt-1">{{ totalDonationsAmount }}</h3>
           <span class="text-xs text-green-600 font-semibold block mt-1"><i class="fas fa-arrow-up mr-1"></i>+12.5% bulan ini</span>
         </div>
         <div class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center text-xl">
@@ -36,7 +78,7 @@ const recentDonations = ref([
       <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center justify-between">
         <div>
           <p class="text-sm text-gray-500 font-medium">Program Aktif</p>
-          <h3 class="text-2xl font-bold text-slate-800 mt-1">{{ activeCharities }}</h3>
+          <h3 class="text-2xl font-bold text-slate-800 mt-1">{{ activeCharitiesCount }}</h3>
           <span class="text-xs text-blue-600 font-semibold block mt-1"><i class="fas fa-plus mr-1"></i>3 baru minggu ini</span>
         </div>
         <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl">
@@ -47,7 +89,7 @@ const recentDonations = ref([
       <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center justify-between">
         <div>
           <p class="text-sm text-gray-500 font-medium">Total Pengguna</p>
-          <h3 class="text-2xl font-bold text-slate-800 mt-1">{{ totalUsers }}</h3>
+          <h3 class="text-2xl font-bold text-slate-800 mt-1">{{ totalUsersCount }}</h3>
           <span class="text-xs text-purple-600 font-semibold block mt-1"><i class="fas fa-arrow-up mr-1"></i>+8.2% bulan ini</span>
         </div>
         <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-xl">
@@ -58,7 +100,7 @@ const recentDonations = ref([
       <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center justify-between">
         <div>
           <p class="text-sm text-gray-500 font-medium">Tingkat Keberhasilan</p>
-          <h3 class="text-2xl font-bold text-slate-800 mt-1">{{ successRate }}</h3>
+          <h3 class="text-2xl font-bold text-slate-800 mt-1">{{ successRateValue }}</h3>
           <span class="text-xs text-emerald-600 font-semibold block mt-1"><i class="fas fa-check mr-1"></i>Sangat Stabil</span>
         </div>
         <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl">
@@ -88,18 +130,25 @@ const recentDonations = ref([
             </thead>
             <tbody class="divide-y divide-gray-50">
               <tr v-for="don in recentDonations" :key="don.id" class="hover:bg-slate-50 transition-colors">
-                <td class="py-3 font-semibold text-slate-700">{{ don.name }}</td>
-                <td class="py-3 text-gray-500 truncate max-w-[150px]">{{ don.campaign }}</td>
-                <td class="py-3 font-bold text-slate-800">{{ don.amount }}</td>
+                <td class="py-3 font-semibold text-slate-700">
+                  {{ don.anonymous ? 'Hamba Allah (Anonim)' : (don.guestName || (don.user ? don.user.fullName : 'User YPAI')) }}
+                </td>
+                <td class="py-3 text-gray-500 truncate max-w-[200px]" :title="don.charity?.title">
+                  {{ don.charity ? don.charity.title : 'Kampanye' }}
+                </td>
+                <td class="py-3 font-bold text-slate-800">Rp {{ don.amount?.toLocaleString('id-ID') }}</td>
                 <td class="py-3">
                   <span :class="[
                     'px-2 py-1 rounded-full text-[10px] font-bold',
-                    don.status === 'Lunas' ? 'bg-green-50 text-green-700' : 'bg-yellow-50 text-yellow-700'
+                    don.status === 'paid' ? 'bg-green-50 text-green-700' : 'bg-yellow-50 text-yellow-700'
                   ]">
-                    {{ don.status }}
+                    {{ don.status === 'paid' ? 'Lunas' : 'Pending' }}
                   </span>
                 </td>
-                <td class="py-3 text-gray-400">{{ don.date }}</td>
+                <td class="py-3 text-gray-400">{{ formatTime(don.createdAt) }}</td>
+              </tr>
+              <tr v-if="recentDonations.length === 0">
+                <td colspan="5" class="py-6 text-center text-gray-400">Belum ada donasi masuk.</td>
               </tr>
             </tbody>
           </table>
